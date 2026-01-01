@@ -998,7 +998,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("RX Level")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1009,6 +1009,13 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: _modemTXLevelLabel
@@ -1017,7 +1024,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("TX Level")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1028,6 +1035,13 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: _modemRXDCOffsetLabel
@@ -1036,7 +1050,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("RX DC Offset")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1047,6 +1061,13 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: _modemTXDCOffsetLabel
@@ -1055,7 +1076,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("TX DC Offset")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1066,6 +1087,13 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: _modemRFLevelLabel
@@ -1074,7 +1102,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("RF Level")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1085,6 +1113,13 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: _modemTXDelayLabel
@@ -1093,7 +1128,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("TX Delay")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1104,6 +1139,13 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: _modemCWIdTXLevelLabel
@@ -1112,7 +1154,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("CWIdTXLevel")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1123,6 +1165,13 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: _modemDStarTXLevelLabel
@@ -1131,7 +1180,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("DStarTXLevel")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1142,6 +1191,13 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: _modemDMRTXLevelLabel
@@ -1150,7 +1206,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("DMRTXLevel")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1161,6 +1217,13 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: _modemYSFTXLevelLabel
@@ -1169,7 +1232,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("YSFTXLevel")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1180,6 +1243,13 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: _modemP25TXLevelLabel
@@ -1188,7 +1258,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("P25TXLevel")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1199,6 +1269,13 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: _modemNXDNTXLevelLabel
@@ -1207,7 +1284,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("NXDNTXLevel")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1218,6 +1295,13 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: _modemBaudLabel
@@ -1226,7 +1310,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("Baud")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1237,6 +1321,13 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
         Text {
                id: _ambestatus
@@ -1245,22 +1336,20 @@ Item {
                width: parent.width - 30
                height: 30
                text: qsTr("No AMBE hardware connected")
-               color: "white"
+               color: Theme.secondaryTextColor
                font.pixelSize: 14
            }
 
            Text {
                id: _mmdvmstatus
                x: 10
-               y: ambestatus.y + ambestatus.height + 4
+               y: _ambestatus.y + _ambestatus.height + 4
                width: parent.width - 30
                height: 30
                text: qsTr("No MMDVM connected")
-               color: "white"
+               color: Theme.secondaryTextColor
                font.pixelSize: 14
            }
-
-
 // Buy Me a Coffee Button
 Rectangle {
     id: buyMeCoffeeButton
@@ -1291,38 +1380,60 @@ Rectangle {
         onReleased: {
             buyMeCoffeeButton.color = "#FFDD00"
         }
+    }
+}
         CheckBox {
             id: validateDmridCheckBox
+            x: 10
+            y: buyMeCoffeeButton.y + buyMeCoffeeButton.height + 10
             text: qsTr("Validate DMR ID (Online)")
             checked: droidstar.get_validate_dmrid()
             onCheckedChanged: {
                 droidstar.set_validate_dmrid(checked)
             }
+            contentItem: Text {
+                text: parent.text
+                font: parent.font
+                color: Theme.textColor
+                verticalAlignment: Text.AlignVCenter
+                leftPadding: parent.indicator.width + parent.spacing
+            }
         }
-        
-    }
-}
 
         CheckBox {
             id: _mmdvmBox
             x: 10
-            y: 1475
+            y: validateDmridCheckBox.y + validateDmridCheckBox.height + 10
             width: parent.width
             height: 25
             text: qsTr("MMDVM_DIRECT")
             onClicked:{
                 droidstar.set_mmdvm_direct(_mmdvmBox.checked)
             }
+            contentItem: Text {
+                text: parent.text
+                font: parent.font
+                color: Theme.textColor
+                verticalAlignment: Text.AlignVCenter
+                leftPadding: parent.indicator.width + parent.spacing
+            }
         }
         CheckBox {
             id: _debugBox
             x: 10
-            y: 1499
+            y: _mmdvmBox.y + _mmdvmBox.height + 10
             width: parent.width
             height: 25
             text: qsTr("Debug output to stderr")
             onClicked:{
                 droidstar.set_debug(_debugBox.checked)
+            }
+            contentItem: Text {
+                text: parent.text
+                font: parent.font
+                color: Theme.textColor
+                verticalAlignment: Text.AlignVCenter
+                leftPadding: parent.indicator.width + parent.spacing
             }
         }
 	}
