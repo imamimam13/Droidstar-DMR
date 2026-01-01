@@ -26,23 +26,16 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           
-      - name: Install Qt (Android)
-        uses: jurplel/install-qt-action@v4
-        with:
-          version: '6.7.2'
-          host: 'linux'
-          target: 'android'
-          arch: 'android_arm64_v8a'
-          modules: 'qtmultimedia'
+      - name: Install aqtinstall
+        run: pip install aqtinstall
+        
+      - name: Install Qt for Android
+        run: |
+          aqt install-qt linux android 6.7.2 android_arm64_v8a -m qtmultimedia --outputdir ${{ runner.workspace }}/Qt
           
-      - name: Install Qt (Desktop for host tools)
-        uses: jurplel/install-qt-action@v4
-        with:
-          version: '6.7.2'
-          host: 'linux'
-          target: 'desktop'
-          arch: 'gcc_64'
-          set-env: false
+      - name: Install Qt for Desktop (host tools)
+        run: |
+          aqt install-qt linux desktop 6.7.2 gcc_64 --outputdir ${{ runner.workspace }}/Qt
           
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -52,14 +45,17 @@ jobs:
         
       - name: Set Environment Variables
         run: |
-          echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib:${{ runner.workspace }}/Qt/6.7.2/gcc_64/lib:$Qt6_DIR/lib" >> $GITHUB_ENV
+          echo "Qt6_DIR=${{ runner.workspace }}/Qt/6.7.2/android_arm64_v8a" >> $GITHUB_ENV
+          echo "QT_HOST_PATH=${{ runner.workspace }}/Qt/6.7.2/gcc_64" >> $GITHUB_ENV
+          echo "PATH=${{ runner.workspace }}/Qt/6.7.2/gcc_64/bin:$PATH" >> $GITHUB_ENV
+          echo "LD_LIBRARY_PATH=${{ runner.workspace }}/Qt/6.7.2/gcc_64/lib:${{ runner.workspace }}/Qt/6.7.2/android_arm64_v8a/lib" >> $GITHUB_ENV
           
       - name: Build APK
         run: |
           mkdir -p build-android-arm64
           cd build-android-arm64
           
-          $Qt6_DIR/bin/qmake ../DroidStar.pro \
+          ${{ runner.workspace }}/Qt/6.7.2/android_arm64_v8a/bin/qmake ../DroidStar.pro \
             -spec android-clang \
             CONFIG+=debug \
             ANDROID_ABIS="arm64-v8a"
@@ -67,7 +63,7 @@ jobs:
           make -j$(nproc)
           make install INSTALL_ROOT=deploy
           
-          $Qt6_DIR/bin/androiddeployqt \
+          ${{ runner.workspace }}/Qt/6.7.2/android_arm64_v8a/bin/androiddeployqt \
             --input android-DroidStar-deployment-settings.json \
             --output deploy \
             --android-platform android-30 \
