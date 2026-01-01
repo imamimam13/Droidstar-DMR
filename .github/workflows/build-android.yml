@@ -62,7 +62,7 @@ jobs:
           echo "Using qmake: $QMAKE_PATH"
           echo "Using androiddeployqt: $DEPLOYQT_PATH"
           
-          ${{ env.ANDROID_NDK_ROOT }}/toolchains/llvm/prebuilt/linux-x86_64/bin/qmake -r ../DroidStar.pro \
+          $QMAKE_PATH -r ../DroidStar.pro \
             -spec android-clang \
             CONFIG+=release \
             ANDROID_ABIS="arm64-v8a"
