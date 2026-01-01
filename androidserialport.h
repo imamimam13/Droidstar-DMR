@@ -21,6 +21,7 @@
 #include <QObject>
 #ifdef Q_OS_ANDROID
 #include <QCoreApplication>
+#include <QIODevice>
 #include <QJniObject>
 
 namespace QSerialPort {
