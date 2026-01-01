@@ -48,13 +48,13 @@ public:
 
   // void setDroidStar(DroidStar *droidStar);
 
-  // Q_INVOKABLE QString getFirstName() const { return m_firstName; }
-  //   void setFirstName(const QString &name);
+  Q_INVOKABLE QString getFirstName() const { return m_firstName; }
+  void setFirstName(const QString &name);
   // QString get_firstName() const;
 
-  // Q_INVOKABLE void fetchFirstName(uint32_t srcId);
+  Q_INVOKABLE void fetchFirstName(uint32_t srcId);
 
-  // Q_INVOKABLE   QString firstName() const;
+  Q_INVOKABLE QString firstName() const;
   // Q_INVOKABLE  void setFirstName(const QString &name);
 
   // QString firstName() const;
@@ -68,6 +68,8 @@ public:
                       QString swid, QString pkid, QString options);
   uint8_t *get_eot();
 
+  void set_validate_dmrid(bool v) { m_validate_dmrid = v; }
+
   // QString firstName() const;  // Getter
   // void setFirstName(const QString &name);  // Setter
 
@@ -76,14 +78,14 @@ public:
 signals:
   // void firstNameChanged();  // Notifier for Q_PROPERTY
 
-  // void firstNameReceived(const QString &firstName);
-  // void firstNameChanged(const QString &name);
+  void firstNameReceived(const QString &firstName);
+  void firstNameChanged(const QString &name);
 
 private slots:
   void process_udp();
-  // void onNetworkReply(QNetworkReply *reply); //
+  void onNetworkReply(QNetworkReply *reply);
   // void fetchFirstName(int dmrId);//
-  // void handleFirstName(const QString &firstName);  // Declare the slot here
+  void handleFirstName(const QString &firstName); // Declare the slot here
 
   void process_rx_data();
   void process_modem_data(QByteArray);
@@ -100,7 +102,10 @@ private slots:
 
 private:
   uint32_t m_essid;
-  // QNetworkAccessManager* networkManager;
+  // QNetworkAccessManager *networkManager;
+  // VUIDUpdater *vuidUpdater;
+  bool m_validate_dmrid;
+  QString m_firstName;
   // SignalEmitter *signalEmitter;
 
   // void fetchFirstName(uint32_t srcId);
