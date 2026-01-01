@@ -55,8 +55,15 @@ jobs:
           mkdir -p build-android-arm64
           cd build-android-arm64
           
+          # Find qmake and androiddeployqt
+          QMAKE_PATH=$(find ${{ runner.workspace }}/Qt -name qmake -type f | grep android | head -1)
+          DEPLOYQT_PATH=$(find ${{ runner.workspace }}/Qt -name androiddeployqt -type f | head -1)
+          
+          echo "Using qmake: $QMAKE_PATH"
+          echo "Using androiddeployqt: $DEPLOYQT_PATH"
+          
           # Add Q_OS_ANDROID define explicitly to ensure Android-specific code paths are used
-          ${{ runner.workspace }}/Qt/6.7.2/android_arm64_v8a/bin/qmake ../DroidStar.pro \
+          $QMAKE_PATH ../DroidStar.pro \
             -spec android-clang \
             CONFIG+=debug \
             DEFINES+=Q_OS_ANDROID \
@@ -65,7 +72,7 @@ jobs:
           make -j$(nproc)
           make install INSTALL_ROOT=deploy
           
-          ${{ runner.workspace }}/Qt/6.7.2/android_arm64_v8a/bin/androiddeployqt \
+          $DEPLOYQT_PATH \
             --input android-DroidStar-deployment-settings.json \
             --output deploy \
             --android-platform android-30 \
