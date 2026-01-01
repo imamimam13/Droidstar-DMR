@@ -20,12 +20,18 @@
 import QtQuick
 import QtQuick.Controls
 import org.dudetronics.droidstar
-
+import "."  // Import directory for Theme.qml
 
 Item {
     id: mainTab
     width: 400
     height: 600
+
+    // Background
+    Rectangle {
+        anchors.fill: parent
+        color: Theme.backgroundColor
+    }
     
     // Compatibility Aliases for main.qml
     property alias buttonTX: _buttonTX
@@ -437,6 +443,19 @@ contentItem: Text {
         height: parent.height / rows
         text: qsTr("Connect")
         font.pixelSize: parent.height / 30
+
+        background: Rectangle {
+            color: _connectbutton.down ? Theme.accentColor : Theme.primaryColor
+            radius: Theme.cornerRadius
+        }
+        contentItem: Text {
+            text: _connectbutton.text
+            font: _connectbutton.font
+            color: Theme.backgroundColor // Black text on Orange button
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
+
         onClicked: {
             // settingsTab.callsignEdit.text = settingsTab.callsignEdit.text.toUpperCase();
             droidstar.set_callsign(settingsTab.callsignEdit.text.toUpperCase());
