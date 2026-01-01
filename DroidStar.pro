@@ -2,7 +2,7 @@ QT += quick quickcontrols2 network multimedia
 //QT += xlsx
 
 
-unix:!ios:QT += serialport
+unix:!ios:!android:QT += serialport
 win32:QT += serialport
 !win32:LIBS += -ldl
 win32:LIBS += -lws2_32
@@ -231,4 +231,4 @@ contains(DEFINES, USE_MD380_VOCODER){
 
 DISTFILES += \
     android/AndroidManifest.xml
-android: include(C:/Users/rohith/android_openssl/android_openssl-master/openssl.pri)
+# android: include(C:/Users/rohith/android_openssl/android_openssl-master/openssl.pri)
