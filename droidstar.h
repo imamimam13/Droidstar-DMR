@@ -404,6 +404,9 @@ public slots:
   QString get_modemNXDNTxLevel() { return m_modemNXDNTxLevel; }
   QString get_modemBaud() { return m_modemBaud; }
   QString get_modemM17CAN() { return m_modemM17CAN; }
+  void set_modemTxInvert(bool b) { m_modemTxInvert = b; }
+  void set_modemRxInvert(bool b) { m_modemRxInvert = b; }
+  void set_modemPTTInvert(bool b) { m_modemPTTInvert = b; }
 #if defined(Q_OS_ANDROID)
   QString get_platform() { return QSysInfo::productType(); }
   void reset_connect_status();

@@ -102,7 +102,7 @@ private slots:
 
 private:
   uint32_t m_essid;
-  // QNetworkAccessManager *networkManager;
+  QNetworkAccessManager *networkManager;
   // VUIDUpdater *vuidUpdater;
   bool m_validate_dmrid;
   QString m_firstName;

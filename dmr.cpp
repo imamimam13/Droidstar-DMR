@@ -57,8 +57,8 @@ const uint32_t ENCODING_TABLE_1676[] = {
     0xF104U, 0xF377U, 0xF5E1U, 0xF792U, 0xF8CDU, 0xFABEU, 0xFC28U, 0xFE5BU};
 
 DMR::DMR()
-    : m_txslot(2), m_txcc(1), networkManager(new QNetworkAccessManager(this)),
-      m_validate_dmrid(false), m_firstName("") {
+    : networkManager(new QNetworkAccessManager(this)), m_validate_dmrid(false),
+      m_firstName(""), m_txslot(2), m_txcc(1) {
   m_mode = "DMR";
   m_dmrcnt = 0;
   m_flco = FLCO_GROUP;

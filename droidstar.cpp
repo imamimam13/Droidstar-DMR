@@ -56,8 +56,8 @@ DroidStar::DroidStar(QObject *parent)
       // networkManager(new QNetworkAccessManager(this)),
       // vuidUpdater(new VUIDUpdater(this)),
       // lastSrcId(0),
-      m_dmrid(0), m_essid(0), m_dmr_destid(0), m_outlevel(0), m_outlevel(0),
-      m_mdirect(false), m_tts(0), m_validate_dmrid(false) {
+      m_dmrid(0), m_essid(0), m_dmr_destid(0), m_outlevel(0), m_mdirect(false),
+      m_tts(0), m_validate_dmrid(false) {
 
   // emit firstNameChanged("Constructor Test Name");
   /*
