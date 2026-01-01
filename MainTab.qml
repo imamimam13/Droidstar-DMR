@@ -27,6 +27,24 @@ Item {
     width: 400
     height: 600
     
+    // Compatibility Aliases for main.qml
+    property alias buttonTX: _buttonTX
+    property alias connectbutton: _connectbutton
+    property alias comboMode: _comboMode
+    property alias comboHost: _comboHost
+    property alias comboModule: _comboModule
+    property alias btntxt: _btntxt
+    property alias data1: _data1
+    property alias data2: _data2
+    property alias data3: _data3
+    property alias data4: _data4
+    property alias data5: _data5
+    property alias data6: _data6
+    property alias netstatus: _netstatus
+    property alias sliderMicGain: _sliderMicGain
+    property alias txtimer: _txtimer
+    property alias dmrtgidEdit: _dmrtgidEdit
+    
 
 
     //property int rows: USE_FLITE ? 20 : 18
