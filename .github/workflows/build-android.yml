@@ -31,11 +31,11 @@ jobs:
         
       - name: Install Qt for Android
         run: |
-          aqt install-qt linux android 6.7.2 android_arm64_v8a -m qtmultimedia --outputdir ${{ runner.workspace }}/Qt
+          aqt install-qt linux android 6.7.2 android_arm64_v8a -m qtmultimedia qtserialport --outputdir ${{ runner.workspace }}/Qt
           
       - name: Install Qt for Desktop (host tools)
         run: |
-          aqt install-qt linux desktop 6.7.2 linux_gcc_64 --outputdir ${{ runner.workspace }}/Qt
+          aqt install-qt linux desktop 6.7.2 linux_gcc_64 -m qtserialport --outputdir ${{ runner.workspace }}/Qt
           
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
