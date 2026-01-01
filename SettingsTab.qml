@@ -18,9 +18,17 @@
 
 import QtQuick
 import QtQuick.Controls
+import "."
 
 Item {
 	id: settingsTab
+    
+    // Background
+    Rectangle {
+        anchors.fill: parent
+        color: Theme.backgroundColor
+    }
+
 	property alias callsignEdit: csedit
 	property alias dmridEdit: dmridedit
 	property alias comboEssid: comboessid
@@ -88,7 +96,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("Vocoder")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		ComboBox {
@@ -97,6 +105,19 @@ Item {
 			y: vocoderLabel.y
 			width: parent.width - 110
 			height: 30
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
+            contentItem: Text {
+                text: _comboVocoder.displayText
+                font: _comboVocoder.font
+                leftPadding: 10
+                verticalAlignment: Text.AlignVCenter
+                color: _comboVocoder.enabled ? Theme.textColor : Theme.secondaryTextColor
+            }
 		}
 		Text {
 			id: modemLabel
@@ -105,7 +126,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("Modem")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		ComboBox {
@@ -114,6 +135,19 @@ Item {
 			y: modemLabel.y
 			width: parent.width - 110
 			height: 30
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
+            contentItem: Text {
+                text: _comboModem.displayText
+                font: _comboModem.font
+                leftPadding: 10
+                verticalAlignment: Text.AlignVCenter
+                color: _comboModem.enabled ? Theme.textColor : Theme.secondaryTextColor
+            }
 		}
 		Text {
 			id: playbackLabel
@@ -122,7 +156,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("Playback")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		ComboBox {
@@ -131,6 +165,19 @@ Item {
 			y: playbackLabel.y
 			width: parent.width - 110
 			height: 30
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
+            contentItem: Text {
+                text: _comboPlayback.displayText
+                font: _comboPlayback.font
+                leftPadding: 10
+                verticalAlignment: Text.AlignVCenter
+                color: _comboPlayback.enabled ? Theme.textColor : Theme.secondaryTextColor
+            }
 		}
 		Text {
 			id: captureLabel
@@ -139,7 +186,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("Capture")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		ComboBox {
@@ -148,6 +195,19 @@ Item {
 			y: captureLabel.y
 			width: parent.width - 110
 			height: 30
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
+            contentItem: Text {
+                text: _comboCapture.displayText
+                font: _comboCapture.font
+                leftPadding: 10
+                verticalAlignment: Text.AlignVCenter
+                color: _comboCapture.enabled ? Theme.textColor : Theme.secondaryTextColor
+            }
 		}
 		Text {
 			id: csLabel
@@ -156,7 +216,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("Callsign")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -168,6 +228,13 @@ Item {
 			text: qsTr("")
 			font.capitalization: Font.AllUppercase
 			selectByMouse: true
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: dmridLabel
@@ -176,7 +243,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("DMRID")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -187,6 +254,13 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: essidLabel
@@ -195,7 +269,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("ESSID")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		ComboBox {
