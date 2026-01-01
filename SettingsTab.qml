@@ -1028,6 +1028,15 @@ Rectangle {
         onReleased: {
             buyMeCoffeeButton.color = "#FFDD00"
         }
+        CheckBox {
+            id: validateDmridCheckBox
+            text: qsTr("Validate DMR ID (Online)")
+            checked: droidstar.get_validate_dmrid()
+            onCheckedChanged: {
+                droidstar.set_validate_dmrid(checked)
+            }
+        }
+        
     }
 }
 
