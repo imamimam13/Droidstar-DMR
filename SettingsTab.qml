@@ -567,7 +567,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("MYCALL")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -581,6 +581,13 @@ Item {
 			onEditingFinished: {
 				droidstar.set_mycall(mycalledit.text.toUpperCase())
 			}
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: urcallLabel
@@ -589,7 +596,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("URCALL")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -603,6 +610,13 @@ Item {
 			onEditingFinished: {
 				droidstar.set_urcall(urcalledit.text.toUpperCase())
 			}
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: rptr1Label
@@ -611,7 +625,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("RPTR1")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -625,6 +639,13 @@ Item {
 			onEditingFinished: {
 				droidstar.set_rptr1(rptr1edit.text.toUpperCase())
 			}
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: rptr2Label
@@ -633,7 +654,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("RPTR2")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -647,6 +668,13 @@ Item {
 			onEditingFinished: {
 				droidstar.set_rptr2(rptr2edit.text.toUpperCase())
 			}
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: usrtxtLabel
@@ -655,7 +683,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("USRTXT")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -668,6 +696,13 @@ Item {
 			onEditingFinished: {
 				droidstar.set_usrtxt(usrtxtedit.text)
 			}
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: txtimerLabel
@@ -676,7 +711,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("TX Timeout")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -686,6 +721,13 @@ Item {
 			width: 125
 			height: 25
 			selectByMouse: true
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: m17rateLabel
@@ -694,7 +736,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("M17/YSF rate")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		ButtonGroup {
@@ -713,6 +755,13 @@ Item {
 			text: qsTr("Voice Full")
 			checked: true
 			ButtonGroup.group: m17rateGroup
+            contentItem: Text {
+                text: parent.text
+                font: parent.font
+                color: Theme.textColor
+                verticalAlignment: Text.AlignVCenter
+                leftPadding: parent.indicator.width + parent.spacing
+            }
 		}
 		CheckBox {
 			id: m17_1600
@@ -723,6 +772,13 @@ Item {
 			spacing: 1
 			text: qsTr("Voice/Data")
 			ButtonGroup.group: m17rateGroup
+            contentItem: Text {
+                text: parent.text
+                font: parent.font
+                color: Theme.textColor
+                verticalAlignment: Text.AlignVCenter
+                leftPadding: parent.indicator.width + parent.spacing
+            }
 		}
 		Button {
 			id: updatehostsButton
@@ -731,6 +787,17 @@ Item {
 			width: 150
 			height: 30
 			text: qsTr("Update hosts")
+            background: Rectangle {
+                color: updatehostsButton.down ? Theme.accentColor : Theme.primaryColor
+                radius: Theme.cornerRadius
+            }
+            contentItem: Text {
+                text: updatehostsButton.text
+                font: updatehostsButton.font
+                color: Theme.backgroundColor
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+            }
 			onClicked: {
 				droidstar.update_host_files()
 				updateDialog.open()
@@ -743,6 +810,17 @@ Item {
 			width: 150
 			height: 30
 			text: qsTr("Update ID files")
+            background: Rectangle {
+                color: updatedmridsButton.down ? Theme.accentColor : Theme.primaryColor
+                radius: Theme.cornerRadius
+            }
+            contentItem: Text {
+                text: updatedmridsButton.text
+                font: updatedmridsButton.font
+                color: Theme.backgroundColor
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+            }
 			onClicked: {
 				droidstar.update_dmr_ids()
 				updateDialog.open()
@@ -756,6 +834,13 @@ Item {
 			height: 25
 			spacing: 1
 			text: qsTr("Enable TX toggle mode")
+            contentItem: Text {
+                text: parent.text
+                font: parent.font
+                color: Theme.textColor
+                verticalAlignment: Text.AlignVCenter
+                leftPadding: parent.indicator.width + parent.spacing
+            }
 			onClicked:{
 				droidstar.set_toggletx(toggleTX.checked);
 			}
@@ -768,6 +853,13 @@ Item {
 			height: 25
 			spacing: 1
 			text: qsTr("Use REF for XRF")
+            contentItem: Text {
+                text: parent.text
+                font: parent.font
+                color: Theme.textColor
+                verticalAlignment: Text.AlignVCenter
+                leftPadding: parent.indicator.width + parent.spacing
+            }
 		}
 		CheckBox {
 			id: ipV6
@@ -777,6 +869,13 @@ Item {
 			height: 25
 			spacing: 1
 			text: qsTr("Use IPv6 when available")
+            contentItem: Text {
+                text: parent.text
+                font: parent.font
+                color: Theme.textColor
+                verticalAlignment: Text.AlignVCenter
+                leftPadding: parent.indicator.width + parent.spacing
+            }
 		}
 		Text {
 			id: _vocoderURLlabel
@@ -785,7 +884,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("Vocoder URL")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -795,6 +894,13 @@ Item {
 			width: parent.width - 110
 			height: 25
 			selectByMouse: true
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Button {
 			id: vocoderButton
