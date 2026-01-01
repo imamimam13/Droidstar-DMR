@@ -22,10 +22,18 @@ import "."
 Item {
 	id: logTab
 	property alias logText: logTxt
-	Rectangle{
-		anchors.fill: parent
-		color: Theme.backgroundColor
-	}
+    // Background
+    Rectangle {
+        anchors.fill: parent
+        color: Theme.backgroundColor
+
+        Image {
+            source: Theme.backgroundPattern
+            anchors.fill: parent
+            fillMode: Image.Tile
+            opacity: 0.3
+        }
+    }
 
 	Button {
 		id: clearLogButton

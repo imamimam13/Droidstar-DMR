@@ -43,6 +43,20 @@ Item {
         id: logModel
     }
 
+    // Background
+    Rectangle {
+        anchors.fill: parent
+        color: Theme.backgroundColor
+        z: -1 // Ensure it is behind other elements since we are inserting it mid-file or it might cover things if order matters in Item
+
+        Image {
+            source: Theme.backgroundPattern
+            anchors.fill: parent
+            fillMode: Image.Tile
+            opacity: 0.3
+        }
+    }
+
 
     // Update the first and second row data in a single function
        function updateRowData() {

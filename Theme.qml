@@ -9,6 +9,7 @@ QtObject {
     property color textColor: "#ffffff"
     property color secondaryTextColor: "#aaaaaa"
     property color borderColor: "#333333"
+    property string backgroundPattern: "background_pattern.png"
     
     property string fontFamily: "Roboto"
     property int fontSizeSmall: 12

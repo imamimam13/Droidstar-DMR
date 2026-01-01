@@ -25,8 +25,16 @@ Item {
     
     // Background
     Rectangle {
+        id: settingsRect
         anchors.fill: parent
         color: Theme.backgroundColor
+
+        Image {
+            source: Theme.backgroundPattern
+            anchors.fill: parent
+            fillMode: Image.Tile
+            opacity: 0.3
+        }
     }
 
 	property alias callsignEdit: csedit

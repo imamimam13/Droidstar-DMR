@@ -28,10 +28,17 @@ Item {
 		y: 20
 		width: parent.width - 40
 		height: parent.height - 40
-		color: Theme.secondaryBackgroundColor
-        radius: Theme.cornerRadius
+		color: Theme.backgroundColor // Changed from secondaryBackgroundColor
+        radius: Theme.cornerRadiusColor // Changed from cornerRadius
         border.color: Theme.borderColor
         border.width: 1
+
+        Image {
+            source: Theme.backgroundPattern
+            anchors.fill: parent
+            fillMode: Image.Tile
+            opacity: 0.3
+        }
 
 		Flickable{
 			anchors.fill: parent

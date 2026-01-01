@@ -28,11 +28,23 @@ Item {
         anchors.fill: parent
         color: Theme.backgroundColor
 
+        // Background
+        Rectangle {
+            anchors.fill: parent
+            color: Theme.backgroundColor
+
+            Image {
+                source: Theme.backgroundPattern
+                anchors.fill: parent
+                fillMode: Image.Tile
+                opacity: 0.3
+            }
+        }
         Flickable {
             id: flickable
             anchors.fill: parent
             contentWidth: parent.width
-            contentHeight: aboutText.height + buyMeCoffeeButton.height + 20 // Adjusted content height
+            contentHeight: aboutText.height + buttonRow.height + 40 // Adjusted content height to include buttonRow
             flickableDirection: Flickable.VerticalFlick
             clip: true
 

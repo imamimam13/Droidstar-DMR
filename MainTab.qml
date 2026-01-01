@@ -29,8 +29,16 @@ Item {
 
     // Background
     Rectangle {
+        id: bgRec
         anchors.fill: parent
         color: Theme.backgroundColor
+
+        Image {
+            source: Theme.backgroundPattern
+            anchors.fill: parent
+            fillMode: Image.Tile
+            opacity: 0.3
+        }
     }
     
     // Compatibility Aliases for main.qml
