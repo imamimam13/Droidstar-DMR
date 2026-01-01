@@ -31,11 +31,11 @@ jobs:
         
       - name: Install Qt for Android
         run: |
-          aqt install-qt linux android 6.7.2 android_arm64_v8a -m qtmultimedia qtserialport --outputdir ${{ runner.workspace }}/Qt
+          aqt install-qt linux android 6.7.2 android_arm64_v8a -m qtmultimedia --outputdir ${{ runner.workspace }}/Qt
           
       - name: Install Qt for Desktop (host tools)
         run: |
-          aqt install-qt linux desktop 6.7.2 linux_gcc_64 -m qtserialport --outputdir ${{ runner.workspace }}/Qt
+          aqt install-qt linux desktop 6.7.2 linux_gcc_64 --outputdir ${{ runner.workspace }}/Qt
           
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -55,9 +55,11 @@ jobs:
           mkdir -p build-android-arm64
           cd build-android-arm64
           
+          # Add Q_OS_ANDROID define explicitly to ensure Android-specific code paths are used
           ${{ runner.workspace }}/Qt/6.7.2/android_arm64_v8a/bin/qmake ../DroidStar.pro \
             -spec android-clang \
             CONFIG+=debug \
+            DEFINES+=Q_OS_ANDROID \
             ANDROID_ABIS="arm64-v8a"
           
           make -j$(nproc)
