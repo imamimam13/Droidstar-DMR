@@ -363,79 +363,76 @@ void DMR::process_udp() {
   }
 }
 
-/*
 void DMR::fetchFirstName(uint32_t srcId) {
-    // Static or member variable to track the last fetched ID
-    static uint32_t lastSrcId = 0;
-    static QTimer debounceTimer;
+  if (!m_validate_dmrid) {
+    qDebug() << "DMR ID validation logic skipped (m_validate_dmrid is false)";
+    return;
+  }
 
-    // If the new source ID is different or the timer is not active, proceed
-    if (srcId != lastSrcId || !debounceTimer.isActive()) {
-        lastSrcId = srcId;
-        debounceTimer.start(500); // 500ms debounce period
+  // Static or member variable to track the last fetched ID
+  static uint32_t lastSrcId = 0;
+  static QTimer debounceTimer;
 
-        qDebug() << "fetchFirstName called with srcId:" << srcId;
+  // If the new source ID is different or the timer is not active, proceed
+  if (srcId != lastSrcId || !debounceTimer.isActive()) {
+    lastSrcId = srcId;
+    debounceTimer.start(500); // 500ms debounce period
 
-        QUrl url(QString("https://radioid.net/api/dmr/user/?id=%1").arg(srcId));
-        QNetworkRequest request(url);
+    qDebug() << "fetchFirstName called with srcId:" << srcId;
 
-        qDebug() << "Attempting to fetch first name from URL:" <<
-url.toString();
+    QUrl url(QString("https://radioid.net/api/dmr/user/?id=%1").arg(srcId));
+    QNetworkRequest request(url);
 
-        networkManager->get(request);
-    }
+    qDebug() << "Attempting to fetch first name from URL:" << url.toString();
+
+    networkManager->get(request);
+  }
 }
 
-void DMR::onNetworkReply(QNetworkReply* reply) {
-    if (reply->error() == QNetworkReply::NoError) {
-        QByteArray response_data = reply->readAll();
-        QJsonDocument json = QJsonDocument::fromJson(response_data);
+void DMR::onNetworkReply(QNetworkReply *reply) {
+  if (reply->error() == QNetworkReply::NoError) {
+    QByteArray response_data = reply->readAll();
+    QJsonDocument json = QJsonDocument::fromJson(response_data);
 
-        qDebug() << "Received response data:" << response_data;
+    qDebug() << "Received response data:" << response_data;
 
-        if (!json.isNull()) {
-            QJsonObject jsonObject = json.object();
-            QJsonArray results = jsonObject["results"].toArray();
+    if (!json.isNull()) {
+      QJsonObject jsonObject = json.object();
+      QJsonArray results = jsonObject["results"].toArray();
 
-            if (!results.isEmpty()) {
-                QJsonObject firstResult = results[0].toObject();
-                QString firstName = firstResult["fname"].toString();
+      if (!results.isEmpty()) {
+        QJsonObject firstResult = results[0].toObject();
+        QString firstName = firstResult["fname"].toString();
 
-                qDebug() << "First name parsed:" << firstName;
+        qDebug() << "First name parsed:" << firstName;
 
-                // Update the stored first name
-                setFirstName(firstName);
-                qDebug() << "First set:" << firstName;
-                emit setFirstName(firstName);
-               // qDebug() << "Emit" << firstName;
-            } else {
-                qDebug() << "API response did not contain results.";
-            }
-        } else {
-            qDebug() << "Error parsing JSON response.";
-        }
+        // Update the stored first name
+        setFirstName(firstName);
+        qDebug() << "First set:" << firstName;
+        emit setFirstName(firstName);
+        // qDebug() << "Emit" << firstName;
+      } else {
+        qDebug() << "API response did not contain results.";
+      }
     } else {
-        qDebug() << "Network error:" << reply->errorString();
+      qDebug() << "Error parsing JSON response.";
     }
+  } else {
+    qDebug() << "Network error:" << reply->errorString();
+  }
 
-    reply->deleteLater();
+  reply->deleteLater();
 }
 
-
-
-
-QString DMR::firstName() const {
-    return m_firstName;
-}
+QString DMR::firstName() const { return m_firstName; }
 
 void DMR::setFirstName(const QString &name) {
-    if (m_firstName != name) {
-        m_firstName = name;
-        qDebug() << "FirstName updated to" << m_firstName;
-        emit firstNameChanged(m_firstName);
-    }
+  if (m_firstName != name) {
+    m_firstName = name;
+    qDebug() << "FirstName updated to" << m_firstName;
+    emit firstNameChanged(m_firstName);
+  }
 }
-*/
 
 void DMR::setup_connection() {
   m_modeinfo.status = CONNECTED_RW;
@@ -451,7 +448,7 @@ void DMR::setup_connection() {
   m_audio = new AudioEngine(m_audioin, m_audioout);
   m_audio->init();
   // qDebug() << "Calling fetchFirstName with srcId:" << m_modeinfo.srcid;
-  // fetchFirstName(m_modeinfo.srcid);
+  fetchFirstName(m_modeinfo.srcid);
 }
 
 void DMR::hostname_lookup(QHostInfo i) {
