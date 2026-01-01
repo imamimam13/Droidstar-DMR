@@ -278,6 +278,19 @@ Item {
 			y: essidLabel.y
 			width: 80
 			height: 30
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
+            contentItem: Text {
+                text: comboessid.displayText
+                font: comboessid.font
+                leftPadding: 10
+                verticalAlignment: Text.AlignVCenter
+                color: comboessid.enabled ? Theme.textColor : Theme.secondaryTextColor
+            }
 			function build_model(){
 				console.log("build_model() called");
 				var ids = ["None"];
@@ -301,7 +314,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("BM Pass")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -312,6 +325,13 @@ Item {
 			height: 25
 			selectByMouse: true
 			echoMode: TextInput.Password
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: tgifpwLabel
@@ -320,7 +340,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("TGIF Pass")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -331,6 +351,13 @@ Item {
 			height: 25
 			selectByMouse: true
 			echoMode: TextInput.Password
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: latLabel
@@ -339,7 +366,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("Latitude")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -349,6 +376,13 @@ Item {
 			width: 125
 			height: 25
 			selectByMouse: true
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: lonLabel
@@ -357,7 +391,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("Longitude")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -367,6 +401,13 @@ Item {
 			width: 125
 			height: 25
 			selectByMouse: true
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: locLabel
@@ -375,7 +416,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("Location")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -385,6 +426,13 @@ Item {
 			width: 125
 			height: 25
 			selectByMouse: true
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: descLabel
@@ -393,7 +441,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("Description")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -403,6 +451,13 @@ Item {
 			width: 125
 			height: 25
 			selectByMouse: true
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: urlLabel
@@ -411,7 +466,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("URL")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -421,6 +476,13 @@ Item {
 			width: 125
 			height: 25
 			selectByMouse: true
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: swidLabel
@@ -429,7 +491,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("SoftwareID")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -439,6 +501,13 @@ Item {
 			width: 125
 			height: 25
 			selectByMouse: true
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: pkgidLabel
@@ -447,7 +516,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("PackageID")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -457,6 +526,13 @@ Item {
 			width: parent.width - 110
 			height: 25
 			selectByMouse: true
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 		Text {
 			id: dmroptslabel
@@ -465,7 +541,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("DMR+ Opts")
-			color: "white"
+			color: Theme.textColor
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -475,6 +551,13 @@ Item {
 			width: parent.width - 110
 			height: 25
 			selectByMouse: true
+            color: Theme.textColor
+            background: Rectangle {
+                color: Theme.secondaryBackgroundColor
+                border.color: Theme.primaryColor
+                border.width: 1
+                radius: Theme.cornerRadius
+            }
 		}
 
 		Text {
