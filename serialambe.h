@@ -18,6 +18,7 @@
 #ifndef SERIALAMBE_H
 #define SERIALAMBE_H
 
+#include <QIODevice>
 #include <QObject>
 #ifndef Q_OS_ANDROID
 #include <QSerialPort>
