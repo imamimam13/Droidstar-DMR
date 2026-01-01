@@ -19,6 +19,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Dialogs
+import "."
 
 Item {
     id: qsoTab
@@ -114,7 +115,7 @@ Item {
         wrapMode: Text.WordWrap
         font.bold: true
         font.pointSize: 12
-        color: "white"
+        color: Theme.textColor
         width: parent.width - 50
         x: 20
         y: 10
@@ -130,13 +131,13 @@ Item {
         }
 
         background: Rectangle {
-            color: "red"  
-            radius: 4  
+            color: clearButton.down ? Theme.accentColor : Theme.primaryColor
+            radius: Theme.cornerRadius
         }
 
         contentItem: Text {
             text: clearButton.text
-            color: "white" 
+            color: Theme.backgroundColor
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             anchors.centerIn: parent
@@ -153,13 +154,13 @@ Item {
         onClicked: exportLog()
 
         background: Rectangle {
-            color: "green"  
-            radius: 4  
+            color: exportButton.down ? Theme.accentColor : Theme.primaryColor
+            radius: Theme.cornerRadius
         }
 
         contentItem: Text {
             text: exportButton.text
-            color: "white"  
+            color: Theme.backgroundColor 
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             anchors.centerIn: parent
@@ -178,8 +179,8 @@ Item {
         width: exportButton.width * 1.5  
         height: exportButton.height
         background: Rectangle {
-            color: mainTab.buttonTX.tx ? "#800000" : "steelblue"
-            radius: 4
+            color: mainTab.buttonTX.tx ? Theme.primaryColor : Theme.secondaryBackgroundColor
+            radius: Theme.cornerRadius
 
            
             Text {
@@ -187,6 +188,7 @@ Item {
                 anchors.centerIn: parent
                 font.pointSize: 20  
                 text: mainTab.buttonTX.tx ? "TX" : "TX"
+                color: mainTab.buttonTX.tx ? Theme.backgroundColor : Theme.textColor
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
             }
@@ -376,67 +378,73 @@ Dialog {
         Rectangle {
             width: parent.width / 8
             height: parent.height
-            color: "darkgrey"
+            color: Theme.secondaryBackgroundColor
             Text {
                 anchors.centerIn: parent
                 text: "Sr.No"
                 font.bold: true
                 font.pixelSize: 12  
+                color: Theme.textColor
             }
         }
         Rectangle {
             width: parent.width / 6
             height: parent.height
-            color: "darkgrey"
+            color: Theme.secondaryBackgroundColor
             Text {
                 anchors.centerIn: parent
                 text: "Callsign"
                 font.bold: true
                 font.pixelSize: 12  
+                color: Theme.textColor
             }
         }
         Rectangle {
             width: parent.width / 6
             height: parent.height
-            color: "darkgrey"
+            color: Theme.secondaryBackgroundColor
             Text {
                 anchors.centerIn: parent
                 text: "DMR ID"
                 font.bold: true
                 font.pixelSize: 12  
+                color: Theme.textColor
             }
         }
         Rectangle {
             width: parent.width / 6
             height: parent.height
-            color: "darkgrey"
+            color: Theme.secondaryBackgroundColor
             Text {
                 anchors.centerIn: parent
                 text: "TGID"
                 font.bold: true
                 font.pixelSize: 12  
+                color: Theme.textColor
             }
         }
         Rectangle {
             width: parent.width / 6
             height: parent.height
-            color: "darkgrey"
+            color: Theme.secondaryBackgroundColor
             Text {
                 anchors.centerIn: parent
                 text: "Handle"
                 font.bold: true
                 font.pixelSize: 12 
+                color: Theme.textColor
             }
         }
         Rectangle {
             width: parent.width / 6
             height: parent.height
-            color: "darkgrey"
+            color: Theme.secondaryBackgroundColor
             Text {
                 anchors.centerIn: parent
                 text: "Country"
                 font.bold: true
                 font.pixelSize: 12  
+                color: Theme.textColor
             }
         }
     }
@@ -455,7 +463,7 @@ Dialog {
             implicitWidth: tableView.width
             implicitHeight: 100 
             height: implicitHeight
-            color: checkBox.checked ? "#b9fbd7" : (index % 2 === 0 ? "lightgrey" : "white")  
+            color: checkBox.checked ? Theme.accentColor : (index % 2 === 0 ? Theme.secondaryBackgroundColor : Theme.backgroundColor)
 
             Row {
                 width: parent.width
@@ -469,6 +477,7 @@ Dialog {
                         anchors.centerIn: parent
                         text: serialNumber  
                         font.pixelSize: 12
+                        color: checkBox.checked ? Theme.backgroundColor : Theme.textColor
                     }
                 }
                 Rectangle {
@@ -479,6 +488,7 @@ Dialog {
                         anchors.centerIn: parent
                         text: callsign 
                         font.pixelSize: 12
+                        color: checkBox.checked ? Theme.backgroundColor : Theme.textColor
                     }
                 }
                 Rectangle {
@@ -489,6 +499,7 @@ Dialog {
                         anchors.centerIn: parent
                         text: dmrID  
                         font.pixelSize: 12
+                        color: checkBox.checked ? Theme.backgroundColor : Theme.textColor
                     }
                 }
                 Rectangle {
@@ -499,6 +510,7 @@ Dialog {
                         anchors.centerIn: parent
                         text: tgid  
                         font.pixelSize: 12
+                        color: checkBox.checked ? Theme.backgroundColor : Theme.textColor
                     }
                 }
                 Rectangle {
@@ -509,6 +521,7 @@ Dialog {
                         anchors.centerIn: parent
                         text: fname  
                         font.pixelSize: 12
+                        color: checkBox.checked ? Theme.backgroundColor : Theme.textColor
                     }
                 }
                 Rectangle {
@@ -519,6 +532,7 @@ Dialog {
                         anchors.centerIn: parent
                         text: country 
                         font.pixelSize: 12
+                        color: checkBox.checked ? Theme.backgroundColor : Theme.textColor
                     }
                 }
             }
@@ -543,6 +557,7 @@ Dialog {
                     text: model.currentTime
                     wrapMode: Text.WordWrap
                     font.pixelSize: 12
+                    color: checkBox.checked ? Theme.backgroundColor : Theme.secondaryTextColor
                     width: parent.width - checkBox.width - 50
                     anchors.verticalCenter: checkBox.verticalCenter
                     elide: Text.ElideRight
@@ -555,7 +570,7 @@ Dialog {
                                font.family: "FontAwesome"
                                font.pixelSize: 20
                                anchors.verticalCenter: parent.verticalCenter
-                               color: "black"
+                               color: checkBox.checked ? Theme.backgroundColor : Theme.textColor
                                MouseArea {
                                    anchors.fill: parent
                                    onClicked: {

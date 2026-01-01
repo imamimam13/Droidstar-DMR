@@ -18,6 +18,7 @@
 
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import "."
 
 Item {
     id: aboutTab
@@ -25,7 +26,7 @@ Item {
     Rectangle {
         id: helpText
         anchors.fill: parent
-        color: "#252424"
+        color: Theme.backgroundColor
 
         Flickable {
             id: flickable
@@ -41,7 +42,7 @@ Item {
                 anchors.top: parent.top
                 anchors.horizontalCenter: parent.horizontalCenter
                 wrapMode: Text.WordWrap
-                color: "white"
+                color: Theme.textColor
                 text: qsTr("\nDROID-Star git build " + droidstar.get_software_build() +
                            "\nPlatform:\t" + droidstar.get_platform() +
                            "\nArchitecture:\t" + droidstar.get_arch() +

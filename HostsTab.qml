@@ -17,6 +17,7 @@
 
 import QtQuick
 import QtQuick.Controls
+import "."
 
 Item {
 	id: hostsTab
@@ -27,9 +28,14 @@ Item {
 		y: 20
 		width: parent.width - 40
 		height: parent.height - 40
-		color: "#252424"
+		color: Theme.secondaryBackgroundColor
+        radius: Theme.cornerRadius
+        border.color: Theme.borderColor
+        border.width: 1
+
 		Flickable{
 			anchors.fill: parent
+            anchors.margins: 10
 			contentWidth: parent.width
 			contentHeight: hostsTxtEdit.y +
 						   hostsTxtEdit.height
@@ -39,7 +45,7 @@ Item {
 				id: hostsText
 				width: hostsText.width
 				wrapMode: Text.WordWrap
-				color: "white"
+				color: Theme.textColor
 				text: qsTr("Custom hostfile format:\n" +
                            "<mode> <name> <host> <port> <username (optional)> <password (optional)>\n" +
 						   "Example: REF REF123 192.168.1.1 20001\n" +
@@ -53,9 +59,12 @@ Item {
 				width: hostsList.width
 				height: 500
 				background: Rectangle {
-					color: "#000000"
-					radius: 5
+					color: Theme.backgroundColor
+					radius: Theme.cornerRadius
+                    border.color: Theme.borderColor
+                    border.width: 1
 				}
+                color: Theme.textColor
 				wrapMode: TextArea.WordWrap
 				text: qsTr("")
 				onEditingFinished: {

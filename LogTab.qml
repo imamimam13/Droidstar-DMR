@@ -17,10 +17,16 @@
 
 import QtQuick
 import QtQuick.Controls
+import "."
 
 Item {
 	id: logTab
 	property alias logText: logTxt
+	Rectangle{
+		anchors.fill: parent
+		color: Theme.backgroundColor
+	}
+
 	Button {
 		id: clearLogButton
 		x: 10
@@ -28,6 +34,17 @@ Item {
 		width: 100
 		height: 30
 		text: qsTr("Clear")
+        background: Rectangle {
+            color: clearLogButton.down ? Theme.accentColor : Theme.primaryColor
+            radius: Theme.cornerRadius
+        }
+        contentItem: Text {
+            text: clearLogButton.text
+            font: clearLogButton.font
+            color: Theme.backgroundColor
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
 		onClicked: {
 			logTxt.clear();
 		}
@@ -38,10 +55,15 @@ Item {
 		y: 40
 		width: parent.width - 40
 		height: parent.height - 40
-		color: "#252424"
+		color: Theme.secondaryBackgroundColor
+        radius: Theme.cornerRadius
+        border.color: Theme.borderColor
+        border.width: 1
+
 		Flickable{
 			id: logflick
 			anchors.fill: parent
+            anchors.margins: 10
 			contentWidth: parent.width
 			contentHeight: logTxt.y +
 						   logTxt.height
@@ -54,6 +76,8 @@ Item {
 				readOnly: true
 				wrapMode: TextArea.WordWrap
 				text: qsTr("")
+                color: Theme.textColor
+                background: null // Transparent background for TextArea
 			}
 		}
 	}
