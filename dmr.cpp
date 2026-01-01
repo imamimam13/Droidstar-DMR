@@ -434,6 +434,8 @@ void DMR::setFirstName(const QString &name) {
   }
 }
 
+void DMR::handleFirstName(const QString &firstName) { setFirstName(firstName); }
+
 void DMR::setup_connection() {
   m_modeinfo.status = CONNECTED_RW;
   // m_mbeenc->set_gain_adjust(2.5);

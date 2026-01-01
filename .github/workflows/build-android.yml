@@ -62,11 +62,9 @@ jobs:
           echo "Using qmake: $QMAKE_PATH"
           echo "Using androiddeployqt: $DEPLOYQT_PATH"
           
-          # Add Q_OS_ANDROID define explicitly to ensure Android-specific code paths are used
-          $QMAKE_PATH ../DroidStar.pro \
+          ${{ env.ANDROID_NDK_ROOT }}/toolchains/llvm/prebuilt/linux-x86_64/bin/qmake -r ../DroidStar.pro \
             -spec android-clang \
-            CONFIG+=debug \
-            DEFINES+=Q_OS_ANDROID \
+            CONFIG+=release \
             ANDROID_ABIS="arm64-v8a"
           
           make -j$(nproc)
