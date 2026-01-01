@@ -27,7 +27,7 @@ jobs:
           distribution: 'temurin'
           
       - name: Install aqtinstall
-        run: pip install aqtinstall
+        run: pip install aqtinstall==3.1.18
         
       - name: Install Qt for Android
         run: |
@@ -35,7 +35,7 @@ jobs:
           
       - name: Install Qt for Desktop (host tools)
         run: |
-          aqt install-qt linux desktop 6.7.2 gcc_64 --outputdir ${{ runner.workspace }}/Qt
+          aqt install-qt linux desktop 6.7.2 linux_gcc_64 --outputdir ${{ runner.workspace }}/Qt
           
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
