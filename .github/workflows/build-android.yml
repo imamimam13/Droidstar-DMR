@@ -75,7 +75,7 @@ jobs:
           $DEPLOYQT_PATH \
             --input android-DroidStar-deployment-settings.json \
             --output deploy \
-            --android-platform android-33 \
+            --android-platform android-34 \
             --jdk $JAVA_HOME \
             --gradle
             
