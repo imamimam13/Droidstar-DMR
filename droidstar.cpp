@@ -724,6 +724,8 @@ void DroidStar::process_settings() {
   m_saved_iaxhost = m_settings->value("IAXHOST").toString().simplified();
   m_module = m_settings->value("MODULE").toString().toStdString()[0];
   m_callsign = m_settings->value("CALLSIGN").toString().simplified();
+  set_modemPTTInvert(m_settings->value("modemPTTInvert", false).toBool());
+  set_validate_dmrid(m_settings->value("validate_dmrid", false).toBool());
   m_dmrid = m_settings->value("DMRID").toString().simplified().toUInt();
   m_essid = m_settings->value("ESSID").toString().simplified().toUInt();
   m_bm_password = m_settings->value("BMPASSWORD").toString().simplified();
