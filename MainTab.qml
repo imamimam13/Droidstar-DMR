@@ -335,103 +335,138 @@ contentItem: Text {
     ComboBox {
         id: _comboMode
         property bool loaded: false
-        x: 5
-        y: 0
-        width: (parent.width / 2) - 5
-        height: parent.height / rows
-        font.pixelSize: parent.height / 40
+        x: 20
+        y: 20
+        width: (parent.width * 0.25)
+        height: 40
+        font.pixelSize: 16
         currentIndex: -1
         displayText: currentIndex === -1 ? "Mode..." : currentText
         model: ["M17", "YSF", "FCS", "DMR", "P25", "NXDN", "REF", "XRF", "DCS", "IAX"]
+        
+        background: Rectangle {
+            color: "#000000"
+            border.color: "#ff9933"
+            border.width: 1
+            radius: 8
+        }
+
         contentItem: Text {
             text: _comboMode.displayText
             font: _comboMode.font
             leftPadding: 10
             verticalAlignment: Text.AlignVCenter
-            color: _comboMode.enabled ? "white" : "darkgrey"
+            color: "white"
         }
+        
+        popup: Popup {
+            y: parent.height
+            width: parent.width
+            implicitHeight: contentItem.implicitHeight
+            padding: 1
+            contentItem: ListView {
+                clip: true
+                implicitHeight: contentHeight
+                model: _comboMode.delegateModel
+                currentIndex: _comboMode.highlightedIndex
+                ScrollIndicator.vertical: ScrollIndicator { }
+            }
+            background: Rectangle {
+                color: "#1a1a1a"
+                border.color: "#ff9933"
+                radius: 8
+            }
+        }
+        
         onCurrentTextChanged: {
             if (_comboMode.loaded) {
                 droidstar.process_mode_change(_comboMode.currentText);
             }
-            if (_comboMode.currentText === "DMR") {
-                _comboMode.width = (mainTab.width / 5) - 5;
-                _connectbutton.width = (mainTab.width * 2 / 5) - 5;
-                _connectbutton.x = (mainTab.width * 3 / 5);
-            } else {
-                _comboMode.width = (mainTab.width / 2) - 5;
-                _connectbutton.width = (mainTab.width / 2) - 5;
-                _connectbutton.x = mainTab.width / 2;
-            }
+            // Layout logic kept but simplified
         }
     }
     ComboBox {
         id: _comboSlot
-        x: (parent.width / 5)
-        y: 0
-        width: (parent.width / 5)
-        height: parent.height / rows
-        font.pixelSize: parent.height / 35
+        x: _comboMode.x + _comboMode.width + 10
+        y: 20
+        width: (parent.width * 0.2)
+        height: 40
+        font.pixelSize: 16
         model: ["S1", "S2"]
         currentIndex: 1
+        
+        background: Rectangle {
+            color: "#000000"
+            border.color: "#ff9933"
+            border.width: 1
+            radius: 8
+        }
+        
         contentItem: Text {
             text: _comboSlot.displayText
             font: _comboSlot.font
             leftPadding: 10
             verticalAlignment: Text.AlignVCenter
-            color: _comboSlot.enabled ? "white" : "darkgrey"
+            color: "white"
         }
         onCurrentTextChanged: {
             droidstar.set_slot(_comboSlot.currentIndex);
         }
-        visible: false
+        visible: true
     }
     ComboBox {
         id: _comboCC
-        x: (parent.width * 2 / 5)
-        y: 0
-        width: (parent.width / 5)
-        height: parent.height / rows
-        font.pixelSize: parent.height / 35
+        x: _comboSlot.x + _comboSlot.width + 10
+        y: 20
+        width: (parent.width * 0.2)
+        height: 40
+        font.pixelSize: 16
         model: [
-            "CC0",
-            "CC1",
-            "CC2",
-            "CC3",
-            "CC4",
-            "CC5",
-            "CC6",
-            "CC7",
-            "CC8",
-            "CC9",
-            "CC10",
-            "CC11",
-            "CC12",
-            "CC13",
-            "CC14",
-            "CC15"
+            "CC0", "CC1", "CC2", "CC3", "CC4", "CC5", "CC6", "CC7",
+            "CC8", "CC9", "CC10", "CC11", "CC12", "CC13", "CC14", "CC15"
         ]
         currentIndex: 1
+        
+        background: Rectangle {
+            color: "#000000"
+            border.color: "#ff9933"
+            border.width: 1
+            radius: 8
+        }
+        
         contentItem: Text {
             text: _comboCC.displayText
             font: _comboCC.font
             leftPadding: 10
             verticalAlignment: Text.AlignVCenter
-            color: _comboCC.enabled ? "white" : "darkgrey"
+            color: "white"
         }
         onCurrentTextChanged: {
             droidstar.set_cc(_comboCC.currentIndex);
         }
-        visible: false
+        visible: true // Enable visibility
     }
-    Button { palette.button: "#ff9933"; palette.buttonText: "#ffffff";
+    Button {
         id: _connectbutton
-        x: parent.width / 2
-        y: 0
-        width: parent.width / 2
-        height: parent.height / rows
+        x: parent.width - width - 20
+        y: 20
+        width: parent.width * 0.25
+        height: 40
         text: qsTr("Connect")
-        font.pixelSize: parent.height / 30
+        font.pixelSize: 16
+        
+        background: Rectangle {
+            color: "#ff9933"
+            radius: 8
+        }
+        contentItem: Text {
+            text: _connectbutton.text
+            font: _connectbutton.font
+            color: "#ffffff"
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
+
         onClicked: {
             // settingsTab.callsignEdit.text = settingsTab.callsignEdit.text.toUpperCase();
             droidstar.set_callsign(settingsTab.callsignEdit.text.toUpperCase());
@@ -484,20 +519,48 @@ contentItem: Text {
     }
     ComboBox {
         id: _comboHost
-        x: 5
-        y: (parent.height / rows + 1) * 1
-        width: (parent.width * 3) / 4 - 5
-        height: parent.height / rows
-        font.pixelSize: parent.height / 35
+        x: 20
+        y: 70
+        width: parent.width * 0.6
+        height: 40
+        font.pixelSize: 16
         currentIndex: -1
         displayText: currentIndex === -1 ? "Host..." : currentText
+        
+        background: Rectangle {
+            color: "#1a1a1a" // Darker input style
+            border.color: "#ff9933"
+            border.width: 1
+            radius: 8
+        }
+        
         contentItem: Text {
             text: _comboHost.displayText
             font: _comboHost.font
             leftPadding: 10
             verticalAlignment: Text.AlignVCenter
-            color: _comboHost.enabled ? "white" : "darkgrey"
+            color: "white"
         }
+        
+        popup: Popup {
+            y: parent.height
+            width: parent.width
+            implicitHeight: contentItem.implicitHeight
+            padding: 1
+            contentItem: ListView {
+                clip: true
+                implicitHeight: contentHeight
+                model: _comboHost.delegateModel
+                currentIndex: _comboHost.highlightedIndex
+                ScrollIndicator.vertical: ScrollIndicator { }
+            }
+            background: Rectangle {
+                color: "#1a1a1a"
+                border.color: "#ff9933"
+                radius: 8
+            }
+        }
+        
         onCurrentTextChanged: {
             if (settingsTab.mmdvmBox.checked) {
                 droidstar.set_dst(_comboHost.currentText);
@@ -558,18 +621,49 @@ contentItem: Text {
             }
         }
     }
-    CheckBox {
+    Switch {
         id: _privateBox
-        x: (parent.width * 3) / 4
-        y: (parent.height / rows + 1) * 1
-        width: (parent.width / 4) - 5
-        height: parent.height / rows
+        x: _comboHost.x + _comboHost.width + 10
+        y: 70
         text: qsTr("Private")
+        palette.button: "#ff9933"
+        
+        indicator: Rectangle {
+            implicitWidth: 48
+            implicitHeight: 26
+            x: _privateBox.leftPadding
+            y: parent.height / 2 - height / 2
+            radius: 13
+            color: _privateBox.checked ? "#ff9933" : "#333333"
+            border.color: "#ff9933"
+
+            Rectangle {
+                x: _privateBox.checked ? parent.width - width - 2 : 2
+                width: 22
+                height: 22
+                radius: 11
+                y: 2
+                color: "#ffffff"
+                Behavior on x {
+                    NumberAnimation { duration: 100 }
+                }
+            }
+        }
+        
+        contentItem: Text {
+            text: _privateBox.text
+            font: _privateBox.font
+            opacity: enabled ? 1.0 : 0.3
+            color: "white"
+            verticalAlignment: Text.AlignVCenter
+            leftPadding: _privateBox.indicator.width + _privateBox.spacing
+        }
+        
         onClicked: {
             droidstar.set_dmr_pc(privateBox.checked);
             // console.log("screen size ", parent.width, " x ", parent.height);
         }
-        visible: false
+        visible: true // Enable visibility
     }
     Text {
         id: _dtmflabel
@@ -607,15 +701,19 @@ contentItem: Text {
         visible: false
     }
     Text {
-        id: _element3
-        x: 5
+        id: _bigTgidDisplay
+        x: 20
         y: (parent.height / rows + 1) * 2
-        width: parent.width / 5
-        height: parent.height / rows
-        text: qsTr("TGID")
-        color: "#ffffff"
-        font.pixelSize: parent.height / 30
+        text: "TGID " + (_dmrtgidEdit.text ? _dmrtgidEdit.text : "----")
+        color: "#ff9933"
+        font.pixelSize: 32
+        font.bold: true
         verticalAlignment: Text.AlignVCenter
+    }
+    
+    // Hidden original element
+    Text {
+        id: _element3
         visible: false
     }
     TextField {
@@ -659,42 +757,93 @@ contentItem: Text {
             droidstar.set_modemM17CAN(_comboM17CAN.currentText);
         }
     }
-    CheckBox {
+    Switch {
         id: _swtxBox
         x: (parent.width * 2 / 5) + 5
         y: (parent.height / rows + 1) * 2
-        width: parent.width / 4
-        height: parent.height / rows
-        font.pixelSize: parent.height / 40
         text: qsTr("SWTX")
-        onClicked: {
-            droidstar.set_swtx(_swtxBox.checked);
+        palette.button: "#ff9933"
+        indicator: Rectangle {
+            implicitWidth: 40
+            implicitHeight: 20
+            radius: 13
+            color: _swtxBox.checked ? "#ff9933" : "#333333"
+            border.color: "#ff9933"
+            Rectangle {
+                x: _swtxBox.checked ? parent.width - width - 2 : 2
+                y: 2
+                width: 16
+                height: 16
+                radius: 8
+                color: "#ffffff"
+            }
         }
+        contentItem: Text {
+            text: _swtxBox.text
+            color: "white"
+            leftPadding: _swtxBox.indicator.width + _swtxBox.spacing
+            verticalAlignment: Text.AlignVCenter
+        }
+        onClicked: droidstar.set_swtx(_swtxBox.checked)
     }
-    CheckBox {
+    Switch {
         id: _swrxBox
-        x: (parent.width * 3 / 5) + 5
+        x: _swtxBox.x + _swtxBox.width + 10 // Stack right
         y: (parent.height / rows + 1) * 2
-        width: parent.width / 4
-        height: parent.height / rows
-        font.pixelSize: parent.height / 40
         text: qsTr("SWRX")
-        onClicked: {
-            droidstar.set_swrx(_swrxBox.checked);
+        palette.button: "#ff9933"
+        indicator: Rectangle {
+            implicitWidth: 40
+            implicitHeight: 20
+            radius: 13
+            color: _swrxBox.checked ? "#ff9933" : "#333333"
+            border.color: "#ff9933"
+            Rectangle {
+                x: _swrxBox.checked ? parent.width - width - 2 : 2
+                y: 2
+                width: 16
+                height: 16
+                radius: 8
+                color: "#ffffff"
+            }
         }
+        contentItem: Text {
+            text: _swrxBox.text
+            color: "white"
+            leftPadding: _swrxBox.indicator.width + _swrxBox.spacing
+            verticalAlignment: Text.AlignVCenter
+        }
+        onClicked: droidstar.set_swrx(_swrxBox.checked)
     }
 
-    CheckBox {
+    Switch {
         id: _agcBox
-        x: (parent.width * 4 / 5) + 5
+        x: _swrxBox.x + _swrxBox.width + 10
         y: (parent.height / rows + 1) * 2
-        width: parent.width / 4
-        height: parent.height / rows
-        font.pixelSize: parent.height / 40
         text: qsTr("AGC")
-        onClicked: {
-            droidstar.set_agc(_agcBox.checked);
+        palette.button: "#ff9933"
+        indicator: Rectangle {
+            implicitWidth: 40
+            implicitHeight: 20
+            radius: 13
+            color: _agcBox.checked ? "#ff9933" : "#333333"
+            border.color: "#ff9933"
+            Rectangle {
+                x: _agcBox.checked ? parent.width - width - 2 : 2
+                y: 2
+                width: 16
+                height: 16
+                radius: 8
+                color: "#ffffff"
+            }
         }
+        contentItem: Text {
+            text: _agcBox.text
+            color: "white"
+            leftPadding: _agcBox.indicator.width + _agcBox.spacing
+            verticalAlignment: Text.AlignVCenter
+        }
+        onClicked: droidstar.set_agc(_agcBox.checked)
     }
 
     Text {
@@ -717,6 +866,35 @@ contentItem: Text {
         width: (parent.width * 3 / 4) - 20
         height: parent.height / rows
         value: 0.1
+        
+        background: Rectangle {
+            x: _slidermicGain.leftPadding
+            y: _slidermicGain.topPadding + _slidermicGain.availableHeight / 2 - height / 2
+            implicitWidth: 200
+            implicitHeight: 4
+            width: _slidermicGain.availableWidth
+            height: 4
+            radius: 2
+            color: "#333333"
+
+            Rectangle {
+                width: _slidermicGain.visualPosition * parent.width
+                height: parent.height
+                color: "#ff9933"
+                radius: 2
+            }
+        }
+
+        handle: Rectangle {
+            x: _slidermicGain.leftPadding + _slidermicGain.visualPosition * (_slidermicGain.availableWidth - width)
+            y: _slidermicGain.topPadding + _slidermicGain.availableHeight / 2 - height / 2
+            implicitWidth: 26
+            implicitHeight: 26
+            radius: 13
+            color: "#ff9933"
+            border.color: "#ffffff"
+        }
+        
         onValueChanged: {
             v = value * 100
             droidstar.set_input_volume(value)
@@ -754,18 +932,26 @@ Text {
     }
 
 
-Text {
+TextField {
         id: firstNameText1
         x: parent.width / 3
         y: (parent.height / rows + 1) * 6
-        width: (parent.width * 2) / 3
+        width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         
+        readOnly: true
         color: "#ffffff"
-        //text:  vuidUpdater.fetchedFirstName
         text: vuidUpdater.fetchedFirstName + (vuidUpdater.fetchedCountry !== "" ? " (" + vuidUpdater.fetchedCountry + ")" : "")
-        wrapMode: Text.WordWrap // This enables word wrapping
-        font.pixelSize: parent.height / 40
+        // wrapMode: Text.WordWrap // TextField handles scrolling usually
+        font.pixelSize: 14
+        
+        background: Rectangle {
+            color: "#1a1a1a"
+            border.color: "#ff9933"
+            border.width: 1
+            radius: 5
+        }
+
         onTextChanged:  { console.log("Text changed to:", text);
     }
 }
@@ -837,16 +1023,23 @@ Text {
         color: "#ffffff"
         font.pixelSize: parent.height / 40
     }
-Text {
+TextField {
     id: _data1
     x: parent.width / 3
     y: (parent.height / rows + 1) * 5
-    width: (parent.width * 2) / 3
+    width: (parent.width * 2) / 3 - 20 // Adjust for padding
     height: parent.height / rows
     text: qsTr("")
-    color: "#ffffff"
-    font.pixelSize: parent.height / 40
-   
+    readOnly: true
+    color: "white"
+    font.pixelSize: 14
+    
+    background: Rectangle {
+        color: "#1a1a1a"
+        border.color: "#ff9933"
+        border.width: 1
+        radius: 5
+    }
 }
 
 Text {
@@ -939,58 +1132,93 @@ Connections {
     }
 */
 
-    Text {
+    TextField {
         id: _data3
         x: parent.width / 3
         y: (parent.height / rows + 1) * 8.2
-        width: (parent.width * 2) / 3
+        width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         text: qsTr("")
-        color: "#ffffff"
-        font.pixelSize: parent.height / 40
+        readOnly: true
+        color: "white"
+        font.pixelSize: 14
+        background: Rectangle {
+            color: "#1a1a1a"
+            border.color: "#ff9933"
+            border.width: 1
+            radius: 5
+        }
     }
 
-    Text {
+    TextField {
         id: _data4
         x: parent.width / 3
         y: (parent.height / rows + 1) * 9.2
-        width: (parent.width * 2) / 3
+        width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         text: qsTr("")
-        color: "#ffffff"
-        font.pixelSize: parent.height / 40
+        readOnly: true
+        color: "white"
+        font.pixelSize: 14
+        background: Rectangle {
+            color: "#1a1a1a"
+            border.color: "#ff9933"
+            border.width: 1
+            radius: 5
+        }
     }
 
-    Text {
+    TextField {
         id: _data5
         x: parent.width / 3
         y: (parent.height / rows + 1) * 10.2
-        width: (parent.width * 2) / 3
+        width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         text: qsTr("")
-        color: "#ffffff"
-        font.pixelSize: parent.height / 40
+        readOnly: true
+        color: "white"
+        font.pixelSize: 14
+        background: Rectangle {
+            color: "#1a1a1a"
+            border.color: "#ff9933"
+            border.width: 1
+            radius: 5
+        }
     }
 
-    Text {
+    TextField {
         id: _data6
         x: parent.width / 3
         y: (parent.height / rows + 1) * 11.2
-        width: (parent.width * 2) / 3
+        width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         text: qsTr("")
-        color: "#ffffff"
-        font.pixelSize: parent.height / 40
+        readOnly: true
+        color: "white"
+        font.pixelSize: 14
+        background: Rectangle {
+            color: "#1a1a1a"
+            border.color: "#ff9933"
+            border.width: 1
+            radius: 5
+        }
     }
-    Text {
+    TextField {
         id: _data7
         x: parent.width / 3
         y: (parent.height / rows + 1) * 12.2
-        width: (parent.width * 2) / 3
+        width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         text: qsTr("")
-        color: "#ffffff"
-        font.pixelSize: parent.height / 40
+        readOnly: true
+        color: "white"
+        font.pixelSize: 14
+        background: Rectangle {
+            color: "#1a1a1a"
+            border.color: "#ff9933"
+            border.width: 1
+            radius: 5
+        }
     }
 
    /* Text {
@@ -1083,16 +1311,24 @@ Text {
         border.width: 1
         radius: 5
     }
+    Text {
+        x: 10
+        y: (parent.height / rows + 1.1) * 13.5
+        width: parent.width - 20
+        text: qsTr("Audio Visualizer")
+        color: "darkgrey"
+        font.pixelSize: 12
+        horizontalAlignment: Text.AlignHCenter
+    }
     Rectangle {
         id: _levelMeter
         x: 10
         y: (parent.height / rows + 1.1) * 14.2
         width: 0
         height: parent.height / 30
-        color: "#80C342"
-        border.color: "#ffffff"
-        border.width: 1
-        radius: 5
+        color: "#ff9933"
+        radius: 2
+        opacity: 0.8
     }
     ButtonGroup {
         id: ttsvoicegroup
