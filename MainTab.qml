@@ -757,11 +757,11 @@ contentItem: Text {
         y: (parent.height / rows + 1) * 2
         width: parent.width / 5
         height: (parent.height / rows) - 10
-        font.pixelSize: parent.height / 35
         selectByMouse: true
         inputMethodHints: "ImhPreferNumbers"
         text: qsTr("")
         color: "#ff9933"
+        font.pixelSize: parent.height / 35
         font.bold: true
         
         background: Rectangle {
