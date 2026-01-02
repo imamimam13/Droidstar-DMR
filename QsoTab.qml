@@ -22,7 +22,7 @@ import QtQuick.Dialogs
 
 Item {
     id: qsoTab
-    Rectangle { anchors.fill: parent; color: "#0d0d0d"; z: -1 }
+    Rectangle { anchors.fill: parent; color: "#0d0d0d"; z: -1; Image { source: "background_pattern.png"; anchors.fill: parent; fillMode: Image.Tile; opacity: 0.2 } }
     width: 400
     height: 600
 

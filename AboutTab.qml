@@ -21,7 +21,7 @@ import QtQuick.Controls 2.15
 
 Item {
     id: aboutTab
-    Rectangle { anchors.fill: parent; color: "#0d0d0d"; z: -1 }
+    Rectangle { anchors.fill: parent; color: "#0d0d0d"; z: -1; Image { source: "background_pattern.png"; anchors.fill: parent; fillMode: Image.Tile; opacity: 0.2 } }
 
     Rectangle {
         id: helpText
