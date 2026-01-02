@@ -17,8 +17,8 @@
 */
 
 import QtQuick 2.15
-import QtQuick.Controls 2.15
-import "."
+import Theme 1.0import QtQuick.Controls 2.15
+import Theme 1.0import "."
 
 Item {
     id: aboutTab

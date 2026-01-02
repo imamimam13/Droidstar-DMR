@@ -17,9 +17,9 @@
 */
 
 import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Dialogs
-import "."
+import Theme 1.0import QtQuick.Controls 2.15
+import Theme 1.0import QtQuick.Dialogs
+import Theme 1.0import "."
 
 Item {
     id: qsoTab

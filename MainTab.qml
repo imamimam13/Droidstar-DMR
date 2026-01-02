@@ -18,8 +18,8 @@
 
 
 import QtQuick
-import QtQuick.Controls
-import org.dudetronics.droidstar
+import Theme 1.0import QtQuick.Controls
+import Theme 1.0import org.dudetronics.droidstar
 import "."  // Import directory for Theme.qml
 
 Item {

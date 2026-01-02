@@ -17,8 +17,8 @@
 */
 
 import QtQuick
-import QtQuick.Controls
-import "."
+import Theme 1.0import QtQuick.Controls
+import Theme 1.0import "."
 
 Item {
 	id: settingsTab
