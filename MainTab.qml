@@ -743,133 +743,98 @@ contentItem: Text {
         id: _bigTgidDisplay
         x: 10
         y: (parent.height / rows + 1) * 2
-        text: "TGID " + (_dmrtgidEdit.text ? _dmrtgidEdit.text : "----")
+        text: "TGID"
         color: "#ff9933"
         font.pixelSize: parent.height / 25
         font.bold: true
         verticalAlignment: Text.AlignVCenter
+        width: parent.width / 6
     }
     
-    // Hidden original element
-    Text {
-        id: _element3
-        visible: false
-    }
     TextField {
-        visible: false
         id: _dmrtgidEdit
-        x: parent.width / 5
+        x: _bigTgidDisplay.x + _bigTgidDisplay.width + 5
         y: (parent.height / rows + 1) * 2
         width: parent.width / 5
-        height: parent.height / rows
+        height: (parent.height / rows) - 10
         font.pixelSize: parent.height / 35
         selectByMouse: true
         inputMethodHints: "ImhPreferNumbers"
         text: qsTr("")
+        color: "#ff9933"
+        font.bold: true
+        
+        background: Rectangle {
+            color: "transparent"
+            border.width: 0
+        }
+        
         onEditingFinished: {
             droidstar.tgid_text_changed(dmrtgidEdit.text);
-            console.log("droidstar.tgid_text_changed called from onEditingFinished with TGID:", dmrtgidEdit.text); // Log event
+            console.log("droidstar.tgid_text_changed called from onEditingFinished with TGID:", dmrtgidEdit.text);
             updateRecentTgids(dmrtgidEdit.text);
-            //tgidsModel = droidstar.loadRecentTGIDs();
-            updateRecentTgidsModel(); // Refresh the ListModel correctly
+            updateRecentTgidsModel();
         }
     }
 
-    ComboBox {
-        visible: false
-        id: _comboM17CAN
-        x: parent.width / 5
-        y: (parent.height / rows + 1) * 2
-        width: parent.width / 5
-        height: parent.height / rows
-        font.pixelSize: parent.height / 35
-        currentIndex: 0
-        model: ["0", "1", "2", "3", "4", "5", "6", "7"]
-        contentItem: Text {
-            text: _comboM17CAN.displayText
-            font: _comboM17CAN.font
-            leftPadding: 10
-            verticalAlignment: Text.AlignVCenter
-            color: _comboM17CAN.enabled ? "white" : "darkgrey"
-        }
-        popup: Popup {
-            y: parent.height
-            width: parent.width
-            implicitHeight: Math.min(contentItem.implicitHeight, 200)
-            padding: 1
-            parent: Overlay.overlay
-            transformOrigin: Item.Top
-            contentItem: ListView {
-                clip: true
-                implicitHeight: contentHeight
-                model: _comboM17CAN.delegateModel
-                currentIndex: _comboM17CAN.highlightedIndex
-                ScrollIndicator.vertical: ScrollIndicator { }
-            }
-            background: Rectangle {
-                color: "#1a1a1a"
-                border.color: "#ff9933"
-                radius: 5
-            }
-        }
-        onCurrentTextChanged: {
-            droidstar.set_modemM17CAN(_comboM17CAN.currentText);
-        }
-    }
     Switch {
         id: _swtxBox
-        x: (parent.width * 2 / 5) + 5
+        x: _dmrtgidEdit.x + _dmrtgidEdit.width + 20
         y: (parent.height / rows + 1) * 2
         text: qsTr("SWTX")
         palette.button: "#ff9933"
+        height: (parent.height / rows) - 10
         indicator: Rectangle {
-            implicitWidth: 40
-            implicitHeight: 20
+            implicitWidth: 50
+            implicitHeight: 26
             radius: 13
             color: _swtxBox.checked ? "#ff9933" : "#333333"
             border.color: "#ff9933"
             Rectangle {
                 x: _swtxBox.checked ? parent.width - width - 2 : 2
                 y: 2
-                width: 16
-                height: 16
-                radius: 8
+                width: 22
+                height: 22
+                radius: 11
                 color: "#ffffff"
             }
         }
         contentItem: Text {
             text: _swtxBox.text
             color: "white"
-            leftPadding: _swtxBox.indicator.width + _swtxBox.spacing
+            font.pixelSize: parent.height / 45
+            leftPadding: _swtxBox.indicator.width + 5
             verticalAlignment: Text.AlignVCenter
         }
         onClicked: droidstar.set_swtx(_swtxBox.checked)
     }
     Switch {
         id: _swrxBox
-        x: _swtxBox.x + _swtxBox.width + 10 // Stack right
+        x: _swtxBox.x + _swtxBox.width + 10
         y: (parent.height / rows + 1) * 2
         text: qsTr("SWRX")
         palette.button: "#ff9933"
+        height: (parent.height / rows) - 10
         indicator: Rectangle {
-            implicitWidth: 40
-            implicitHeight: 20
+            implicitWidth: 50
+            implicitHeight: 26
             radius: 13
             color: _swrxBox.checked ? "#ff9933" : "#333333"
             border.color: "#ff9933"
             Rectangle {
                 x: _swrxBox.checked ? parent.width - width - 2 : 2
                 y: 2
-                width: 16
-                height: 16
-                radius: 8
+                width: 22
+                height: 22
+                radius: 11
                 color: "#ffffff"
             }
         }
         contentItem: Text {
             text: _swrxBox.text
             color: "white"
-            leftPadding: _swrxBox.indicator.width + _swrxBox.spacing
+            font.pixelSize: parent.height / 45
+            leftPadding: _swrxBox.indicator.width + 5
             verticalAlignment: Text.AlignVCenter
         }
         onClicked: droidstar.set_swrx(_swrxBox.checked)
@@ -881,25 +846,27 @@ contentItem: Text {
         y: (parent.height / rows + 1) * 2
         text: qsTr("AGC")
         palette.button: "#ff9933"
+        height: (parent.height / rows) - 10
         indicator: Rectangle {
-            implicitWidth: 40
-            implicitHeight: 20
+            implicitWidth: 50
+            implicitHeight: 26
             radius: 13
             color: _agcBox.checked ? "#ff9933" : "#333333"
             border.color: "#ff9933"
             Rectangle {
                 x: _agcBox.checked ? parent.width - width - 2 : 2
                 y: 2
-                width: 16
-                height: 16
-                radius: 8
+                width: 22
+                height: 22
+                radius: 11
                 color: "#ffffff"
             }
         }
         contentItem: Text {
             text: _agcBox.text
             color: "white"
-            leftPadding: _agcBox.indicator.width + _agcBox.spacing
+            font.pixelSize: parent.height / 45
+            leftPadding: _agcBox.indicator.width + 5
             verticalAlignment: Text.AlignVCenter
         }
         onClicked: droidstar.set_agc(_agcBox.checked)
