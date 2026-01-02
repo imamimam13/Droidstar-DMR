@@ -362,8 +362,10 @@ contentItem: Text {
         popup: Popup {
             y: parent.height
             width: parent.width
-            implicitHeight: contentItem.implicitHeight
+            implicitHeight: Math.min(contentItem.implicitHeight, 300)
             padding: 1
+            parent: Overlay.overlay
+            transformOrigin: Item.Top
             contentItem: ListView {
                 clip: true
                 implicitHeight: contentHeight
@@ -408,6 +410,26 @@ contentItem: Text {
             verticalAlignment: Text.AlignVCenter
             color: "white"
         }
+        popup: Popup {
+            y: parent.height
+            width: parent.width
+            implicitHeight: Math.min(contentItem.implicitHeight, 200)
+            padding: 1
+            parent: Overlay.overlay
+            transformOrigin: Item.Top
+            contentItem: ListView {
+                clip: true
+                implicitHeight: contentHeight
+                model: _comboSlot.delegateModel
+                currentIndex: _comboSlot.highlightedIndex
+                ScrollIndicator.vertical: ScrollIndicator { }
+            }
+            background: Rectangle {
+                color: "#1a1a1a"
+                border.color: "#ff9933"
+                radius: 5
+            }
+        }
         onCurrentTextChanged: {
             droidstar.set_slot(_comboSlot.currentIndex);
         }
@@ -439,6 +461,26 @@ contentItem: Text {
             leftPadding: 5
             verticalAlignment: Text.AlignVCenter
             color: "white"
+        }
+        popup: Popup {
+            y: parent.height
+            width: parent.width
+            implicitHeight: Math.min(contentItem.implicitHeight, 300)
+            padding: 1
+            parent: Overlay.overlay
+            transformOrigin: Item.Top
+            contentItem: ListView {
+                clip: true
+                implicitHeight: contentHeight
+                model: _comboCC.delegateModel
+                currentIndex: _comboCC.highlightedIndex
+                ScrollIndicator.vertical: ScrollIndicator { }
+            }
+            background: Rectangle {
+                color: "#1a1a1a"
+                border.color: "#ff9933"
+                radius: 5
+            }
         }
         onCurrentTextChanged: {
             droidstar.set_cc(_comboCC.currentIndex);
@@ -544,8 +586,10 @@ contentItem: Text {
         popup: Popup {
             y: parent.height
             width: parent.width
-            implicitHeight: contentItem.implicitHeight
+            implicitHeight: Math.min(contentItem.implicitHeight, 300)
             padding: 1
+            parent: Overlay.overlay
+            transformOrigin: Item.Top
             contentItem: ListView {
                 clip: true
                 implicitHeight: contentHeight
@@ -579,33 +623,8 @@ contentItem: Text {
         currentIndex: -1
         displayText: currentIndex === -1 ? "Mod..." : currentText
         model: [
-            " ",
-            "A",
-            "B",
-            "C",
-            "D",
-            "E",
-            "F",
-            "G",
-            "H",
-            "I",
-            "J",
-            "K",
-            "L",
-            "M",
-            "N",
-            "O",
-            "P",
-            "Q",
-            "R",
-            "S",
-            "T",
-            "U",
-            "V",
-            "W",
-            "X",
-            "Y",
-            "Z"
+            " ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+            "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
         ]
         contentItem: Text {
             text: _comboModule.displayText
@@ -613,6 +632,26 @@ contentItem: Text {
             leftPadding: 10
             verticalAlignment: Text.AlignVCenter
             color: _comboModule.enabled ? "white" : "darkgrey"
+        }
+        popup: Popup {
+            y: parent.height
+            width: parent.width
+            implicitHeight: Math.min(contentItem.implicitHeight, 300)
+            padding: 1
+            parent: Overlay.overlay
+            transformOrigin: Item.Top
+            contentItem: ListView {
+                clip: true
+                implicitHeight: contentHeight
+                model: _comboModule.delegateModel
+                currentIndex: _comboModule.highlightedIndex
+                ScrollIndicator.vertical: ScrollIndicator { }
+            }
+            background: Rectangle {
+                color: "#1a1a1a"
+                border.color: "#ff9933"
+                radius: 5
+            }
         }
         onCurrentTextChanged: {
             if (_comboMode.loaded) {
@@ -752,6 +791,26 @@ contentItem: Text {
             leftPadding: 10
             verticalAlignment: Text.AlignVCenter
             color: _comboM17CAN.enabled ? "white" : "darkgrey"
+        }
+        popup: Popup {
+            y: parent.height
+            width: parent.width
+            implicitHeight: Math.min(contentItem.implicitHeight, 200)
+            padding: 1
+            parent: Overlay.overlay
+            transformOrigin: Item.Top
+            contentItem: ListView {
+                clip: true
+                implicitHeight: contentHeight
+                model: _comboM17CAN.delegateModel
+                currentIndex: _comboM17CAN.highlightedIndex
+                ScrollIndicator.vertical: ScrollIndicator { }
+            }
+            background: Rectangle {
+                color: "#1a1a1a"
+                border.color: "#ff9933"
+                radius: 5
+            }
         }
         onCurrentTextChanged: {
             droidstar.set_modemM17CAN(_comboM17CAN.currentText);
