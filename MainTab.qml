@@ -562,6 +562,7 @@ contentItem: Text {
             droidstar.process_connect();
         }
     }
+    }
     ComboBox {
         id: _comboHost
         x: 10
