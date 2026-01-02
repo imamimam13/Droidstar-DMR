@@ -34,6 +34,38 @@ ApplicationWindow {
 	 // @disable-check M16
 	title: qsTr("DroidStar")
 
+    // Splash Screen Overlay
+    Rectangle {
+        id: splashScreen
+        anchors.fill: parent
+        color: "#0d0d0d"
+        z: 9999
+        visible: true
+
+        Image {
+            id: splashImage
+            source: "splash_bg.png"
+            anchors.fill: parent
+            fillMode: Image.PreserveAspectCrop
+        }
+
+        Timer {
+            interval: 3000 // 3 seconds
+            running: true
+            repeat: false
+            onTriggered: splashFadeOut.start()
+        }
+
+        OpacityAnimator {
+            id: splashFadeOut
+            target: splashScreen
+            from: 1.0
+            to: 0.0
+            duration: 500
+            onFinished: splashScreen.visible = false
+        }
+    }
+
 	palette.window: "#252424"
 	palette.button: "#252424"
 	palette.buttonText: "white"

@@ -335,11 +335,11 @@ contentItem: Text {
     ComboBox {
         id: _comboMode
         property bool loaded: false
-        x: 20
-        y: 20
+        x: 10
+        y: 5
         width: (parent.width * 0.25)
-        height: 40
-        font.pixelSize: 16
+        height: (parent.height / rows) - 5
+        font.pixelSize: parent.height / 45
         currentIndex: -1
         displayText: currentIndex === -1 ? "Mode..." : currentText
         model: ["M17", "YSF", "FCS", "DMR", "P25", "NXDN", "REF", "XRF", "DCS", "IAX"]
@@ -348,13 +348,13 @@ contentItem: Text {
             color: "#000000"
             border.color: "#ff9933"
             border.width: 1
-            radius: 8
+            radius: 5
         }
 
         contentItem: Text {
             text: _comboMode.displayText
             font: _comboMode.font
-            leftPadding: 10
+            leftPadding: 5
             verticalAlignment: Text.AlignVCenter
             color: "white"
         }
@@ -374,7 +374,7 @@ contentItem: Text {
             background: Rectangle {
                 color: "#1a1a1a"
                 border.color: "#ff9933"
-                radius: 8
+                radius: 5
             }
         }
         
@@ -382,16 +382,15 @@ contentItem: Text {
             if (_comboMode.loaded) {
                 droidstar.process_mode_change(_comboMode.currentText);
             }
-            // Layout logic kept but simplified
         }
     }
     ComboBox {
         id: _comboSlot
         x: _comboMode.x + _comboMode.width + 10
-        y: 20
+        y: 5
         width: (parent.width * 0.2)
-        height: 40
-        font.pixelSize: 16
+        height: (parent.height / rows) - 5
+        font.pixelSize: parent.height / 45
         model: ["S1", "S2"]
         currentIndex: 1
         
@@ -399,13 +398,13 @@ contentItem: Text {
             color: "#000000"
             border.color: "#ff9933"
             border.width: 1
-            radius: 8
+            radius: 5
         }
         
         contentItem: Text {
             text: _comboSlot.displayText
             font: _comboSlot.font
-            leftPadding: 10
+            leftPadding: 5
             verticalAlignment: Text.AlignVCenter
             color: "white"
         }
@@ -417,10 +416,10 @@ contentItem: Text {
     ComboBox {
         id: _comboCC
         x: _comboSlot.x + _comboSlot.width + 10
-        y: 20
+        y: 5
         width: (parent.width * 0.2)
-        height: 40
-        font.pixelSize: 16
+        height: (parent.height / rows) - 5
+        font.pixelSize: parent.height / 45
         model: [
             "CC0", "CC1", "CC2", "CC3", "CC4", "CC5", "CC6", "CC7",
             "CC8", "CC9", "CC10", "CC11", "CC12", "CC13", "CC14", "CC15"
@@ -431,13 +430,13 @@ contentItem: Text {
             color: "#000000"
             border.color: "#ff9933"
             border.width: 1
-            radius: 8
+            radius: 5
         }
         
         contentItem: Text {
             text: _comboCC.displayText
             font: _comboCC.font
-            leftPadding: 10
+            leftPadding: 5
             verticalAlignment: Text.AlignVCenter
             color: "white"
         }
@@ -448,16 +447,16 @@ contentItem: Text {
     }
     Button {
         id: _connectbutton
-        x: parent.width - width - 20
-        y: 20
+        x: parent.width - width - 10
+        y: 5
         width: parent.width * 0.25
-        height: 40
+        height: (parent.height / rows) - 5
         text: qsTr("Connect")
-        font.pixelSize: 16
+        font.pixelSize: parent.height / 45
         
         background: Rectangle {
             color: "#ff9933"
-            radius: 8
+            radius: 5
         }
         contentItem: Text {
             text: _connectbutton.text
@@ -519,11 +518,11 @@ contentItem: Text {
     }
     ComboBox {
         id: _comboHost
-        x: 20
-        y: 70
+        x: 10
+        y: (parent.height / rows + 1) * 1
         width: parent.width * 0.6
-        height: 40
-        font.pixelSize: 16
+        height: (parent.height / rows) - 5
+        font.pixelSize: parent.height / 45
         currentIndex: -1
         displayText: currentIndex === -1 ? "Host..." : currentText
         
@@ -531,13 +530,13 @@ contentItem: Text {
             color: "#1a1a1a" // Darker input style
             border.color: "#ff9933"
             border.width: 1
-            radius: 8
+            radius: 5
         }
         
         contentItem: Text {
             text: _comboHost.displayText
             font: _comboHost.font
-            leftPadding: 10
+            leftPadding: 5
             verticalAlignment: Text.AlignVCenter
             color: "white"
         }
@@ -557,7 +556,7 @@ contentItem: Text {
             background: Rectangle {
                 color: "#1a1a1a"
                 border.color: "#ff9933"
-                radius: 8
+                radius: 5
             }
         }
         
@@ -624,24 +623,25 @@ contentItem: Text {
     Switch {
         id: _privateBox
         x: _comboHost.x + _comboHost.width + 10
-        y: 70
+        y: (parent.height / rows + 1) * 1
         text: qsTr("Private")
         palette.button: "#ff9933"
+        height: (parent.height / rows) - 5
         
         indicator: Rectangle {
-            implicitWidth: 48
-            implicitHeight: 26
+            implicitWidth: 36
+            implicitHeight: 20
             x: _privateBox.leftPadding
             y: parent.height / 2 - height / 2
-            radius: 13
+            radius: 10
             color: _privateBox.checked ? "#ff9933" : "#333333"
             border.color: "#ff9933"
 
             Rectangle {
                 x: _privateBox.checked ? parent.width - width - 2 : 2
-                width: 22
-                height: 22
-                radius: 11
+                width: 16
+                height: 16
+                radius: 8
                 y: 2
                 color: "#ffffff"
                 Behavior on x {
@@ -652,7 +652,7 @@ contentItem: Text {
         
         contentItem: Text {
             text: _privateBox.text
-            font: _privateBox.font
+            font.pixelSize: parent.height / 50
             opacity: enabled ? 1.0 : 0.3
             color: "white"
             verticalAlignment: Text.AlignVCenter
@@ -702,11 +702,11 @@ contentItem: Text {
     }
     Text {
         id: _bigTgidDisplay
-        x: 20
+        x: 10
         y: (parent.height / rows + 1) * 2
         text: "TGID " + (_dmrtgidEdit.text ? _dmrtgidEdit.text : "----")
         color: "#ff9933"
-        font.pixelSize: 32
+        font.pixelSize: parent.height / 25
         font.bold: true
         verticalAlignment: Text.AlignVCenter
     }
