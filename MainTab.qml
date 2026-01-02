@@ -338,7 +338,7 @@ contentItem: Text {
         x: 10
         y: 5
         width: (parent.width * 0.25)
-        height: (parent.height / rows) - 5
+        height: (parent.height / rows) - 15
         font.pixelSize: parent.height / 45
         currentIndex: -1
         displayText: currentIndex === -1 ? "Mode..." : currentText
@@ -389,7 +389,7 @@ contentItem: Text {
         x: _comboMode.x + _comboMode.width + 10
         y: 5
         width: (parent.width * 0.2)
-        height: (parent.height / rows) - 5
+        height: (parent.height / rows) - 15
         font.pixelSize: parent.height / 45
         model: ["S1", "S2"]
         currentIndex: 1
@@ -521,7 +521,7 @@ contentItem: Text {
         x: 10
         y: (parent.height / rows + 1) * 1
         width: parent.width * 0.6
-        height: (parent.height / rows) - 5
+        height: (parent.height / rows) - 15
         font.pixelSize: parent.height / 45
         currentIndex: -1
         displayText: currentIndex === -1 ? "Host..." : currentText
@@ -574,7 +574,7 @@ contentItem: Text {
         x: (parent.width * 3) / 4
         y: (parent.height / rows + 1) * 1
         width: (parent.width / 4) - 5
-        height: parent.height / rows
+        height: (parent.height / rows) - 15
         font.pixelSize: parent.height / 35
         currentIndex: -1
         displayText: currentIndex === -1 ? "Mod..." : currentText
