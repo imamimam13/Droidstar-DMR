@@ -166,8 +166,6 @@ Item {
             padding: 1
             parent: Overlay.overlay
             transformOrigin: Item.Top
-            modal: true
-            dim: true
             contentItem: ListView {
                 clip: true
                 implicitHeight: contentHeight

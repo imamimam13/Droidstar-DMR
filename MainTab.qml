@@ -332,192 +332,196 @@ contentItem: Text {
             }
         }
     }
-    ComboBox {
-        id: _comboMode
-        property bool loaded: false
+    Row {
+        id: topRow
         x: 10
         y: 10
-        width: (parent.width * 0.25)
-        height: (parent.height / rows) - 15
-        font.pixelSize: parent.height / 45
-        currentIndex: -1
-        displayText: currentIndex === -1 ? "Mode..." : currentText
-        model: ["M17", "YSF", "FCS", "DMR", "P25", "NXDN", "REF", "XRF", "DCS", "IAX"]
-        
-        background: Rectangle {
-            color: "#000000"
-            border.color: "#ff9933"
-            border.width: 1
-            radius: 5
-        }
-
-        contentItem: Text {
-            text: _comboMode.displayText
-            font: _comboMode.font
-            leftPadding: 5
-            verticalAlignment: Text.AlignVCenter
-            color: "white"
-        }
-        
-        popup: Popup {
-            y: parent.height
-            width: parent.width
-            implicitHeight: Math.min(contentItem.implicitHeight, 300)
-            padding: 1
-            parent: Overlay.overlay
-            transformOrigin: Item.Top
-            contentItem: ListView {
-                clip: true
-                implicitHeight: contentHeight
-                model: _comboMode.delegateModel
-                currentIndex: _comboMode.highlightedIndex
-                ScrollIndicator.vertical: ScrollIndicator { }
-            }
-            background: Rectangle {
-                color: "#1a1a1a"
-                border.color: "#ff9933"
-                radius: 5
-            }
-        }
-        
-        onCurrentTextChanged: {
-            if (_comboMode.loaded) {
-                droidstar.process_mode_change(_comboMode.currentText);
-            }
-        }
-    }
-    ComboBox {
-        id: _comboSlot
-        x: _comboMode.x + _comboMode.width + 10
-        y: 10
-        width: (parent.width * 0.2)
-        height: (parent.height / rows) - 15
-        font.pixelSize: parent.height / 45
-        model: ["S1", "S2"]
-        currentIndex: 1
-        
-        background: Rectangle {
-            color: "#000000"
-            border.color: "#ff9933"
-            border.width: 1
-            radius: 5
-        }
-        
-        contentItem: Text {
-            text: _comboSlot.displayText
-            font: _comboSlot.font
-            leftPadding: 5
-            verticalAlignment: Text.AlignVCenter
-            color: "white"
-        }
-        popup: Popup {
-            y: parent.height
-            width: parent.width
-            implicitHeight: Math.min(contentItem.implicitHeight, 200)
-            padding: 1
-            parent: Overlay.overlay
-            transformOrigin: Item.Top
-            contentItem: ListView {
-                clip: true
-                implicitHeight: contentHeight
-                model: _comboSlot.delegateModel
-                currentIndex: _comboSlot.highlightedIndex
-                ScrollIndicator.vertical: ScrollIndicator { }
-            }
-            background: Rectangle {
-                color: "#1a1a1a"
-                border.color: "#ff9933"
-                radius: 5
-            }
-        }
-        onCurrentTextChanged: {
-            droidstar.set_slot(_comboSlot.currentIndex);
-        }
-        visible: true
-    }
-    ComboBox {
-        id: _comboCC
-        x: _comboSlot.x + _comboSlot.width + 10
-        y: 10
-        width: (parent.width * 0.2)
+        width: parent.width - 20
+        spacing: 10
         height: (parent.height / rows) - 5
-        font.pixelSize: parent.height / 45
-        model: [
-            "CC0", "CC1", "CC2", "CC3", "CC4", "CC5", "CC6", "CC7",
-            "CC8", "CC9", "CC10", "CC11", "CC12", "CC13", "CC14", "CC15"
-        ]
-        currentIndex: 1
-        
-        background: Rectangle {
-            color: "#000000"
-            border.color: "#ff9933"
-            border.width: 1
-            radius: 5
-        }
-        
-        contentItem: Text {
-            text: _comboCC.displayText
-            font: _comboCC.font
-            leftPadding: 5
-            verticalAlignment: Text.AlignVCenter
-            color: "white"
-        }
-        popup: Popup {
-            y: parent.height
-            width: parent.width
-            implicitHeight: Math.min(contentItem.implicitHeight, 300)
-            padding: 1
-            parent: Overlay.overlay
-            transformOrigin: Item.Top
-            contentItem: ListView {
-                clip: true
-                implicitHeight: contentHeight
-                model: _comboCC.delegateModel
-                currentIndex: _comboCC.highlightedIndex
-                ScrollIndicator.vertical: ScrollIndicator { }
-            }
+
+        ComboBox {
+            id: _comboMode
+            property bool loaded: false
+            width: (parent.width * 0.25)
+            height: parent.height - 10
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: parent.height / 3.5 // Adjusted relative to new container height
+            currentIndex: -1
+            displayText: currentIndex === -1 ? "Mode..." : currentText
+            model: ["M17", "YSF", "FCS", "DMR", "P25", "NXDN", "REF", "XRF", "DCS", "IAX"]
+            
             background: Rectangle {
-                color: "#1a1a1a"
+                color: "#000000"
                 border.color: "#ff9933"
+                border.width: 1
                 radius: 5
             }
-        }
-        onCurrentTextChanged: {
-            droidstar.set_cc(_comboCC.currentIndex);
-        }
-        visible: true // Enable visibility
-    }
-    Button {
-        id: _connectbutton
-        x: parent.width - width - 10
-        y: 10
-        width: parent.width * 0.20
-        height: (parent.height / rows) - 5
-        text: qsTr("Connect")
-        font.pixelSize: parent.height / 45
-        
-        background: Rectangle {
-            color: "#ff9933"
-            radius: 5
-        }
-        contentItem: Text {
-            text: _connectbutton.text
-            font: _connectbutton.font
-            color: "#ffffff"
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-        }
 
-        onClicked: {
-            // settingsTab.callsignEdit.text = settingsTab.callsignEdit.text.toUpperCase();
-            droidstar.set_callsign(settingsTab.callsignEdit.text.toUpperCase());
-            // droidstar.set_host(comboHost.currentText);
-            droidstar.set_module(comboModule.currentText);
-            droidstar.set_protocol(comboMode.currentText);
-            droidstar.set_dmrtgid(dmrtgidEdit.text);
-            droidstar.set_dmrid(settingsTab.dmridEdit.text);
-            droidstar.set_essid(settingsTab.comboEssid.currentText);
-            droidstar.set_bm_password(settingsTab.bmpwEdit.text);
+            contentItem: Text {
+                text: _comboMode.displayText
+                font: _comboMode.font
+                leftPadding: 5
+                verticalAlignment: Text.AlignVCenter
+                color: "white"
+            }
+            
+            popup: Popup {
+                y: parent.height
+                width: parent.width
+                implicitHeight: Math.min(contentItem.implicitHeight, 300)
+                padding: 1
+                parent: Overlay.overlay
+                transformOrigin: Item.Top
+                contentItem: ListView {
+                    clip: true
+                    implicitHeight: contentHeight
+                    model: _comboMode.delegateModel
+                    currentIndex: _comboMode.highlightedIndex
+                    ScrollIndicator.vertical: ScrollIndicator { }
+                }
+                background: Rectangle {
+                    color: "#1a1a1a"
+                    border.color: "#ff9933"
+                    radius: 5
+                }
+            }
+            
+            onCurrentTextChanged: {
+                if (_comboMode.loaded) {
+                    droidstar.process_mode_change(_comboMode.currentText);
+                }
+            }
+        }
+        ComboBox {
+            id: _comboSlot
+            width: (parent.width * 0.2)
+            height: parent.height - 10
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: parent.height / 3.5
+            model: ["S1", "S2"]
+            currentIndex: 1
+            
+            background: Rectangle {
+                color: "#000000"
+                border.color: "#ff9933"
+                border.width: 1
+                radius: 5
+            }
+            
+            contentItem: Text {
+                text: _comboSlot.displayText
+                font: _comboSlot.font
+                leftPadding: 5
+                verticalAlignment: Text.AlignVCenter
+                color: "white"
+            }
+            popup: Popup {
+                y: parent.height
+                width: parent.width
+                implicitHeight: Math.min(contentItem.implicitHeight, 200)
+                padding: 1
+                parent: Overlay.overlay
+                transformOrigin: Item.Top
+                contentItem: ListView {
+                    clip: true
+                    implicitHeight: contentHeight
+                    model: _comboSlot.delegateModel
+                    currentIndex: _comboSlot.highlightedIndex
+                    ScrollIndicator.vertical: ScrollIndicator { }
+                }
+                background: Rectangle {
+                    color: "#1a1a1a"
+                    border.color: "#ff9933"
+                    radius: 5
+                }
+            }
+            onCurrentTextChanged: {
+                droidstar.set_slot(_comboSlot.currentIndex);
+            }
+            visible: true
+        }
+        ComboBox {
+            id: _comboCC
+            width: (parent.width * 0.2)
+            height: parent.height - 10
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: parent.height / 3.5
+            model: [
+                "CC0", "CC1", "CC2", "CC3", "CC4", "CC5", "CC6", "CC7",
+                "CC8", "CC9", "CC10", "CC11", "CC12", "CC13", "CC14", "CC15"
+            ]
+            currentIndex: 1
+            
+            background: Rectangle {
+                color: "#000000"
+                border.color: "#ff9933"
+                border.width: 1
+                radius: 5
+            }
+            
+            contentItem: Text {
+                text: _comboCC.displayText
+                font: _comboCC.font
+                leftPadding: 5
+                verticalAlignment: Text.AlignVCenter
+                color: "white"
+            }
+            popup: Popup {
+                y: parent.height
+                width: parent.width
+                implicitHeight: Math.min(contentItem.implicitHeight, 300)
+                padding: 1
+                parent: Overlay.overlay
+                transformOrigin: Item.Top
+                contentItem: ListView {
+                    clip: true
+                    implicitHeight: contentHeight
+                    model: _comboCC.delegateModel
+                    currentIndex: _comboCC.highlightedIndex
+                    ScrollIndicator.vertical: ScrollIndicator { }
+                }
+                background: Rectangle {
+                    color: "#1a1a1a"
+                    border.color: "#ff9933"
+                    radius: 5
+                }
+            }
+            onCurrentTextChanged: {
+                droidstar.set_cc(_comboCC.currentIndex);
+            }
+            visible: true 
+        }
+        Button {
+            id: _connectbutton
+            width: parent.width * 0.20
+            height: parent.height - 10
+            anchors.verticalCenter: parent.verticalCenter
+            text: qsTr("Connect")
+            font.pixelSize: parent.height / 3.5
+            
+            background: Rectangle {
+                color: "#ff9933"
+                radius: 5
+            }
+            contentItem: Text {
+                text: _connectbutton.text
+                font: _connectbutton.font
+                color: "#ffffff"
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+            }
+
+            onClicked: {
+                // settingsTab.callsignEdit.text = settingsTab.callsignEdit.text.toUpperCase();
+                droidstar.set_callsign(settingsTab.callsignEdit.text.toUpperCase());
+                // droidstar.set_host(comboHost.currentText);
+                droidstar.set_module(comboModule.currentText);
+                droidstar.set_protocol(comboMode.currentText);
+                droidstar.set_dmrtgid(dmrtgidEdit.text);
+                droidstar.set_dmrid(settingsTab.dmridEdit.text);
+                droidstar.set_essid(settingsTab.comboEssid.currentText);
+                droidstar.set_bm_password(settingsTab.bmpwEdit.text);
             droidstar.set_tgif_password(settingsTab.tgifpwEdit.text);
             droidstar.set_latitude(settingsTab.latEdit.text);
             droidstar.set_longitude(settingsTab.lonEdit.text);
