@@ -332,8 +332,9 @@ contentItem: Text {
             }
         }
     }
+    // First Row: Mode and Slot
     Row {
-        id: topRow
+        id: row1
         x: 10
         y: 10
         width: parent.width - 20
@@ -343,10 +344,10 @@ contentItem: Text {
         ComboBox {
             id: _comboMode
             property bool loaded: false
-            width: (parent.width * 0.25)
+            width: (parent.width * 0.60) // Increased width for Mode
             height: parent.height - 10
             anchors.verticalCenter: parent.verticalCenter
-            font.pixelSize: parent.height / 3.5 // Adjusted relative to new container height
+            font.pixelSize: parent.height / 3.5
             currentIndex: -1
             displayText: currentIndex === -1 ? "Mode..." : currentText
             model: ["M17", "YSF", "FCS", "DMR", "P25", "NXDN", "REF", "XRF", "DCS", "IAX"]
@@ -393,9 +394,10 @@ contentItem: Text {
                 }
             }
         }
+
         ComboBox {
             id: _comboSlot
-            width: (parent.width * 0.2)
+            width: (parent.width * 0.35) // Remaining width for Slot
             height: parent.height - 10
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: parent.height / 3.5
@@ -441,9 +443,20 @@ contentItem: Text {
             }
             visible: true
         }
+    }
+
+    // Second Row: CC and Connect Button
+    Row {
+        id: row2
+        x: 10
+        y: row1.y + row1.height + 10 // Position under row1
+        width: parent.width - 20
+        spacing: 10
+        height: (parent.height / rows) - 5
+
         ComboBox {
             id: _comboCC
-            width: (parent.width * 0.2)
+            width: (parent.width * 0.45) 
             height: parent.height - 10
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: parent.height / 3.5
@@ -492,9 +505,10 @@ contentItem: Text {
             }
             visible: true 
         }
+
         Button {
             id: _connectbutton
-            width: parent.width * 0.20
+            width: (parent.width * 0.50)
             height: parent.height - 10
             anchors.verticalCenter: parent.verticalCenter
             text: qsTr("Connect")
