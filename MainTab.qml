@@ -362,8 +362,10 @@ contentItem: Text {
         popup: Popup {
             y: parent.height
             width: parent.width
-            implicitHeight: contentItem.implicitHeight
+            implicitHeight: Math.min(contentItem.implicitHeight, 300) // Increase max height
             padding: 1
+            parent: Overlay.overlay
+            transformOrigin: Item.Top
             contentItem: ListView {
                 clip: true
                 implicitHeight: contentHeight
@@ -544,8 +546,10 @@ contentItem: Text {
         popup: Popup {
             y: parent.height
             width: parent.width
-            implicitHeight: contentItem.implicitHeight
+            implicitHeight: Math.min(contentItem.implicitHeight, 300) // Increase max height
             padding: 1
+            parent: Overlay.overlay
+            transformOrigin: Item.Top
             contentItem: ListView {
                 clip: true
                 implicitHeight: contentHeight
