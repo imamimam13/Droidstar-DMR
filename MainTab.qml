@@ -362,10 +362,8 @@ contentItem: Text {
         popup: Popup {
             y: parent.height
             width: parent.width
-            implicitHeight: Math.min(contentItem.implicitHeight, 300) // Increase max height
+            implicitHeight: contentItem.implicitHeight
             padding: 1
-            parent: Overlay.overlay
-            transformOrigin: Item.Top
             contentItem: ListView {
                 clip: true
                 implicitHeight: contentHeight
@@ -546,10 +544,8 @@ contentItem: Text {
         popup: Popup {
             y: parent.height
             width: parent.width
-            implicitHeight: Math.min(contentItem.implicitHeight, 300) // Increase max height
+            implicitHeight: contentItem.implicitHeight
             padding: 1
-            parent: Overlay.overlay
-            transformOrigin: Item.Top
             contentItem: ListView {
                 clip: true
                 implicitHeight: contentHeight
@@ -1447,7 +1443,6 @@ onDmrIDChanged: {
         }
     }
 
-    Button {
     property bool tx: false
     property int cnt: 0
     visible: true

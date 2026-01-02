@@ -162,16 +162,13 @@ Item {
         popup: Popup {
             y: parent.height
             width: parent.width
-            implicitHeight: Math.min(contentItem.implicitHeight, 200) // Limit height
+            implicitHeight: contentItem.implicitHeight
             padding: 1
-            parent: Overlay.overlay 
-            transformOrigin: Item.Top
-            
             contentItem: ListView {
                 clip: true
                 implicitHeight: contentHeight
-                model: parent.parent.delegateModel
-                currentIndex: parent.parent.highlightedIndex
+                model: parent.delegateModel
+                currentIndex: parent.highlightedIndex
                 ScrollIndicator.vertical: ScrollIndicator { }
             }
             background: Rectangle {
