@@ -87,8 +87,8 @@ android:SOURCES += androidserialport.cpp
 macx:OBJECTIVE_SOURCES += micpermission.mm
 ios:OBJECTIVE_SOURCES += micpermission.mm
 
-resources.files = main.qml AboutTab.qml HostsTab.qml LogTab.qml MainTab.qml SettingsTab.qml fontawesome-webfont.ttf QsoTab.qml background_pattern.png
-resources.prefix = /$${TARGET}
+resources.files = main.qml AboutTab.qml HostsTab.qml LogTab.qml MainTab.qml SettingsTab.qml fontawesome-webfont.ttf QsoTab.qml background_pattern.png splash_bg.png
+resources.prefix = /
 RESOURCES += resources
 
 # Additional import path used to resolve QML modules in Qt Creator's code model

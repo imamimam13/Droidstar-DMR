@@ -44,9 +44,10 @@ ApplicationWindow {
 
         Image {
             id: splashImage
-            source: "qrc:/DroidStar/splash_bg.png"
+            source: "qrc:/splash_bg.png"
             anchors.fill: parent
-            fillMode: Image.PreserveAspectCrop
+            fillMode: Image.PreserveAspectFit
+            z: 100
         }
 
         Timer {

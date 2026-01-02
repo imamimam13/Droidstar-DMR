@@ -336,7 +336,7 @@ contentItem: Text {
         id: _comboMode
         property bool loaded: false
         x: 10
-        y: 5
+        y: 10
         width: (parent.width * 0.25)
         height: (parent.height / rows) - 15
         font.pixelSize: parent.height / 45
@@ -389,7 +389,7 @@ contentItem: Text {
     ComboBox {
         id: _comboSlot
         x: _comboMode.x + _comboMode.width + 10
-        y: 5
+        y: 10
         width: (parent.width * 0.2)
         height: (parent.height / rows) - 15
         font.pixelSize: parent.height / 45
@@ -438,7 +438,7 @@ contentItem: Text {
     ComboBox {
         id: _comboCC
         x: _comboSlot.x + _comboSlot.width + 10
-        y: 5
+        y: 10
         width: (parent.width * 0.2)
         height: (parent.height / rows) - 5
         font.pixelSize: parent.height / 45
@@ -490,8 +490,8 @@ contentItem: Text {
     Button {
         id: _connectbutton
         x: parent.width - width - 10
-        y: 5
-        width: parent.width * 0.25
+        y: 10
+        width: parent.width * 0.20
         height: (parent.height / rows) - 5
         text: qsTr("Connect")
         font.pixelSize: parent.height / 45
