@@ -48,10 +48,10 @@ Item {
 
 property int rows: {
         if(USE_FLITE){
-            rows = 20;
+            rows = 21;
         }
         else{
-            rows = 18;
+            rows = 19;
         }
     }
     property bool tts: {
@@ -344,7 +344,7 @@ contentItem: Text {
         ComboBox {
             id: _comboMode
             property bool loaded: false
-            width: (parent.width * 0.60) // Increased width for Mode
+            width: (parent.width * 0.45) // Reduced width
             height: parent.height - 10
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: parent.height / 3.5
@@ -397,7 +397,7 @@ contentItem: Text {
 
         ComboBox {
             id: _comboSlot
-            width: (parent.width * 0.35) // Remaining width for Slot
+            width: (parent.width * 0.25) // Reduced width
             height: parent.height - 10
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: parent.height / 3.5
@@ -456,7 +456,7 @@ contentItem: Text {
 
         ComboBox {
             id: _comboCC
-            width: (parent.width * 0.45) 
+            width: (parent.width * 0.30) // Reduced width
             height: parent.height - 10
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: parent.height / 3.5
@@ -580,7 +580,7 @@ contentItem: Text {
     ComboBox {
         id: _comboHost
         x: 10
-        y: (parent.height / rows + 1) * 1
+        y: (parent.height / rows + 1) * 2
         width: parent.width * 0.6
         height: (parent.height / rows) - 15
         font.pixelSize: parent.height / 45
@@ -635,7 +635,7 @@ contentItem: Text {
     ComboBox {
         id: _comboModule
         x: (parent.width * 3) / 4
-        y: (parent.height / rows + 1) * 1
+        y: (parent.height / rows + 1) * 2
         width: (parent.width / 4) - 5
         height: (parent.height / rows) - 15
         font.pixelSize: parent.height / 35
@@ -681,7 +681,7 @@ contentItem: Text {
     Switch {
         id: _privateBox
         x: _comboHost.x + _comboHost.width + 10
-        y: (parent.height / rows + 1) * 1
+        y: (parent.height / rows + 1) * 2
         text: qsTr("Private")
         palette.button: "#ff9933"
         height: (parent.height / rows) - 5
@@ -726,7 +726,7 @@ contentItem: Text {
     Text {
         id: _dtmflabel
         x: 5
-        y: (parent.height / rows + 1) * 3
+        y: (parent.height / rows + 1) * 4
         width: parent.width / 5
         height: parent.height / rows
         text: qsTr("DTMF")
@@ -738,7 +738,7 @@ contentItem: Text {
     TextField {
         id: _editIAXDTMF
         x: parent.width / 4
-        y: (parent.height / rows + 1) * 3
+        y: (parent.height / rows + 1) * 4
         width: (parent.width * 3 / 8) - 4
         height: parent.height / rows
         font.pixelSize: parent.height / 35
@@ -748,7 +748,7 @@ contentItem: Text {
     Button { palette.button: "#ff9933"; palette.buttonText: "#ffffff";
         id: _dtmfsendbutton
         x: (parent.width * 5 / 8)
-        y: (parent.height / rows + 1) * 3
+        y: (parent.height / rows + 1) * 4
         width: (parent.width * 3 / 8) - 5
         height: parent.height / rows
         text: qsTr("Send")
@@ -761,7 +761,7 @@ contentItem: Text {
     Text {
         id: _bigTgidDisplay
         x: 10
-        y: (parent.height / rows + 1) * 2
+        y: (parent.height / rows + 1) * 3
         text: "TGID " + (_dmrtgidEdit.text ? _dmrtgidEdit.text : "----")
         color: "#ff9933"
         font.pixelSize: parent.height / 25
@@ -778,7 +778,7 @@ contentItem: Text {
         visible: false
         id: _dmrtgidEdit
         x: parent.width / 5
-        y: (parent.height / rows + 1) * 2
+        y: (parent.height / rows + 1) * 3
         width: parent.width / 5
         height: parent.height / rows
         font.pixelSize: parent.height / 35
@@ -798,7 +798,7 @@ contentItem: Text {
         visible: false
         id: _comboM17CAN
         x: parent.width / 5
-        y: (parent.height / rows + 1) * 2
+        y: (parent.height / rows + 1) * 3
         width: parent.width / 5
         height: parent.height / rows
         font.pixelSize: parent.height / 35
@@ -838,7 +838,7 @@ contentItem: Text {
     Switch {
         id: _swtxBox
         x: (parent.width * 2 / 5) + 5
-        y: (parent.height / rows + 1) * 2
+        y: (parent.height / rows + 1) * 3
         text: qsTr("SWTX")
         palette.button: "#ff9933"
         indicator: Rectangle {
@@ -867,7 +867,7 @@ contentItem: Text {
     Switch {
         id: _swrxBox
         x: _swtxBox.x + _swtxBox.width + 10 // Stack right
-        y: (parent.height / rows + 1) * 2
+        y: (parent.height / rows + 1) * 3
         text: qsTr("SWRX")
         palette.button: "#ff9933"
         indicator: Rectangle {
@@ -897,7 +897,7 @@ contentItem: Text {
     Switch {
         id: _agcBox
         x: _swrxBox.x + _swrxBox.width + 10
-        y: (parent.height / rows + 1) * 2
+        y: (parent.height / rows + 1) * 3
         text: qsTr("AGC")
         palette.button: "#ff9933"
         indicator: Rectangle {
@@ -927,7 +927,7 @@ contentItem: Text {
     Text {
         id: micgain_label
         x: 10
-        y: (parent.height / rows + 1) * 4
+        y: (parent.height / rows + 1) * 5
         width: parent.width / 4
         height: parent.height / rows
         text: qsTr("Mic")
@@ -940,7 +940,7 @@ contentItem: Text {
         visible: true
         id: _slidermicGain
         x: (parent.width / 4) + 10
-        y: (parent.height / rows + 1) * 4
+        y: (parent.height / rows + 1) * 5
         width: (parent.width * 3 / 4) - 20
         height: parent.height / rows
         value: 0.1
@@ -985,7 +985,7 @@ contentItem: Text {
     Text {
         id: _label1
         x: 10
-        y: (parent.height / rows + 1) * 5
+        y: (parent.height / rows + 1) * 6
         width: parent.width / 3
         height: parent.height / rows
         text: qsTr("MYCALL")
@@ -1000,7 +1000,7 @@ contentItem: Text {
 Text {
         id: fnameLabel
         x: 10
-        y: (parent.height / rows + 1) * 6 // Position below the mic gain slider
+        y: (parent.height / rows + 1) * 7 // Position below the mic gain slider
         width: parent.width / 3
         height: parent.height / rows 
         
@@ -1013,7 +1013,7 @@ Text {
 TextField {
         id: firstNameText1
         x: parent.width / 3
-        y: (parent.height / rows + 1) * 6
+        y: (parent.height / rows + 1) * 7
         width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         
@@ -1040,7 +1040,7 @@ TextField {
     Text {
         id: _label2
         x: 10
-        y: (parent.height / rows + 1) * 7.2
+        y: (parent.height / rows + 1) * 8.2
         width: parent.width / 3
         height: parent.height / rows
         text: qsTr("URCALL")
@@ -1051,7 +1051,7 @@ TextField {
     Text {
         id: _label3
         x: 10
-        y: (parent.height / rows + 1) * 8.2
+        y: (parent.height / rows + 1) * 9.2
         width: parent.width / 3
         height: parent.height / rows
         text: qsTr("RPTR1")
@@ -1062,7 +1062,7 @@ TextField {
     Text {
         id: _label4
         x: 10
-        y: (parent.height / rows + 1) * 9.2
+        y: (parent.height / rows + 1) * 10.2
         width: parent.width / 3
         height: parent.height / rows
         text: qsTr("RPTR2")
@@ -1073,7 +1073,7 @@ TextField {
     Text {
         id: _label5
         x: 10
-        y: (parent.height / rows + 1) * 10.2
+        y: (parent.height / rows + 1) * 11.2
         width: parent.width / 3
         height: parent.height / rows
         text: qsTr("StrmID")
@@ -1084,7 +1084,7 @@ TextField {
     Text {
         id: _label6
         x: 10
-        y: (parent.height / rows + 1) * 11.2
+        y: (parent.height / rows + 1) * 12.2
         width: parent.width / 3
         height: parent.height / rows
         text: qsTr("Text")
@@ -1094,7 +1094,7 @@ TextField {
     Text {
         id: _label7
         x: 10
-        y: (parent.height / rows + 1) * 12.2
+        y: (parent.height / rows + 1) * 13.2
         width: parent.width / 3
         height: parent.height / rows
         text: qsTr("")
@@ -1213,7 +1213,7 @@ Connections {
     TextField {
         id: _data3
         x: parent.width / 3
-        y: (parent.height / rows + 1) * 8.2
+        y: (parent.height / rows + 1) * 9.2
         width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         text: qsTr("")
@@ -1231,7 +1231,7 @@ Connections {
     TextField {
         id: _data4
         x: parent.width / 3
-        y: (parent.height / rows + 1) * 9.2
+        y: (parent.height / rows + 1) * 10.2
         width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         text: qsTr("")
@@ -1249,7 +1249,7 @@ Connections {
     TextField {
         id: _data5
         x: parent.width / 3
-        y: (parent.height / rows + 1) * 10.2
+        y: (parent.height / rows + 1) * 11.2
         width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         text: qsTr("")
@@ -1267,7 +1267,7 @@ Connections {
     TextField {
         id: _data6
         x: parent.width / 3
-        y: (parent.height / rows + 1) * 11.2
+        y: (parent.height / rows + 1) * 12.2
         width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         text: qsTr("")
@@ -1284,7 +1284,7 @@ Connections {
     TextField {
         id: _data7
         x: parent.width / 3
-        y: (parent.height / rows + 1) * 12.2
+        y: (parent.height / rows + 1) * 13.2
         width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         text: qsTr("")
@@ -1381,7 +1381,7 @@ Text {
     }*/
     Rectangle {
         x: 10
-        y: (parent.height / rows + 1.1) * 14.2
+        y: (parent.height / rows + 1.1) * 15.2
         width: parent.width - 20
         height: parent.height / 30
         color: "#ffffff"
@@ -1391,7 +1391,7 @@ Text {
     }
     Text {
         x: 10
-        y: (parent.height / rows + 1.1) * 13.5
+        y: (parent.height / rows + 1.1) * 14.5
         width: parent.width - 20
         text: qsTr("Audio Visualizer")
         color: "darkgrey"
@@ -1401,7 +1401,7 @@ Text {
     Rectangle {
         id: _levelMeter
         x: 10
-        y: (parent.height / rows + 1.1) * 14.2
+        y: (parent.height / rows + 1.1) * 15.2
         width: 0
         height: parent.height / 30
         color: "#ff9933"
@@ -1418,7 +1418,7 @@ Text {
         id: mic
         visible: tts ? true : false
         x: 5
-        y: (parent.height / rows + 1) * 17
+        y: (parent.height / rows + 1) * 18
         height: 25
         spacing: 1
         text: qsTr("Mic")
@@ -1429,7 +1429,7 @@ Text {
         id: tts1
         visible: tts ? true : false
         x: parent.width / 4
-        y: (parent.height / rows + 1) * 17
+        y: (parent.height / rows + 1) * 18
         height: 25
         spacing: 1
         text: qsTr("TTS1")
@@ -1439,7 +1439,7 @@ Text {
         id: tts2
         visible: tts ? true : false
         x: parent.width * 2 / 4
-        y: (parent.height / rows + 1) * 17
+        y: (parent.height / rows + 1) * 18
         height: 25
         spacing: 1
         text: qsTr("TTS2")
@@ -1450,7 +1450,7 @@ Text {
         id: tts3
         visible: tts ? true : false
         x: parent.width * 3 / 4
-        y: (parent.height / rows + 1) * 17
+        y: (parent.height / rows + 1) * 18
         height: 25
         spacing: 1
         text: qsTr("TTS3")
@@ -1460,7 +1460,7 @@ Text {
         id: _ttstxtedit
         visible: tts ? true : false
         x: 5
-        y: (parent.height / rows + 1) * 18
+        y: (parent.height / rows + 1) * 19
         width: parent.width - 10
         height: parent.height / rows
         font.pixelSize: parent.height / 35
@@ -1558,7 +1558,7 @@ onDmrIDChanged: {
         }
     }
     x: 10
-    y: (parent.height / rows + 1) * (tts ? 17 : 15)
+    y: (parent.height / rows + 1) * (tts ? 18 : 16)
     width: parent.width - 20
     height: parent.height - y - 10
     font.pointSize: 24
