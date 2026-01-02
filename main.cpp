@@ -1,72 +1,72 @@
 
 /*
-        Original Copyright (C) 2019-2021 Doug McLain
-        Modification Copyright (C) 2024 Rohith Namboothiri
+	Original Copyright (C) 2019-2021 Doug McLain
+	Modification Copyright (C) 2024 Rohith Namboothiri
 
-        This program is free software: you can redistribute it and/or modify
-        it under the terms of the GNU General Public License as published by
-        the Free Software Foundation, either version 3 of the License, or
-        (at your option) any later version.
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-        This program is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-        GNU General Public License for more details.
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-        You should have received a copy of the GNU General Public License
-        along with this program.  If not, see <https://www.gnu.org/licenses/>.
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include "LogHandler.h"
-#include "dmr.h" // Ensure this is the correct include for your DMR class
-#include "droidstar.h"
-#include "vuidupdater.h" // Include the new header
 #include <QGuiApplication>
-#include <QIcon>
 #include <QQmlApplicationEngine>
-#include <QQmlContext>
 #include <QQuickStyle>
+#include <QIcon>
+#include <QQmlContext>
+#include "droidstar.h"
+#include "dmr.h"  // Ensure this is the correct include for your DMR class
 #include <QSharedPointer>
+#include "vuidupdater.h"  // Include the new header
+#include "LogHandler.h"
 
-int main(int argc, char *argv[]) {
-  QGuiApplication app(argc, argv);
-  QQuickStyle::setStyle("Fusion");
-  app.setWindowIcon(QIcon(":/images/droidstar.png"));
+int main(int argc, char *argv[])
+{
+    QGuiApplication app(argc, argv);
+    QQuickStyle::setStyle("Fusion");
+    app.setWindowIcon(QIcon(":/images/droidstar.png"));
+    
+    // Register DroidStar type
+    qmlRegisterType<DroidStar>("org.dudetronics.droidstar", 1, 0, "DroidStar");
+  
+    
+  
+    QQmlApplicationEngine engine;
+    //VUIDUpdater *vuidUpdater = new VUIDUpdater();  // Create instance
+    VUIDUpdater vuidUpdater;
+     engine.rootContext()->setContextProperty("vuidUpdater", &vuidUpdater); // Provide to QML by passing a pointer
 
-  // Register DroidStar type
-  qmlRegisterType<DroidStar>("org.dudetronics.droidstar", 1, 0, "DroidStar");
-
-  // Register Theme singleton
-  qmlRegisterSingletonType(QUrl("qrc:/DroidStar/Theme.qml"), "Theme", 1, 0,
-                           "Theme");
-
-  QQmlApplicationEngine engine;
-  // VUIDUpdater *vuidUpdater = new VUIDUpdater();  // Create instance
-  VUIDUpdater vuidUpdater;
-  engine.rootContext()->setContextProperty(
-      "vuidUpdater", &vuidUpdater); // Provide to QML by passing a pointer
-
-  // Register LogHandler class with QML
-  LogHandler logHandler;
-  engine.rootContext()->setContextProperty("logHandler", &logHandler);
-
-  // Check for FLITE support
+    // Register LogHandler class with QML
+       LogHandler logHandler;
+       engine.rootContext()->setContextProperty("logHandler", &logHandler);
+   
+    
+    // Check for FLITE support
 #ifdef USE_FLITE
-  engine.rootContext()->setContextProperty("USE_FLITE", QVariant(true));
+    engine.rootContext()->setContextProperty("USE_FLITE", QVariant(true));
 #else
-  engine.rootContext()->setContextProperty("USE_FLITE", QVariant(false));
+    engine.rootContext()->setContextProperty("USE_FLITE", QVariant(false));
 #endif
 
-  // Load the main QML file
-  const QUrl url(u"qrc:/DroidStar/main.qml"_qs);
-  QObject::connect(
-      &engine, &QQmlApplicationEngine::objectCreated, &app,
-      [url](QObject *obj, const QUrl &objUrl) {
-        if (!obj && url == objUrl)
-          QCoreApplication::exit(-1);
-      },
-      Qt::QueuedConnection);
-  engine.load(url);
+    // Load the main QML file
+    const QUrl url(u"qrc:/DroidStar/main.qml"_qs);
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
+                     &app, [url](QObject *obj, const QUrl &objUrl) {
+                         if (!obj && url == objUrl)
+                             QCoreApplication::exit(-1);
+                     }, Qt::QueuedConnection);
+    engine.load(url);
 
-  return app.exec();
+    
+    
+    
+    return app.exec();
 }

@@ -18,46 +18,14 @@
 
 
 import QtQuick
-import Theme 1.0import QtQuick.Controls
-import Theme 1.0import org.dudetronics.droidstar
-import "."  // Import directory for Theme.qml
+import QtQuick.Controls
+import org.dudetronics.droidstar
+
 
 Item {
     id: mainTab
     width: 400
     height: 600
-
-    // Background
-    Rectangle {
-        id: bgRec
-        anchors.fill: parent
-        color: Theme.backgroundColor
-
-        Image {
-            source: Theme.backgroundPattern
-            anchors.fill: parent
-            fillMode: Image.Tile
-            opacity: 0.3
-        }
-    }
-    
-    // Compatibility Aliases for main.qml
-    property alias buttonTX: _buttonTX
-    property alias connectbutton: _connectbutton
-    property alias comboMode: _comboMode
-    property alias comboHost: _comboHost
-    property alias comboModule: _comboModule
-    property alias btntxt: _btntxt
-    property alias data1: _data1
-    property alias data2: _data2
-    property alias data3: _data3
-    property alias data4: _data4
-    property alias data5: _data5
-    property alias data6: _data6
-    property alias netstatus: _netstatus
-    property alias sliderMicGain: _sliderMicGain
-    property alias txtimer: _txtimer
-    property alias dmrtgidEdit: _dmrtgidEdit
     
 
 
@@ -362,20 +330,12 @@ contentItem: Text {
         currentIndex: -1
         displayText: currentIndex === -1 ? "Mode..." : currentText
         model: ["M17", "YSF", "FCS", "DMR", "P25", "NXDN", "REF", "XRF", "DCS", "IAX"]
-
-        background: Rectangle {
-            color: Theme.secondaryBackgroundColor
-            border.color: Theme.primaryColor
-            border.width: 1
-            radius: Theme.cornerRadius
-        }
-
         contentItem: Text {
             text: _comboMode.displayText
             font: _comboMode.font
             leftPadding: 10
             verticalAlignment: Text.AlignVCenter
-            color: _comboMode.enabled ? Theme.textColor : Theme.secondaryTextColor
+            color: _comboMode.enabled ? "white" : "darkgrey"
         }
         onCurrentTextChanged: {
             if (_comboMode.loaded) {
@@ -401,20 +361,12 @@ contentItem: Text {
         font.pixelSize: parent.height / 35
         model: ["S1", "S2"]
         currentIndex: 1
-
-        background: Rectangle {
-            color: Theme.secondaryBackgroundColor
-            border.color: Theme.primaryColor
-            border.width: 1
-            radius: Theme.cornerRadius
-        }
-
         contentItem: Text {
             text: _comboSlot.displayText
             font: _comboSlot.font
             leftPadding: 10
             verticalAlignment: Text.AlignVCenter
-            color: _comboSlot.enabled ? Theme.textColor : Theme.secondaryTextColor
+            color: _comboSlot.enabled ? "white" : "darkgrey"
         }
         onCurrentTextChanged: {
             droidstar.set_slot(_comboSlot.currentIndex);
@@ -447,20 +399,12 @@ contentItem: Text {
             "CC15"
         ]
         currentIndex: 1
-
-        background: Rectangle {
-            color: Theme.secondaryBackgroundColor
-            border.color: Theme.primaryColor
-            border.width: 1
-            radius: Theme.cornerRadius
-        }
-
         contentItem: Text {
             text: _comboCC.displayText
             font: _comboCC.font
             leftPadding: 10
             verticalAlignment: Text.AlignVCenter
-            color: _comboCC.enabled ? Theme.textColor : Theme.secondaryTextColor
+            color: _comboCC.enabled ? "white" : "darkgrey"
         }
         onCurrentTextChanged: {
             droidstar.set_cc(_comboCC.currentIndex);
@@ -475,19 +419,6 @@ contentItem: Text {
         height: parent.height / rows
         text: qsTr("Connect")
         font.pixelSize: parent.height / 30
-
-        background: Rectangle {
-            color: _connectbutton.down ? Theme.accentColor : Theme.primaryColor
-            radius: Theme.cornerRadius
-        }
-        contentItem: Text {
-            text: _connectbutton.text
-            font: _connectbutton.font
-            color: Theme.backgroundColor // Black text on Orange button
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-        }
-
         onClicked: {
             // settingsTab.callsignEdit.text = settingsTab.callsignEdit.text.toUpperCase();
             droidstar.set_callsign(settingsTab.callsignEdit.text.toUpperCase());
@@ -547,20 +478,12 @@ contentItem: Text {
         font.pixelSize: parent.height / 35
         currentIndex: -1
         displayText: currentIndex === -1 ? "Host..." : currentText
-
-        background: Rectangle {
-            color: Theme.secondaryBackgroundColor
-            border.color: Theme.primaryColor
-            border.width: 1
-            radius: Theme.cornerRadius
-        }
-
         contentItem: Text {
             text: _comboHost.displayText
             font: _comboHost.font
             leftPadding: 10
             verticalAlignment: Text.AlignVCenter
-            color: _comboHost.enabled ? Theme.textColor : Theme.secondaryTextColor
+            color: _comboHost.enabled ? "white" : "darkgrey"
         }
         onCurrentTextChanged: {
             if (settingsTab.mmdvmBox.checked) {
@@ -609,20 +532,12 @@ contentItem: Text {
             "Y",
             "Z"
         ]
-
-        background: Rectangle {
-            color: Theme.secondaryBackgroundColor
-            border.color: Theme.primaryColor
-            border.width: 1
-            radius: Theme.cornerRadius
-        }
-        
         contentItem: Text {
             text: _comboModule.displayText
             font: _comboModule.font
             leftPadding: 10
             verticalAlignment: Text.AlignVCenter
-            color: _comboModule.enabled ? Theme.textColor : Theme.secondaryTextColor
+            color: _comboModule.enabled ? "white" : "darkgrey"
         }
         onCurrentTextChanged: {
             if (_comboMode.loaded) {
@@ -1285,10 +1200,8 @@ onDmrIDChanged: {
     enabled: false
     id: _buttonTX
     background: Rectangle {
-        color: _buttonTX.tx ? Theme.primaryColor : Theme.secondaryBackgroundColor
-        radius: Theme.cornerRadius
-        border.color: Theme.borderColor
-        border.width: 1
+        color: _buttonTX.tx ? "#800000" : "steelblue"
+        radius: 10
 
        
         Column {
@@ -1300,7 +1213,7 @@ onDmrIDChanged: {
                 id: _btntxt
                 font.pointSize: 20 
                 text: qsTr("TX")
-                color: _buttonTX.tx ? Theme.backgroundColor : Theme.textColor
+                color: "white"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -1309,7 +1222,7 @@ onDmrIDChanged: {
             Text {
                 id: _netstatus
                 text: qsTr("Not Connected to network")
-                color: Theme.secondaryTextColor
+                color: "white"
                 font.pixelSize: 16  // Adjust font size for better readability
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter

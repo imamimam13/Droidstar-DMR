@@ -16,8 +16,7 @@
 */
 
 import QtQuick
-import Theme 1.0import QtQuick.Controls
-import Theme 1.0import "."
+import QtQuick.Controls
 
 Item {
 	id: hostsTab
@@ -28,21 +27,9 @@ Item {
 		y: 20
 		width: parent.width - 40
 		height: parent.height - 40
-		color: Theme.backgroundColor // Changed from secondaryBackgroundColor
-        radius: Theme.cornerRadiusColor // Changed from cornerRadius
-        border.color: Theme.borderColor
-        border.width: 1
-
-        Image {
-            source: Theme.backgroundPattern
-            anchors.fill: parent
-            fillMode: Image.Tile
-            opacity: 0.3
-        }
-
+		color: "#252424"
 		Flickable{
 			anchors.fill: parent
-            anchors.margins: 10
 			contentWidth: parent.width
 			contentHeight: hostsTxtEdit.y +
 						   hostsTxtEdit.height
@@ -52,7 +39,7 @@ Item {
 				id: hostsText
 				width: hostsText.width
 				wrapMode: Text.WordWrap
-				color: Theme.textColor
+				color: "white"
 				text: qsTr("Custom hostfile format:\n" +
                            "<mode> <name> <host> <port> <username (optional)> <password (optional)>\n" +
 						   "Example: REF REF123 192.168.1.1 20001\n" +
@@ -66,12 +53,9 @@ Item {
 				width: hostsList.width
 				height: 500
 				background: Rectangle {
-					color: Theme.backgroundColor
-					radius: Theme.cornerRadius
-                    border.color: Theme.borderColor
-                    border.width: 1
+					color: "#000000"
+					radius: 5
 				}
-                color: Theme.textColor
 				wrapMode: TextArea.WordWrap
 				text: qsTr("")
 				onEditingFinished: {

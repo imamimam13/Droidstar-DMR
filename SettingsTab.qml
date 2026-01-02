@@ -17,26 +17,10 @@
 */
 
 import QtQuick
-import Theme 1.0import QtQuick.Controls
-import Theme 1.0import "."
+import QtQuick.Controls
 
 Item {
 	id: settingsTab
-    
-    // Background
-    Rectangle {
-        id: settingsRect
-        anchors.fill: parent
-        color: Theme.backgroundColor
-
-        Image {
-            source: Theme.backgroundPattern
-            anchors.fill: parent
-            fillMode: Image.Tile
-            opacity: 0.3
-        }
-    }
-
 	property alias callsignEdit: csedit
 	property alias dmridEdit: dmridedit
 	property alias comboEssid: comboessid
@@ -104,7 +88,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("Vocoder")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		ComboBox {
@@ -113,19 +97,6 @@ Item {
 			y: vocoderLabel.y
 			width: parent.width - 110
 			height: 30
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
-            contentItem: Text {
-                text: _comboVocoder.displayText
-                font: _comboVocoder.font
-                leftPadding: 10
-                verticalAlignment: Text.AlignVCenter
-                color: _comboVocoder.enabled ? Theme.textColor : Theme.secondaryTextColor
-            }
 		}
 		Text {
 			id: modemLabel
@@ -134,7 +105,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("Modem")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		ComboBox {
@@ -143,19 +114,6 @@ Item {
 			y: modemLabel.y
 			width: parent.width - 110
 			height: 30
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
-            contentItem: Text {
-                text: _comboModem.displayText
-                font: _comboModem.font
-                leftPadding: 10
-                verticalAlignment: Text.AlignVCenter
-                color: _comboModem.enabled ? Theme.textColor : Theme.secondaryTextColor
-            }
 		}
 		Text {
 			id: playbackLabel
@@ -164,7 +122,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("Playback")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		ComboBox {
@@ -173,19 +131,6 @@ Item {
 			y: playbackLabel.y
 			width: parent.width - 110
 			height: 30
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
-            contentItem: Text {
-                text: _comboPlayback.displayText
-                font: _comboPlayback.font
-                leftPadding: 10
-                verticalAlignment: Text.AlignVCenter
-                color: _comboPlayback.enabled ? Theme.textColor : Theme.secondaryTextColor
-            }
 		}
 		Text {
 			id: captureLabel
@@ -194,7 +139,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("Capture")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		ComboBox {
@@ -203,19 +148,6 @@ Item {
 			y: captureLabel.y
 			width: parent.width - 110
 			height: 30
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
-            contentItem: Text {
-                text: _comboCapture.displayText
-                font: _comboCapture.font
-                leftPadding: 10
-                verticalAlignment: Text.AlignVCenter
-                color: _comboCapture.enabled ? Theme.textColor : Theme.secondaryTextColor
-            }
 		}
 		Text {
 			id: csLabel
@@ -224,7 +156,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("Callsign")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -236,13 +168,6 @@ Item {
 			text: qsTr("")
 			font.capitalization: Font.AllUppercase
 			selectByMouse: true
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: dmridLabel
@@ -251,7 +176,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("DMRID")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -262,13 +187,6 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: essidLabel
@@ -277,7 +195,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("ESSID")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		ComboBox {
@@ -286,19 +204,6 @@ Item {
 			y: essidLabel.y
 			width: 80
 			height: 30
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
-            contentItem: Text {
-                text: comboessid.displayText
-                font: comboessid.font
-                leftPadding: 10
-                verticalAlignment: Text.AlignVCenter
-                color: comboessid.enabled ? Theme.textColor : Theme.secondaryTextColor
-            }
 			function build_model(){
 				console.log("build_model() called");
 				var ids = ["None"];
@@ -322,7 +227,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("BM Pass")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -333,13 +238,6 @@ Item {
 			height: 25
 			selectByMouse: true
 			echoMode: TextInput.Password
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: tgifpwLabel
@@ -348,7 +246,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("TGIF Pass")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -359,13 +257,6 @@ Item {
 			height: 25
 			selectByMouse: true
 			echoMode: TextInput.Password
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: latLabel
@@ -374,7 +265,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("Latitude")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -384,13 +275,6 @@ Item {
 			width: 125
 			height: 25
 			selectByMouse: true
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: lonLabel
@@ -399,7 +283,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("Longitude")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -409,13 +293,6 @@ Item {
 			width: 125
 			height: 25
 			selectByMouse: true
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: locLabel
@@ -424,7 +301,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("Location")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -434,13 +311,6 @@ Item {
 			width: 125
 			height: 25
 			selectByMouse: true
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: descLabel
@@ -449,7 +319,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("Description")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -459,13 +329,6 @@ Item {
 			width: 125
 			height: 25
 			selectByMouse: true
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: urlLabel
@@ -474,7 +337,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("URL")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -484,13 +347,6 @@ Item {
 			width: 125
 			height: 25
 			selectByMouse: true
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: swidLabel
@@ -499,7 +355,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("SoftwareID")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -509,13 +365,6 @@ Item {
 			width: 125
 			height: 25
 			selectByMouse: true
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: pkgidLabel
@@ -524,7 +373,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("PackageID")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -534,13 +383,6 @@ Item {
 			width: parent.width - 110
 			height: 25
 			selectByMouse: true
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: dmroptslabel
@@ -549,7 +391,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("DMR+ Opts")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -559,13 +401,6 @@ Item {
 			width: parent.width - 110
 			height: 25
 			selectByMouse: true
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 
 		Text {
@@ -575,7 +410,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("MYCALL")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -589,13 +424,6 @@ Item {
 			onEditingFinished: {
 				droidstar.set_mycall(mycalledit.text.toUpperCase())
 			}
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: urcallLabel
@@ -604,7 +432,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("URCALL")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -618,13 +446,6 @@ Item {
 			onEditingFinished: {
 				droidstar.set_urcall(urcalledit.text.toUpperCase())
 			}
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: rptr1Label
@@ -633,7 +454,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("RPTR1")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -647,13 +468,6 @@ Item {
 			onEditingFinished: {
 				droidstar.set_rptr1(rptr1edit.text.toUpperCase())
 			}
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: rptr2Label
@@ -662,7 +476,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("RPTR2")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -676,13 +490,6 @@ Item {
 			onEditingFinished: {
 				droidstar.set_rptr2(rptr2edit.text.toUpperCase())
 			}
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: usrtxtLabel
@@ -691,7 +498,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("USRTXT")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -704,13 +511,6 @@ Item {
 			onEditingFinished: {
 				droidstar.set_usrtxt(usrtxtedit.text)
 			}
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: txtimerLabel
@@ -719,7 +519,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("TX Timeout")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -729,13 +529,6 @@ Item {
 			width: 125
 			height: 25
 			selectByMouse: true
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: m17rateLabel
@@ -744,7 +537,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("M17/YSF rate")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		ButtonGroup {
@@ -763,13 +556,6 @@ Item {
 			text: qsTr("Voice Full")
 			checked: true
 			ButtonGroup.group: m17rateGroup
-            contentItem: Text {
-                text: parent.text
-                font: parent.font
-                color: Theme.textColor
-                verticalAlignment: Text.AlignVCenter
-                leftPadding: parent.indicator.width + parent.spacing
-            }
 		}
 		CheckBox {
 			id: m17_1600
@@ -780,13 +566,6 @@ Item {
 			spacing: 1
 			text: qsTr("Voice/Data")
 			ButtonGroup.group: m17rateGroup
-            contentItem: Text {
-                text: parent.text
-                font: parent.font
-                color: Theme.textColor
-                verticalAlignment: Text.AlignVCenter
-                leftPadding: parent.indicator.width + parent.spacing
-            }
 		}
 		Button {
 			id: updatehostsButton
@@ -795,17 +574,6 @@ Item {
 			width: 150
 			height: 30
 			text: qsTr("Update hosts")
-            background: Rectangle {
-                color: updatehostsButton.down ? Theme.accentColor : Theme.primaryColor
-                radius: Theme.cornerRadius
-            }
-            contentItem: Text {
-                text: updatehostsButton.text
-                font: updatehostsButton.font
-                color: Theme.backgroundColor
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-            }
 			onClicked: {
 				droidstar.update_host_files()
 				updateDialog.open()
@@ -818,17 +586,6 @@ Item {
 			width: 150
 			height: 30
 			text: qsTr("Update ID files")
-            background: Rectangle {
-                color: updatedmridsButton.down ? Theme.accentColor : Theme.primaryColor
-                radius: Theme.cornerRadius
-            }
-            contentItem: Text {
-                text: updatedmridsButton.text
-                font: updatedmridsButton.font
-                color: Theme.backgroundColor
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-            }
 			onClicked: {
 				droidstar.update_dmr_ids()
 				updateDialog.open()
@@ -842,13 +599,6 @@ Item {
 			height: 25
 			spacing: 1
 			text: qsTr("Enable TX toggle mode")
-            contentItem: Text {
-                text: parent.text
-                font: parent.font
-                color: Theme.textColor
-                verticalAlignment: Text.AlignVCenter
-                leftPadding: parent.indicator.width + parent.spacing
-            }
 			onClicked:{
 				droidstar.set_toggletx(toggleTX.checked);
 			}
@@ -861,13 +611,6 @@ Item {
 			height: 25
 			spacing: 1
 			text: qsTr("Use REF for XRF")
-            contentItem: Text {
-                text: parent.text
-                font: parent.font
-                color: Theme.textColor
-                verticalAlignment: Text.AlignVCenter
-                leftPadding: parent.indicator.width + parent.spacing
-            }
 		}
 		CheckBox {
 			id: ipV6
@@ -877,13 +620,6 @@ Item {
 			height: 25
 			spacing: 1
 			text: qsTr("Use IPv6 when available")
-            contentItem: Text {
-                text: parent.text
-                font: parent.font
-                color: Theme.textColor
-                verticalAlignment: Text.AlignVCenter
-                leftPadding: parent.indicator.width + parent.spacing
-            }
 		}
 		Text {
 			id: _vocoderURLlabel
@@ -892,7 +628,7 @@ Item {
 			width: 80
 			height: 25
 			text: qsTr("Vocoder URL")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -902,13 +638,6 @@ Item {
 			width: parent.width - 110
 			height: 25
 			selectByMouse: true
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Button {
 			id: vocoderButton
@@ -1006,7 +735,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("RX Level")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1017,13 +746,6 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: _modemTXLevelLabel
@@ -1032,7 +754,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("TX Level")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1043,13 +765,6 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: _modemRXDCOffsetLabel
@@ -1058,7 +773,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("RX DC Offset")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1069,13 +784,6 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: _modemTXDCOffsetLabel
@@ -1084,7 +792,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("TX DC Offset")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1095,13 +803,6 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: _modemRFLevelLabel
@@ -1110,7 +811,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("RF Level")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1121,13 +822,6 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: _modemTXDelayLabel
@@ -1136,7 +830,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("TX Delay")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1147,13 +841,6 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: _modemCWIdTXLevelLabel
@@ -1162,7 +849,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("CWIdTXLevel")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1173,13 +860,6 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: _modemDStarTXLevelLabel
@@ -1188,7 +868,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("DStarTXLevel")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1199,13 +879,6 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: _modemDMRTXLevelLabel
@@ -1214,7 +887,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("DMRTXLevel")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1225,13 +898,6 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: _modemYSFTXLevelLabel
@@ -1240,7 +906,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("YSFTXLevel")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1251,13 +917,6 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: _modemP25TXLevelLabel
@@ -1266,7 +925,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("P25TXLevel")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1277,13 +936,6 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: _modemNXDNTXLevelLabel
@@ -1292,7 +944,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("NXDNTXLevel")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1303,13 +955,6 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
 		Text {
 			id: _modemBaudLabel
@@ -1318,7 +963,7 @@ Item {
 			width: 100
 			height: 25
 			text: qsTr("Baud")
-			color: Theme.textColor
+			color: "white"
 			verticalAlignment: Text.AlignVCenter
 		}
 		TextField {
@@ -1329,13 +974,6 @@ Item {
 			height: 25
 			selectByMouse: true
 			inputMethodHints: "ImhPreferNumbers"
-            color: Theme.textColor
-            background: Rectangle {
-                color: Theme.secondaryBackgroundColor
-                border.color: Theme.primaryColor
-                border.width: 1
-                radius: Theme.cornerRadius
-            }
 		}
         Text {
                id: _ambestatus
@@ -1344,20 +982,22 @@ Item {
                width: parent.width - 30
                height: 30
                text: qsTr("No AMBE hardware connected")
-               color: Theme.secondaryTextColor
+               color: "white"
                font.pixelSize: 14
            }
 
            Text {
                id: _mmdvmstatus
                x: 10
-               y: _ambestatus.y + _ambestatus.height + 4
+               y: ambestatus.y + ambestatus.height + 4
                width: parent.width - 30
                height: 30
                text: qsTr("No MMDVM connected")
-               color: Theme.secondaryTextColor
+               color: "white"
                font.pixelSize: 14
            }
+
+
 // Buy Me a Coffee Button
 Rectangle {
     id: buyMeCoffeeButton
@@ -1390,58 +1030,27 @@ Rectangle {
         }
     }
 }
-        CheckBox {
-            id: validateDmridCheckBox
-            x: 10
-            y: buyMeCoffeeButton.y + buyMeCoffeeButton.height + 10
-            text: qsTr("Validate DMR ID (Online)")
-            checked: droidstar.get_validate_dmrid()
-            onCheckedChanged: {
-                droidstar.set_validate_dmrid(checked)
-            }
-            contentItem: Text {
-                text: parent.text
-                font: parent.font
-                color: Theme.textColor
-                verticalAlignment: Text.AlignVCenter
-                leftPadding: parent.indicator.width + parent.spacing
-            }
-        }
 
         CheckBox {
             id: _mmdvmBox
             x: 10
-            y: validateDmridCheckBox.y + validateDmridCheckBox.height + 10
+            y: 1475
             width: parent.width
             height: 25
             text: qsTr("MMDVM_DIRECT")
             onClicked:{
                 droidstar.set_mmdvm_direct(_mmdvmBox.checked)
             }
-            contentItem: Text {
-                text: parent.text
-                font: parent.font
-                color: Theme.textColor
-                verticalAlignment: Text.AlignVCenter
-                leftPadding: parent.indicator.width + parent.spacing
-            }
         }
         CheckBox {
             id: _debugBox
             x: 10
-            y: _mmdvmBox.y + _mmdvmBox.height + 10
+            y: 1499
             width: parent.width
             height: 25
             text: qsTr("Debug output to stderr")
             onClicked:{
                 droidstar.set_debug(_debugBox.checked)
-            }
-            contentItem: Text {
-                text: parent.text
-                font: parent.font
-                color: Theme.textColor
-                verticalAlignment: Text.AlignVCenter
-                leftPadding: parent.indicator.width + parent.spacing
             }
         }
 	}

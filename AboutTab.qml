@@ -17,8 +17,7 @@
 */
 
 import QtQuick 2.15
-import Theme 1.0import QtQuick.Controls 2.15
-import Theme 1.0import "."
+import QtQuick.Controls 2.15
 
 Item {
     id: aboutTab
@@ -26,25 +25,13 @@ Item {
     Rectangle {
         id: helpText
         anchors.fill: parent
-        color: Theme.backgroundColor
+        color: "#252424"
 
-        // Background
-        Rectangle {
-            anchors.fill: parent
-            color: Theme.backgroundColor
-
-            Image {
-                source: Theme.backgroundPattern
-                anchors.fill: parent
-                fillMode: Image.Tile
-                opacity: 0.3
-            }
-        }
         Flickable {
             id: flickable
             anchors.fill: parent
             contentWidth: parent.width
-            contentHeight: aboutText.height + buttonRow.height + 40 // Adjusted content height to include buttonRow
+            contentHeight: aboutText.height + buyMeCoffeeButton.height + 20 // Adjusted content height
             flickableDirection: Flickable.VerticalFlick
             clip: true
 
@@ -54,7 +41,7 @@ Item {
                 anchors.top: parent.top
                 anchors.horizontalCenter: parent.horizontalCenter
                 wrapMode: Text.WordWrap
-                color: Theme.textColor
+                color: "white"
                 text: qsTr("\nDROID-Star git build " + droidstar.get_software_build() +
                            "\nPlatform:\t" + droidstar.get_platform() +
                            "\nArchitecture:\t" + droidstar.get_arch() +
