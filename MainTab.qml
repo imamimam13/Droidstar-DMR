@@ -26,6 +26,13 @@ Item {
     id: mainTab
     width: 400
     height: 600
+
+    Rectangle {
+        id: bgRect
+        anchors.fill: parent
+        color: "#0d0d0d"
+        z: -1
+    }
     
 
 
@@ -201,7 +208,7 @@ function updateFullNameText() {
 Text {
     id: recentTgLabel
     text: qsTr("Recent TG")
-    color: "white"
+    color: "#ffffff"
     font.pixelSize: parent.height / 40
     x: 10
     y: (parent.height / rows + 1) * 3 // Adjust y position to fit layout
@@ -226,7 +233,7 @@ ComboBox {
 
 contentItem: Text {
         text: recentTgidsComboBox.currentText
-        color: "white"
+        color: "#ffffff"
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
     }
@@ -250,7 +257,7 @@ contentItem: Text {
                         width: parent.width
                         height: parent.height
                         verticalAlignment: Text.AlignVCenter
-                        color: "white" // Set the text color to white
+                        color: "#ffffff" // Set the text color to white
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
@@ -267,7 +274,7 @@ contentItem: Text {
             }
 
             // Clear button inside the ComboBox popup
-            Button {
+            Button { palette.button: "#ff9933"; palette.buttonText: "#ffffff";
                 text: qsTr("Clear")
                 width: parent.width
                 onClicked: clearRecentTgids()
@@ -411,7 +418,7 @@ contentItem: Text {
         }
         visible: false
     }
-    Button {
+    Button { palette.button: "#ff9933"; palette.buttonText: "#ffffff";
         id: _connectbutton
         x: parent.width / 2
         y: 0
@@ -565,7 +572,7 @@ contentItem: Text {
         width: parent.width / 5
         height: parent.height / rows
         text: qsTr("DTMF")
-        color: "white"
+        color: "#ffffff"
         font.pixelSize: parent.height / 30
         verticalAlignment: Text.AlignVCenter
         visible: false
@@ -580,7 +587,7 @@ contentItem: Text {
         // inputMethodHints: "ImhPreferNumbers"
         visible: false
     }
-    Button {
+    Button { palette.button: "#ff9933"; palette.buttonText: "#ffffff";
         id: _dtmfsendbutton
         x: (parent.width * 5 / 8)
         y: (parent.height / rows + 1) * 3
@@ -600,7 +607,7 @@ contentItem: Text {
         width: parent.width / 5
         height: parent.height / rows
         text: qsTr("TGID")
-        color: "white"
+        color: "#ffffff"
         font.pixelSize: parent.height / 30
         verticalAlignment: Text.AlignVCenter
         visible: false
@@ -691,7 +698,7 @@ contentItem: Text {
         width: parent.width / 4
         height: parent.height / rows
         text: qsTr("Mic")
-        color: "white"
+        color: "#ffffff"
         font.pixelSize: parent.height / 40
         verticalAlignment: Text.AlignVCenter
     }
@@ -720,7 +727,7 @@ contentItem: Text {
         width: parent.width / 3
         height: parent.height / rows
         text: qsTr("MYCALL")
-        color: "white"
+        color: "#ffffff"
         font.pixelSize: parent.height / 40
     }
 
@@ -736,7 +743,7 @@ Text {
         height: parent.height / rows 
         
         text: qsTr("Handle")
-        color: "white"
+        color: "#ffffff"
         font.pixelSize: parent.height / 40
     }
 
@@ -748,7 +755,7 @@ Text {
         width: (parent.width * 2) / 3
         height: parent.height / rows
         
-        color: "white"
+        color: "#ffffff"
         //text:  vuidUpdater.fetchedFirstName
         text: vuidUpdater.fetchedFirstName + (vuidUpdater.fetchedCountry !== "" ? " (" + vuidUpdater.fetchedCountry + ")" : "")
         wrapMode: Text.WordWrap // This enables word wrapping
@@ -767,7 +774,7 @@ Text {
         width: parent.width / 3
         height: parent.height / rows
         text: qsTr("URCALL")
-        color: "white"
+        color: "#ffffff"
         font.pixelSize: parent.height / 40
     }
 
@@ -778,7 +785,7 @@ Text {
         width: parent.width / 3
         height: parent.height / rows
         text: qsTr("RPTR1")
-        color: "white"
+        color: "#ffffff"
         font.pixelSize: parent.height / 40
     }
 
@@ -789,7 +796,7 @@ Text {
         width: parent.width / 3
         height: parent.height / rows
         text: qsTr("RPTR2")
-        color: "white"
+        color: "#ffffff"
         font.pixelSize: parent.height / 40
     }
 
@@ -800,7 +807,7 @@ Text {
         width: parent.width / 3
         height: parent.height / rows
         text: qsTr("StrmID")
-        color: "white"
+        color: "#ffffff"
         font.pixelSize: parent.height / 40
     }
 
@@ -811,7 +818,7 @@ Text {
         width: parent.width / 3
         height: parent.height / rows
         text: qsTr("Text")
-        color: "white"
+        color: "#ffffff"
         font.pixelSize: parent.height / 40
     }
     Text {
@@ -821,7 +828,7 @@ Text {
         width: parent.width / 3
         height: parent.height / rows
         text: qsTr("")
-        color: "white"
+        color: "#ffffff"
         font.pixelSize: parent.height / 40
     }
 Text {
@@ -831,7 +838,7 @@ Text {
     width: (parent.width * 2) / 3
     height: parent.height / rows
     text: qsTr("")
-    color: "white"
+    color: "#ffffff"
     font.pixelSize: parent.height / 40
    
 }
@@ -843,7 +850,7 @@ Text {
     width: (parent.width * 2) / 3
     height: parent.height / rows
     text: qsTr("")
-    color: "white"
+    color: "#ffffff"
     font.pixelSize: parent.height / 40
 
     Timer {
@@ -933,7 +940,7 @@ Connections {
         width: (parent.width * 2) / 3
         height: parent.height / rows
         text: qsTr("")
-        color: "white"
+        color: "#ffffff"
         font.pixelSize: parent.height / 40
     }
 
@@ -944,7 +951,7 @@ Connections {
         width: (parent.width * 2) / 3
         height: parent.height / rows
         text: qsTr("")
-        color: "white"
+        color: "#ffffff"
         font.pixelSize: parent.height / 40
     }
 
@@ -955,7 +962,7 @@ Connections {
         width: (parent.width * 2) / 3
         height: parent.height / rows
         text: qsTr("")
-        color: "white"
+        color: "#ffffff"
         font.pixelSize: parent.height / 40
     }
 
@@ -966,7 +973,7 @@ Connections {
         width: (parent.width * 2) / 3
         height: parent.height / rows
         text: qsTr("")
-        color: "white"
+        color: "#ffffff"
         font.pixelSize: parent.height / 40
     }
     Text {
@@ -976,7 +983,7 @@ Connections {
         width: (parent.width * 2) / 3
         height: parent.height / rows
         text: qsTr("")
-        color: "white"
+        color: "#ffffff"
         font.pixelSize: parent.height / 40
     }
 
@@ -987,7 +994,7 @@ Connections {
         width: parent.width - 30
         height: parent.height / rows
         text: qsTr("No AMBE hardware connected")
-        color: "white"
+        color: "#ffffff"
         font.pixelSize: parent.height / 45
     }
     Text {
@@ -997,7 +1004,7 @@ Connections {
         width: parent.width - 40
         height: parent.height / rows
         text: qsTr("No MMDVM connected")
-        color: "white"
+        color: "#ffffff"
         font.pixelSize: parent.height / 35
     }*/
 
@@ -1009,7 +1016,7 @@ Text {
     width: parent.width - 40
     height: parent.height / rows
     text: qsTr("Last Heard")
-    color: "white"
+    color: "#ffffff"
     font.pixelSize: parent.height / 35
 }
 
@@ -1026,7 +1033,7 @@ Text {
           (firstRowHandle !== "N/A" ? firstRowHandle : "") + 
           (firstRowCountry !== "N/A" && (firstRowCallsign !== "N/A" || firstRowHandle !== "N/A") ? " - " : "") +
           (firstRowCountry !== "N/A" ? firstRowCountry : "")
-    color: "white"
+    color: "#ffffff"
     font.pixelSize: parent.height / 45
     wrapMode: Text.WordWrap
 }
@@ -1044,7 +1051,7 @@ Text {
           (secondRowHandle !== "N/A" ? secondRowHandle : "") + 
           (secondRowCountry !== "N/A" && (secondRowCallsign !== "N/A" || secondRowHandle !== "N/A") ? " - " : "") +
           (secondRowCountry !== "N/A" ? secondRowCountry : "")
-    color: "white"
+    color: "#ffffff"
     font.pixelSize: parent.height / 45
     wrapMode: Text.WordWrap
 }
@@ -1057,7 +1064,7 @@ Text {
         width: parent.width - 20
         height: parent.height / rows
         text: qsTr("Not Connected to network")
-        color: "white"
+        color: "#ffffff"
         font.pixelSize: parent.height / 35
     }*/
     Rectangle {
@@ -1065,8 +1072,8 @@ Text {
         y: (parent.height / rows + 1.1) * 14.2
         width: parent.width - 20
         height: parent.height / 30
-        color: "black"
-        border.color: "black"
+        color: "#ffffff"
+        border.color: "#ffffff"
         border.width: 1
         radius: 5
     }
@@ -1077,7 +1084,7 @@ Text {
         width: 0
         height: parent.height / 30
         color: "#80C342"
-        border.color: "black"
+        border.color: "#ffffff"
         border.width: 1
         radius: 5
     }
@@ -1178,7 +1185,7 @@ onDmrIDChanged: {
 
 
 
-    Button {
+    Button { palette.button: "#ff9933"; palette.buttonText: "#ffffff";
     Timer {
         id: _txtimer
         repeat: true
@@ -1213,7 +1220,7 @@ onDmrIDChanged: {
                 id: _btntxt
                 font.pointSize: 20 
                 text: qsTr("TX")
-                color: "white"
+                color: "#ffffff"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -1222,7 +1229,7 @@ onDmrIDChanged: {
             Text {
                 id: _netstatus
                 text: qsTr("Not Connected to network")
-                color: "white"
+                color: "#ffffff"
                 font.pixelSize: 16  // Adjust font size for better readability
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter

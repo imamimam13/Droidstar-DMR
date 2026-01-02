@@ -21,6 +21,7 @@ import QtQuick.Controls
 
 Item {
 	id: settingsTab
+    Rectangle { anchors.fill: parent; color: "#0d0d0d"; z: -1 }
 	property alias callsignEdit: csedit
 	property alias dmridEdit: dmridedit
 	property alias comboEssid: comboessid
@@ -567,7 +568,7 @@ Item {
 			text: qsTr("Voice/Data")
 			ButtonGroup.group: m17rateGroup
 		}
-		Button {
+		Button { palette.button: "#ff9933"; palette.buttonText: "#ffffff";
 			id: updatehostsButton
 			x: 10
 			y: 870
@@ -579,7 +580,7 @@ Item {
 				updateDialog.open()
 			}
 		}
-		Button {
+		Button { palette.button: "#ff9933"; palette.buttonText: "#ffffff";
 			id: updatedmridsButton
 			x: 170
 			y: updatehostsButton.y
@@ -639,7 +640,7 @@ Item {
 			height: 25
 			selectByMouse: true
 		}
-		Button {
+		Button { palette.button: "#ff9933"; palette.buttonText: "#ffffff";
 			id: vocoderButton
 			x: 10
 			y: 1020

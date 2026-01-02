@@ -20,6 +20,7 @@ import QtQuick.Controls
 
 Item {
 	id: hostsTab
+    Rectangle { anchors.fill: parent; color: "#0d0d0d"; z: -1 }
 	property alias hostsTextEdit: hostsTxtEdit
 	Rectangle{
 		id: hostsList
@@ -27,7 +28,7 @@ Item {
 		y: 20
 		width: parent.width - 40
 		height: parent.height - 40
-		color: "#252424"
+		color: "#0d0d0d"
 		Flickable{
 			anchors.fill: parent
 			contentWidth: parent.width

@@ -20,8 +20,9 @@ import QtQuick.Controls
 
 Item {
 	id: logTab
+    Rectangle { anchors.fill: parent; color: "#0d0d0d"; z: -1 }
 	property alias logText: logTxt
-	Button {
+	Button { palette.button: "#ff9933"; palette.buttonText: "#ffffff";
 		id: clearLogButton
 		x: 10
 		y: 5
@@ -38,7 +39,7 @@ Item {
 		y: 40
 		width: parent.width - 40
 		height: parent.height - 40
-		color: "#252424"
+		color: "#0d0d0d"
 		Flickable{
 			id: logflick
 			anchors.fill: parent

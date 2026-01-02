@@ -22,6 +22,7 @@ import QtQuick.Dialogs
 
 Item {
     id: qsoTab
+    Rectangle { anchors.fill: parent; color: "#0d0d0d"; z: -1 }
     width: 400
     height: 600
 
@@ -120,7 +121,7 @@ Item {
         y: 10
     }
 
-    Button {
+    Button { palette.button: "#ff9933"; palette.buttonText: "#ffffff";
         id: clearButton
         text: "Clear"
         x: 20
@@ -145,7 +146,7 @@ Item {
     }
 
    
-    Button {
+    Button { palette.button: "#ff9933"; palette.buttonText: "#ffffff";
         id: exportButton
         text: "Export Log"
         x: clearButton.x + clearButton.width + 10
@@ -169,7 +170,7 @@ Item {
 
 
    
-    Button {
+    Button { palette.button: "#ff9933"; palette.buttonText: "#ffffff";
         id: clonedButton
         visible: mainTab.buttonTX.visible
         enabled: mainTab.buttonTX.enabled
@@ -220,12 +221,12 @@ Item {
 
             Row {
                 spacing: 10
-                RadioButton {
+                RadioButton { palette.button: "#ff9933"; palette.buttonText: "#ffffff";
                     id: csvRadioButton
                     text: "CSV"
                     checked: true  // Default to CSV
                 }
-                RadioButton {
+                RadioButton { palette.button: "#ff9933"; palette.buttonText: "#ffffff";
                     id: adifRadioButton
                     text: "ADIF"
                 }
@@ -340,7 +341,7 @@ Dialog {
             Text {
                 text: "File saved successfully to " + savedFilePath
                 font.pointSize: 14
-                color: "black"
+                color: "#ffffff"
                 wrapMode: Text.WordWrap  // Enable text wrapping
                 width: parent.width * 0.9  // Ensure some padding from the edges
             }
@@ -350,12 +351,12 @@ Dialog {
                 spacing: 10  // Add some spacing between the buttons
                 anchors.horizontalCenter: parent.horizontalCenter  // Center the buttons horizontally
 
-                Button {
+                Button { palette.button: "#ff9933"; palette.buttonText: "#ffffff";
                     text: "Cancel"
                     onClicked: fileSavedDialog.accept()  // Handle the Ok button click
                 }
 
-                Button {
+                Button { palette.button: "#ff9933"; palette.buttonText: "#ffffff";
                     text: "Share"
                     onClicked: {
                         logHandler.shareFile(savedFilePath);
@@ -555,7 +556,7 @@ Dialog {
                                font.family: "FontAwesome"
                                font.pixelSize: 20
                                anchors.verticalCenter: parent.verticalCenter
-                               color: "black"
+                               color: "#ffffff"
                                MouseArea {
                                    anchors.fill: parent
                                    onClicked: {

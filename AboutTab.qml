@@ -21,11 +21,12 @@ import QtQuick.Controls 2.15
 
 Item {
     id: aboutTab
+    Rectangle { anchors.fill: parent; color: "#0d0d0d"; z: -1 }
 
     Rectangle {
         id: helpText
         anchors.fill: parent
-        color: "#252424"
+        color: "#0d0d0d"
 
         Flickable {
             id: flickable
