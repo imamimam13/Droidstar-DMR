@@ -14,7 +14,7 @@ import QtQuick.Dialogs
 
 Item {
     id: qsoTab
-    // property MainTab mainTab: null
+    property MainTab mainTab: null
     property int dmrID: -1
     property int tgid: -1
     property string logFileName: "logs.json"
