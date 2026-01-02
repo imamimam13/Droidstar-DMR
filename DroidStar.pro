@@ -87,7 +87,7 @@ android:SOURCES += androidserialport.cpp
 macx:OBJECTIVE_SOURCES += micpermission.mm
 ios:OBJECTIVE_SOURCES += micpermission.mm
 
-resources.files = main.qml AboutTab.qml HostsTab.qml LogTab.qml MainTab.qml SettingsTab.qml fontawesome-webfont.ttf QsoTab.qml Theme.qml background_pattern.png
+resources.files = main.qml AboutTab.qml HostsTab.qml LogTab.qml MainTab.qml SettingsTab.qml fontawesome-webfont.ttf QsoTab.qml Theme.qml background_pattern.png qmldir
 resources.prefix = /$${TARGET}
 RESOURCES += resources
 
