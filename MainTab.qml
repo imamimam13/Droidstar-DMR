@@ -1447,6 +1447,7 @@ onDmrIDChanged: {
         }
     }
 
+    Button {
     property bool tx: false
     property int cnt: 0
     visible: true
