@@ -46,12 +46,12 @@ Item {
     //property bool tts: USE_FLITE
 
 
-property int rows: {
+    property int rows: {
         if(USE_FLITE){
-            rows = 21;
+            rows = 20;
         }
         else{
-            rows = 19;
+            rows = 18;
         }
     }
     property bool tts: {
@@ -332,210 +332,192 @@ contentItem: Text {
             }
         }
     }
-    // First Row: Mode and Slot
-    Row {
-        id: row1
-        x: 10
-        y: 10
-        width: parent.width - 20
-        spacing: 10
-        height: (parent.height / rows) - 5
-
-        ComboBox {
-            id: _comboMode
-            property bool loaded: false
-            width: (parent.width * 0.45) // Reduced width
-            height: parent.height - 10
-            anchors.verticalCenter: parent.verticalCenter
-            font.pixelSize: parent.height / 3.5
-            currentIndex: -1
-            displayText: currentIndex === -1 ? "Mode..." : currentText
-            model: ["M17", "YSF", "FCS", "DMR", "P25", "NXDN", "REF", "XRF", "DCS", "IAX"]
-            
-            background: Rectangle {
-                color: "#000000"
-                border.color: "#ff9933"
-                border.width: 1
-                radius: 5
-            }
-
-            contentItem: Text {
-                text: _comboMode.displayText
-                font: _comboMode.font
-                leftPadding: 5
-                verticalAlignment: Text.AlignVCenter
-                color: "white"
-            }
-            
-            popup: Popup {
-                y: parent.height
-                width: parent.width
-                implicitHeight: Math.min(contentItem.implicitHeight, 300)
-                padding: 1
-                parent: Overlay.overlay
-                transformOrigin: Item.Top
-                contentItem: ListView {
-                    clip: true
-                    implicitHeight: contentHeight
-                    model: _comboMode.delegateModel
-                    currentIndex: _comboMode.highlightedIndex
-                    ScrollIndicator.vertical: ScrollIndicator { }
-                }
-                background: Rectangle {
-                    color: "#1a1a1a"
-                    border.color: "#ff9933"
-                    radius: 5
-                }
-            }
-            
-            onCurrentTextChanged: {
-                if (_comboMode.loaded) {
-                    droidstar.process_mode_change(_comboMode.currentText);
-                }
-            }
+    ComboBox {
+        id: _comboMode
+        property bool loaded: false
+        x: 5
+        y: 5
+        width: (parent.width * 0.22)
+        height: (parent.height / rows) - 10
+        font.pixelSize: parent.height / 50
+        currentIndex: -1
+        displayText: currentIndex === -1 ? "Mode" : currentText
+        model: ["M17", "YSF", "FCS", "DMR", "P25", "NXDN", "REF", "XRF", "DCS", "IAX"]
+        
+        background: Rectangle {
+            color: "#000000"
+            border.color: "#ff9933"
+            border.width: 1
+            radius: 5
         }
 
-        ComboBox {
-            id: _comboSlot
-            width: (parent.width * 0.25) // Reduced width
-            height: parent.height - 10
-            anchors.verticalCenter: parent.verticalCenter
-            font.pixelSize: parent.height / 3.5
-            model: ["S1", "S2"]
-            currentIndex: 1
-            
+        contentItem: Text {
+            text: _comboMode.displayText
+            font: _comboMode.font
+            leftPadding: 5
+            verticalAlignment: Text.AlignVCenter
+            color: "white"
+        }
+        
+        popup: Popup {
+            y: parent.height
+            width: parent.width
+            implicitHeight: Math.min(contentItem.implicitHeight, 300)
+            padding: 1
+            parent: Overlay.overlay
+            transformOrigin: Item.Top
+            contentItem: ListView {
+                clip: true
+                implicitHeight: contentHeight
+                model: _comboMode.delegateModel
+                currentIndex: _comboMode.highlightedIndex
+                ScrollIndicator.vertical: ScrollIndicator { }
+            }
             background: Rectangle {
-                color: "#000000"
+                color: "#1a1a1a"
                 border.color: "#ff9933"
-                border.width: 1
                 radius: 5
             }
-            
-            contentItem: Text {
-                text: _comboSlot.displayText
-                font: _comboSlot.font
-                leftPadding: 5
-                verticalAlignment: Text.AlignVCenter
-                color: "white"
+        }
+        
+        onCurrentTextChanged: {
+            if (_comboMode.loaded) {
+                droidstar.process_mode_change(_comboMode.currentText);
             }
-            popup: Popup {
-                y: parent.height
-                width: parent.width
-                implicitHeight: Math.min(contentItem.implicitHeight, 200)
-                padding: 1
-                parent: Overlay.overlay
-                transformOrigin: Item.Top
-                contentItem: ListView {
-                    clip: true
-                    implicitHeight: contentHeight
-                    model: _comboSlot.delegateModel
-                    currentIndex: _comboSlot.highlightedIndex
-                    ScrollIndicator.vertical: ScrollIndicator { }
-                }
-                background: Rectangle {
-                    color: "#1a1a1a"
-                    border.color: "#ff9933"
-                    radius: 5
-                }
-            }
-            onCurrentTextChanged: {
-                droidstar.set_slot(_comboSlot.currentIndex);
-            }
-            visible: true
         }
     }
-
-    // Second Row: CC and Connect Button
-    Row {
-        id: row2
-        x: 10
-        y: row1.y + row1.height + 10 // Position under row1
-        width: parent.width - 20
-        spacing: 10
-        height: (parent.height / rows) - 5
-
-        ComboBox {
-            id: _comboCC
-            width: (parent.width * 0.30) // Reduced width
-            height: parent.height - 10
-            anchors.verticalCenter: parent.verticalCenter
-            font.pixelSize: parent.height / 3.5
-            model: [
-                "CC0", "CC1", "CC2", "CC3", "CC4", "CC5", "CC6", "CC7",
-                "CC8", "CC9", "CC10", "CC11", "CC12", "CC13", "CC14", "CC15"
-            ]
-            currentIndex: 1
-            
+    ComboBox {
+        id: _comboSlot
+        x: _comboMode.x + _comboMode.width + 5
+        y: 5
+        width: (parent.width * 0.16)
+        height: (parent.height / rows) - 10
+        font.pixelSize: parent.height / 50
+        model: ["S1", "S2"]
+        currentIndex: 1
+        
+        background: Rectangle {
+            color: "#000000"
+            border.color: "#ff9933"
+            border.width: 1
+            radius: 5
+        }
+        
+        contentItem: Text {
+            text: _comboSlot.displayText
+            font: _comboSlot.font
+            leftPadding: 5
+            verticalAlignment: Text.AlignVCenter
+            color: "white"
+        }
+        popup: Popup {
+            y: parent.height
+            width: parent.width
+            implicitHeight: Math.min(contentItem.implicitHeight, 200)
+            padding: 1
+            parent: Overlay.overlay
+            transformOrigin: Item.Top
+            contentItem: ListView {
+                clip: true
+                implicitHeight: contentHeight
+                model: _comboSlot.delegateModel
+                currentIndex: _comboSlot.highlightedIndex
+                ScrollIndicator.vertical: ScrollIndicator { }
+            }
             background: Rectangle {
-                color: "#000000"
+                color: "#1a1a1a"
                 border.color: "#ff9933"
-                border.width: 1
                 radius: 5
             }
-            
-            contentItem: Text {
-                text: _comboCC.displayText
-                font: _comboCC.font
-                leftPadding: 5
-                verticalAlignment: Text.AlignVCenter
-                color: "white"
+        }
+        onCurrentTextChanged: {
+            droidstar.set_slot(_comboSlot.currentIndex);
+        }
+        visible: true
+    }
+    ComboBox {
+        id: _comboCC
+        x: _comboSlot.x + _comboSlot.width + 5
+        y: 5
+        width: (parent.width * 0.16)
+        height: (parent.height / rows) - 10
+        font.pixelSize: parent.height / 50
+        model: [
+            "CC0", "CC1", "CC2", "CC3", "CC4", "CC5", "CC6", "CC7",
+            "CC8", "CC9", "CC10", "CC11", "CC12", "CC13", "CC14", "CC15"
+        ]
+        currentIndex: 1
+        
+        background: Rectangle {
+            color: "#000000"
+            border.color: "#ff9933"
+            border.width: 1
+            radius: 5
+        }
+        
+        contentItem: Text {
+            text: _comboCC.displayText
+            font: _comboCC.font
+            leftPadding: 5
+            verticalAlignment: Text.AlignVCenter
+            color: "white"
+        }
+        popup: Popup {
+            y: parent.height
+            width: parent.width
+            implicitHeight: Math.min(contentItem.implicitHeight, 300)
+            padding: 1
+            parent: Overlay.overlay
+            transformOrigin: Item.Top
+            contentItem: ListView {
+                clip: true
+                implicitHeight: contentHeight
+                model: _comboCC.delegateModel
+                currentIndex: _comboCC.highlightedIndex
+                ScrollIndicator.vertical: ScrollIndicator { }
             }
-            popup: Popup {
-                y: parent.height
-                width: parent.width
-                implicitHeight: Math.min(contentItem.implicitHeight, 300)
-                padding: 1
-                parent: Overlay.overlay
-                transformOrigin: Item.Top
-                contentItem: ListView {
-                    clip: true
-                    implicitHeight: contentHeight
-                    model: _comboCC.delegateModel
-                    currentIndex: _comboCC.highlightedIndex
-                    ScrollIndicator.vertical: ScrollIndicator { }
-                }
-                background: Rectangle {
-                    color: "#1a1a1a"
-                    border.color: "#ff9933"
-                    radius: 5
-                }
+            background: Rectangle {
+                color: "#1a1a1a"
+                border.color: "#ff9933"
+                radius: 5
             }
-            onCurrentTextChanged: {
-                droidstar.set_cc(_comboCC.currentIndex);
-            }
-            visible: true 
+        }
+        onCurrentTextChanged: {
+            droidstar.set_cc(_comboCC.currentIndex);
+        }
+        visible: true
+    }
+    Button {
+        id: _connectbutton
+        x: parent.width - width - 5
+        y: 5
+        width: parent.width * 0.22
+        height: (parent.height / rows) - 10
+        text: qsTr("Connect")
+        font.pixelSize: parent.height / 50
+        
+        background: Rectangle {
+            color: "#ff9933"
+            radius: 5
+        }
+        contentItem: Text {
+            text: _connectbutton.text
+            font: _connectbutton.font
+            color: "#ffffff"
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
         }
 
-        Button {
-            id: _connectbutton
-            width: (parent.width * 0.50)
-            height: parent.height - 10
-            anchors.verticalCenter: parent.verticalCenter
-            text: qsTr("Connect")
-            font.pixelSize: parent.height / 3.5
-            
-            background: Rectangle {
-                color: "#ff9933"
-                radius: 5
-            }
-            contentItem: Text {
-                text: _connectbutton.text
-                font: _connectbutton.font
-                color: "#ffffff"
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-            }
-
-            onClicked: {
-                // settingsTab.callsignEdit.text = settingsTab.callsignEdit.text.toUpperCase();
-                droidstar.set_callsign(settingsTab.callsignEdit.text.toUpperCase());
-                // droidstar.set_host(comboHost.currentText);
-                droidstar.set_module(comboModule.currentText);
-                droidstar.set_protocol(comboMode.currentText);
-                droidstar.set_dmrtgid(dmrtgidEdit.text);
-                droidstar.set_dmrid(settingsTab.dmridEdit.text);
-                droidstar.set_essid(settingsTab.comboEssid.currentText);
-                droidstar.set_bm_password(settingsTab.bmpwEdit.text);
+        onClicked: {
+            // settingsTab.callsignEdit.text = settingsTab.callsignEdit.text.toUpperCase();
+            droidstar.set_callsign(settingsTab.callsignEdit.text.toUpperCase());
+            // droidstar.set_host(comboHost.currentText);
+            droidstar.set_module(comboModule.currentText);
+            droidstar.set_protocol(comboMode.currentText);
+            droidstar.set_dmrtgid(dmrtgidEdit.text);
+            droidstar.set_dmrid(settingsTab.dmridEdit.text);
+            droidstar.set_essid(settingsTab.comboEssid.currentText);
+            droidstar.set_bm_password(settingsTab.bmpwEdit.text);
             droidstar.set_tgif_password(settingsTab.tgifpwEdit.text);
             droidstar.set_latitude(settingsTab.latEdit.text);
             droidstar.set_longitude(settingsTab.lonEdit.text);
@@ -576,11 +558,10 @@ contentItem: Text {
             droidstar.process_connect();
         }
     }
-    }
     ComboBox {
         id: _comboHost
         x: 10
-        y: (parent.height / rows + 1) * 2
+        y: (parent.height / rows + 1) * 1
         width: parent.width * 0.6
         height: (parent.height / rows) - 15
         font.pixelSize: parent.height / 45
@@ -635,7 +616,7 @@ contentItem: Text {
     ComboBox {
         id: _comboModule
         x: (parent.width * 3) / 4
-        y: (parent.height / rows + 1) * 2
+        y: (parent.height / rows + 1) * 1
         width: (parent.width / 4) - 5
         height: (parent.height / rows) - 15
         font.pixelSize: parent.height / 35
@@ -681,7 +662,7 @@ contentItem: Text {
     Switch {
         id: _privateBox
         x: _comboHost.x + _comboHost.width + 10
-        y: (parent.height / rows + 1) * 2
+        y: (parent.height / rows + 1) * 1
         text: qsTr("Private")
         palette.button: "#ff9933"
         height: (parent.height / rows) - 5
@@ -726,7 +707,7 @@ contentItem: Text {
     Text {
         id: _dtmflabel
         x: 5
-        y: (parent.height / rows + 1) * 4
+        y: (parent.height / rows + 1) * 3
         width: parent.width / 5
         height: parent.height / rows
         text: qsTr("DTMF")
@@ -738,7 +719,7 @@ contentItem: Text {
     TextField {
         id: _editIAXDTMF
         x: parent.width / 4
-        y: (parent.height / rows + 1) * 4
+        y: (parent.height / rows + 1) * 3
         width: (parent.width * 3 / 8) - 4
         height: parent.height / rows
         font.pixelSize: parent.height / 35
@@ -748,7 +729,7 @@ contentItem: Text {
     Button { palette.button: "#ff9933"; palette.buttonText: "#ffffff";
         id: _dtmfsendbutton
         x: (parent.width * 5 / 8)
-        y: (parent.height / rows + 1) * 4
+        y: (parent.height / rows + 1) * 3
         width: (parent.width * 3 / 8) - 5
         height: parent.height / rows
         text: qsTr("Send")
@@ -761,7 +742,7 @@ contentItem: Text {
     Text {
         id: _bigTgidDisplay
         x: 10
-        y: (parent.height / rows + 1) * 3
+        y: (parent.height / rows + 1) * 2
         text: "TGID " + (_dmrtgidEdit.text ? _dmrtgidEdit.text : "----")
         color: "#ff9933"
         font.pixelSize: parent.height / 25
@@ -778,7 +759,7 @@ contentItem: Text {
         visible: false
         id: _dmrtgidEdit
         x: parent.width / 5
-        y: (parent.height / rows + 1) * 3
+        y: (parent.height / rows + 1) * 2
         width: parent.width / 5
         height: parent.height / rows
         font.pixelSize: parent.height / 35
@@ -798,7 +779,7 @@ contentItem: Text {
         visible: false
         id: _comboM17CAN
         x: parent.width / 5
-        y: (parent.height / rows + 1) * 3
+        y: (parent.height / rows + 1) * 2
         width: parent.width / 5
         height: parent.height / rows
         font.pixelSize: parent.height / 35
@@ -838,7 +819,7 @@ contentItem: Text {
     Switch {
         id: _swtxBox
         x: (parent.width * 2 / 5) + 5
-        y: (parent.height / rows + 1) * 3
+        y: (parent.height / rows + 1) * 2
         text: qsTr("SWTX")
         palette.button: "#ff9933"
         indicator: Rectangle {
@@ -867,7 +848,7 @@ contentItem: Text {
     Switch {
         id: _swrxBox
         x: _swtxBox.x + _swtxBox.width + 10 // Stack right
-        y: (parent.height / rows + 1) * 3
+        y: (parent.height / rows + 1) * 2
         text: qsTr("SWRX")
         palette.button: "#ff9933"
         indicator: Rectangle {
@@ -897,7 +878,7 @@ contentItem: Text {
     Switch {
         id: _agcBox
         x: _swrxBox.x + _swrxBox.width + 10
-        y: (parent.height / rows + 1) * 3
+        y: (parent.height / rows + 1) * 2
         text: qsTr("AGC")
         palette.button: "#ff9933"
         indicator: Rectangle {
@@ -927,7 +908,7 @@ contentItem: Text {
     Text {
         id: micgain_label
         x: 10
-        y: (parent.height / rows + 1) * 5
+        y: (parent.height / rows + 1) * 4
         width: parent.width / 4
         height: parent.height / rows
         text: qsTr("Mic")
@@ -940,7 +921,7 @@ contentItem: Text {
         visible: true
         id: _slidermicGain
         x: (parent.width / 4) + 10
-        y: (parent.height / rows + 1) * 5
+        y: (parent.height / rows + 1) * 4
         width: (parent.width * 3 / 4) - 20
         height: parent.height / rows
         value: 0.1
@@ -985,7 +966,7 @@ contentItem: Text {
     Text {
         id: _label1
         x: 10
-        y: (parent.height / rows + 1) * 6
+        y: (parent.height / rows + 1) * 5
         width: parent.width / 3
         height: parent.height / rows
         text: qsTr("MYCALL")
@@ -1000,7 +981,7 @@ contentItem: Text {
 Text {
         id: fnameLabel
         x: 10
-        y: (parent.height / rows + 1) * 7 // Position below the mic gain slider
+        y: (parent.height / rows + 1) * 6 // Position below the mic gain slider
         width: parent.width / 3
         height: parent.height / rows 
         
@@ -1013,7 +994,7 @@ Text {
 TextField {
         id: firstNameText1
         x: parent.width / 3
-        y: (parent.height / rows + 1) * 7
+        y: (parent.height / rows + 1) * 6
         width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         
@@ -1040,7 +1021,7 @@ TextField {
     Text {
         id: _label2
         x: 10
-        y: (parent.height / rows + 1) * 8.2
+        y: (parent.height / rows + 1) * 7.2
         width: parent.width / 3
         height: parent.height / rows
         text: qsTr("URCALL")
@@ -1051,7 +1032,7 @@ TextField {
     Text {
         id: _label3
         x: 10
-        y: (parent.height / rows + 1) * 9.2
+        y: (parent.height / rows + 1) * 8.2
         width: parent.width / 3
         height: parent.height / rows
         text: qsTr("RPTR1")
@@ -1062,7 +1043,7 @@ TextField {
     Text {
         id: _label4
         x: 10
-        y: (parent.height / rows + 1) * 10.2
+        y: (parent.height / rows + 1) * 9.2
         width: parent.width / 3
         height: parent.height / rows
         text: qsTr("RPTR2")
@@ -1073,7 +1054,7 @@ TextField {
     Text {
         id: _label5
         x: 10
-        y: (parent.height / rows + 1) * 11.2
+        y: (parent.height / rows + 1) * 10.2
         width: parent.width / 3
         height: parent.height / rows
         text: qsTr("StrmID")
@@ -1084,7 +1065,7 @@ TextField {
     Text {
         id: _label6
         x: 10
-        y: (parent.height / rows + 1) * 12.2
+        y: (parent.height / rows + 1) * 11.2
         width: parent.width / 3
         height: parent.height / rows
         text: qsTr("Text")
@@ -1094,7 +1075,7 @@ TextField {
     Text {
         id: _label7
         x: 10
-        y: (parent.height / rows + 1) * 13.2
+        y: (parent.height / rows + 1) * 12.2
         width: parent.width / 3
         height: parent.height / rows
         text: qsTr("")
@@ -1213,7 +1194,7 @@ Connections {
     TextField {
         id: _data3
         x: parent.width / 3
-        y: (parent.height / rows + 1) * 9.2
+        y: (parent.height / rows + 1) * 8.2
         width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         text: qsTr("")
@@ -1231,7 +1212,7 @@ Connections {
     TextField {
         id: _data4
         x: parent.width / 3
-        y: (parent.height / rows + 1) * 10.2
+        y: (parent.height / rows + 1) * 9.2
         width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         text: qsTr("")
@@ -1249,7 +1230,7 @@ Connections {
     TextField {
         id: _data5
         x: parent.width / 3
-        y: (parent.height / rows + 1) * 11.2
+        y: (parent.height / rows + 1) * 10.2
         width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         text: qsTr("")
@@ -1267,7 +1248,7 @@ Connections {
     TextField {
         id: _data6
         x: parent.width / 3
-        y: (parent.height / rows + 1) * 12.2
+        y: (parent.height / rows + 1) * 11.2
         width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         text: qsTr("")
@@ -1284,7 +1265,7 @@ Connections {
     TextField {
         id: _data7
         x: parent.width / 3
-        y: (parent.height / rows + 1) * 13.2
+        y: (parent.height / rows + 1) * 12.2
         width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         text: qsTr("")
@@ -1381,7 +1362,7 @@ Text {
     }*/
     Rectangle {
         x: 10
-        y: (parent.height / rows + 1.1) * 15.2
+        y: (parent.height / rows + 1.1) * 14.2
         width: parent.width - 20
         height: parent.height / 30
         color: "#ffffff"
@@ -1391,7 +1372,7 @@ Text {
     }
     Text {
         x: 10
-        y: (parent.height / rows + 1.1) * 14.5
+        y: (parent.height / rows + 1.1) * 13.5
         width: parent.width - 20
         text: qsTr("Audio Visualizer")
         color: "darkgrey"
@@ -1401,7 +1382,7 @@ Text {
     Rectangle {
         id: _levelMeter
         x: 10
-        y: (parent.height / rows + 1.1) * 15.2
+        y: (parent.height / rows + 1.1) * 14.2
         width: 0
         height: parent.height / 30
         color: "#ff9933"
@@ -1418,7 +1399,7 @@ Text {
         id: mic
         visible: tts ? true : false
         x: 5
-        y: (parent.height / rows + 1) * 18
+        y: (parent.height / rows + 1) * 17
         height: 25
         spacing: 1
         text: qsTr("Mic")
@@ -1429,7 +1410,7 @@ Text {
         id: tts1
         visible: tts ? true : false
         x: parent.width / 4
-        y: (parent.height / rows + 1) * 18
+        y: (parent.height / rows + 1) * 17
         height: 25
         spacing: 1
         text: qsTr("TTS1")
@@ -1439,7 +1420,7 @@ Text {
         id: tts2
         visible: tts ? true : false
         x: parent.width * 2 / 4
-        y: (parent.height / rows + 1) * 18
+        y: (parent.height / rows + 1) * 17
         height: 25
         spacing: 1
         text: qsTr("TTS2")
@@ -1450,7 +1431,7 @@ Text {
         id: tts3
         visible: tts ? true : false
         x: parent.width * 3 / 4
-        y: (parent.height / rows + 1) * 18
+        y: (parent.height / rows + 1) * 17
         height: 25
         spacing: 1
         text: qsTr("TTS3")
@@ -1460,7 +1441,7 @@ Text {
         id: _ttstxtedit
         visible: tts ? true : false
         x: 5
-        y: (parent.height / rows + 1) * 19
+        y: (parent.height / rows + 1) * 18
         width: parent.width - 10
         height: parent.height / rows
         font.pixelSize: parent.height / 35
@@ -1558,7 +1539,7 @@ onDmrIDChanged: {
         }
     }
     x: 10
-    y: (parent.height / rows + 1) * (tts ? 18 : 16)
+    y: (parent.height / rows + 1) * (tts ? 17 : 15)
     width: parent.width - 20
     height: parent.height - y - 10
     font.pointSize: 24
