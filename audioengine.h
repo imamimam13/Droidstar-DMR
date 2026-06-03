@@ -33,10 +33,6 @@
 #include <QAudioOutput>
 #include <QQueue>
 
-#ifdef Q_OS_ANDROID
-#include <QJniObject>
-#endif
-
 #define AUDIO_OUT 1
 #define AUDIO_IN  0
 
@@ -63,12 +59,9 @@ public:
 	uint16_t read(int16_t *, int);
 	uint16_t read(int16_t *);
 	uint16_t level() { return m_maxlevel; }
-	uint16_t input_level();
-	static bool is_wired_headset(const QString &desc);
 
 public slots:
     void onAudioOutputChanged();
-    void onAudioInputChanged();
 signals:
 
 private:

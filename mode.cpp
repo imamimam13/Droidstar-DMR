@@ -130,13 +130,6 @@ void Mode::init(QString callsign, uint32_t dmrid, uint16_t nxdnid, char module, 
     voice_awb = register_cmu_us_awb(nullptr);
 #endif
     m_debug = false;
-    m_voxEnabled = false;
-    m_voxThreshold = 5000;
-    m_voxTailMs = 1000;
-    m_voxHangCount = 50;
-    m_voxActive = false;
-    m_voxTimer = new QTimer(this);
-    connect(m_voxTimer, SIGNAL(timeout()), this, SLOT(check_vox()));
 }
 
 void Mode::ambe_connect_status(bool s)
@@ -344,28 +337,6 @@ bool Mode::load_vocoder_plugin()
     m_mbevocoder = new VocoderPlugin();
     return true;
 #endif
-}
-
-void Mode::check_vox()
-{
-    if (!m_voxEnabled || m_modeinfo.status != CONNECTED_RW) return;
-
-    uint16_t level = m_audio->input_level();
-
-    if (level > m_voxThreshold) {
-        m_voxHangCount = m_voxTailMs / 20;
-        if (!m_tx) {
-            start_tx();
-            m_voxActive = true;
-        }
-    } else if (m_voxActive && m_tx) {
-        if (m_voxHangCount > 0) {
-            --m_voxHangCount;
-        } else {
-            stop_tx();
-            m_voxActive = false;
-        }
-    }
 }
 
 void Mode::deleteLater()

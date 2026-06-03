@@ -92,9 +92,6 @@ signals:
     void dst_changed(QString);
     void debug_changed(bool);
     void update_devices();
-    void vox_enabled_changed(bool);
-    void vox_threshold_changed(uint16_t);
-    void vox_tail_changed(uint16_t);
     
 public slots:
    
@@ -150,9 +147,6 @@ public slots:
 	void set_iaxport(const QString &port){ m_iaxport = port.simplified().toUInt(); save_settings(); }
     void set_dst(QString dst){emit dst_changed(dst);}
     void set_debug(bool debug){emit debug_changed(debug);}
-    void set_wired_radio_mode(bool enabled);
-    void set_vox_threshold(int t) { m_voxThreshold = t; emit vox_threshold_changed((uint16_t)t); save_settings(); }
-    void set_vox_tail(int ms) { m_voxTailMs = ms; emit vox_tail_changed((uint16_t)ms); save_settings(); }
 
 	void set_modemRxFreq(QString m) { m_modemRxFreq = m; save_settings(); }
 	void set_modemTxFreq(QString m) { m_modemTxFreq = m; save_settings(); }
@@ -265,9 +259,6 @@ public slots:
 	QString get_modemNXDNTxLevel() { return m_modemNXDNTxLevel; }
 	QString get_modemBaud() { return m_modemBaud; }
 	QString get_modemM17CAN() { return m_modemM17CAN; }
-    bool get_wired_radio_mode() { return m_wiredRadioMode; }
-    int get_vox_threshold() { return m_voxThreshold; }
-    int get_vox_tail() { return m_voxTailMs; }
 #if defined(Q_OS_ANDROID)
 	QString get_platform() { return QSysInfo::productType(); }
 	void reset_connect_status();
@@ -380,10 +371,7 @@ private:
 	QStringList m_modems;
 	QStringList m_playbacks;
 	QStringList m_captures;
-	bool m_mdirect;
-    bool m_wiredRadioMode;
-    int m_voxThreshold;
-    int m_voxTailMs;
+    bool m_mdirect;
 
 	int m_tts;
 	QString m_ttstxt;

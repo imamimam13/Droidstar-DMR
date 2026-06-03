@@ -63,9 +63,6 @@ DroidStar::DroidStar(QObject *parent) :
     m_dmr_destid(0),
     m_outlevel(0),
     m_mdirect(false),
-    m_wiredRadioMode(false),
-    m_voxThreshold(5000),
-    m_voxTailMs(1000),
     m_tts(0)
 {
     
@@ -361,29 +358,6 @@ void DroidStar::tts_text_changed(QString ttstxt)
     emit input_source_changed(m_tts, m_ttstxt);
 }
 
-void DroidStar::set_wired_radio_mode(bool enabled)
-{
-    m_wiredRadioMode = enabled;
-    if (enabled) {
-        QStringList ins = AudioEngine::discover_audio_devices(AUDIO_IN);
-        QStringList outs = AudioEngine::discover_audio_devices(AUDIO_OUT);
-        for (const QString &name : ins) {
-            if (AudioEngine::is_wired_headset(name)) {
-                m_capture = name;
-                break;
-            }
-        }
-        for (const QString &name : outs) {
-            if (AudioEngine::is_wired_headset(name)) {
-                m_playback = name;
-                break;
-            }
-        }
-    }
-    emit vox_enabled_changed(enabled);
-    save_settings();
-}
-
 void DroidStar::process_connect()
 {
     if(connect_status != Mode::DISCONNECTED){
@@ -509,9 +483,6 @@ void DroidStar::process_connect()
         connect(this, SIGNAL(swrx_state_changed(int)), m_mode, SLOT(swrx_state_changed(int)));
         connect(this, SIGNAL(swtx_state_changed(int)), m_mode, SLOT(swtx_state_changed(int)));
         connect(this, SIGNAL(agc_state_changed(int)), m_mode, SLOT(agc_state_changed(int)));
-        connect(this, SIGNAL(vox_enabled_changed(bool)), m_mode, SLOT(set_vox_enabled(bool)));
-        connect(this, SIGNAL(vox_threshold_changed(uint16_t)), m_mode, SLOT(set_vox_threshold(uint16_t)));
-        connect(this, SIGNAL(vox_tail_changed(uint16_t)), m_mode, SLOT(set_vox_tail_ms(uint16_t)));
         connect(this, SIGNAL(tx_clicked(bool)), m_mode, SLOT(toggle_tx(bool)));
         connect(this, SIGNAL(tx_pressed()), m_mode, SLOT(start_tx()));
         connect(this, SIGNAL(tx_released()), m_mode, SLOT(stop_tx()));
@@ -753,9 +724,6 @@ void DroidStar::save_settings()
     m_settings->setValue("ModemTxInvert", m_modemTxInvert ? "true" : "false");
     m_settings->setValue("ModemRxInvert", m_modemRxInvert ? "true" : "false");
     m_settings->setValue("ModemPTTInvert", m_modemPTTInvert ? "true" : "false");
-    m_settings->setValue("WIREDRADIO", m_wiredRadioMode ? "true" : "false");
-    m_settings->setValue("VOXTHRESHOLD", m_voxThreshold);
-    m_settings->setValue("VOXTAIL", m_voxTailMs);
 }
 
 void DroidStar::process_settings()
@@ -819,9 +787,6 @@ void DroidStar::process_settings()
     m_modemTxInvert = (m_settings->value("ModemTxInvert", "true").toString().simplified() == "true") ? true : false;
     m_modemRxInvert = (m_settings->value("ModemRxInvert", "false").toString().simplified() == "true") ? true : false;
     m_modemPTTInvert = (m_settings->value("ModemPTTInvert", "false").toString().simplified() == "true") ? true : false;
-    m_wiredRadioMode = (m_settings->value("WIREDRADIO", "false").toString().simplified() == "true") ? true : false;
-    m_voxThreshold = m_settings->value("VOXTHRESHOLD", "5000").toInt();
-    m_voxTailMs = m_settings->value("VOXTAIL", "1000").toInt();
     emit update_settings();
 }
 
