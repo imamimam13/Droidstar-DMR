@@ -20,11 +20,6 @@
 #include <QDebug>
 #include <cmath>
 
-#ifdef Q_OS_ANDROID
-#include <QCoreApplication>
-#include <QNativeInterface>
-#endif
-
 #if defined (Q_OS_MACOS) || defined(Q_OS_IOS)
 #define MACHAK 1
 #else
@@ -233,14 +228,19 @@ void AudioEngine::onAudioInputChanged()
 void AudioEngine::start_capture()
 {
 #ifdef Q_OS_ANDROID
-    QJniObject activity = QNativeInterface::QAndroidApplication::context();
-    QJniObject audioManager = activity.callObjectMethod(
-        "getSystemService", "(Ljava/lang/String;)Ljava/lang/Object;",
-        QJniObject::fromString("audio").object());
-    if (audioManager.isValid()) {
-        audioManager.callMethod<void>("startBluetoothSco", "()V");
-        audioManager.callMethod<void>("setBluetoothScoOn", "(Z)V", true);
-        qDebug() << "Bluetooth SCO started for BT mic input";
+    QJniObject activity = QJniObject::callStaticObjectMethod(
+        "org/qtproject/qt/android/QtNative",
+        "activity",
+        "()Landroid/app/Activity;");
+    if (activity.isValid()) {
+        QJniObject audioManager = activity.callObjectMethod(
+            "getSystemService", "(Ljava/lang/String;)Ljava/lang/Object;",
+            QJniObject::fromString("audio").object());
+        if (audioManager.isValid()) {
+            audioManager.callMethod<void>("startBluetoothSco", "()V");
+            audioManager.callMethod<void>("setBluetoothScoOn", "(Z)V", true);
+            qDebug() << "Bluetooth SCO started for BT mic input";
+        }
     }
 #endif
     m_audioinq.clear();
@@ -254,14 +254,19 @@ void AudioEngine::start_capture()
 void AudioEngine::stop_capture()
 {
 #ifdef Q_OS_ANDROID
-    QJniObject activity = QNativeInterface::QAndroidApplication::context();
-    QJniObject audioManager = activity.callObjectMethod(
-        "getSystemService", "(Ljava/lang/String;)Ljava/lang/Object;",
-        QJniObject::fromString("audio").object());
-    if (audioManager.isValid()) {
-        audioManager.callMethod<void>("stopBluetoothSco", "()V");
-        audioManager.callMethod<void>("setBluetoothScoOn", "(Z)V", false);
-        qDebug() << "Bluetooth SCO stopped";
+    QJniObject activity = QJniObject::callStaticObjectMethod(
+        "org/qtproject/qt/android/QtNative",
+        "activity",
+        "()Landroid/app/Activity;");
+    if (activity.isValid()) {
+        QJniObject audioManager = activity.callObjectMethod(
+            "getSystemService", "(Ljava/lang/String;)Ljava/lang/Object;",
+            QJniObject::fromString("audio").object());
+        if (audioManager.isValid()) {
+            audioManager.callMethod<void>("stopBluetoothSco", "()V");
+            audioManager.callMethod<void>("setBluetoothScoOn", "(Z)V", false);
+            qDebug() << "Bluetooth SCO stopped";
+        }
     }
 #endif
     if(m_in != nullptr){
