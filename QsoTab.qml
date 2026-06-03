@@ -33,8 +33,6 @@ Item {
     property string savedFilePath: ""
     property int latestSerialNumber: 0
     property bool isLoading: true
-    property bool isFetching: false
-    property string fetchError: ""
 
 
 
@@ -113,7 +111,7 @@ Item {
 
     Text {
         id: headerText
-        text: "Last heard stations (most recent first)"
+        text: "This page logs lastheard stations in descending order. An upgrade to a native Log book is coming soon."
         wrapMode: Text.WordWrap
         font.bold: true
         font.pointSize: 12
@@ -302,6 +300,24 @@ Dialog {
     }
 }
 
+
+/* 
+//Binding loop Error
+Dialog {
+        id: errorDialog
+        title: "Error"
+        standardButtons: Dialog.Ok
+        modal: true
+
+        contentItem: Text {
+            text: "Empty/Invalid File Name."
+            wrapMode: Text.WordWrap
+            color: "red"
+            width: parent.width * 0.9
+        }
+    }
+*/
+
 // Dialog to show that the file was saved
     Dialog {
         id: fileSavedDialog
@@ -434,37 +450,6 @@ Dialog {
         width: parent.width
         height: parent.height - (tableHeader.y + tableHeader.height + 30)
         model: logModel
-
-        Text {
-            anchors.centerIn: parent
-            visible: logModel.count === 0 && !isLoading && !isFetching
-            text: "No stations heard yet"
-            color: "#666666"
-            font.pixelSize: 16
-        }
-
-        BusyIndicator {
-            anchors.centerIn: parent
-            running: isFetching
-            visible: isFetching
-        }
-    }
-
-    Text {
-        id: errorText
-        anchors.bottom: parent.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottomMargin: 10
-        visible: fetchError !== ""
-        text: fetchError
-        color: "#ff4444"
-        font.pixelSize: 12
-        Timer {
-            interval: 5000
-            running: fetchError !== ""
-            onTriggered: fetchError = ""
-        }
-    }
 
         delegate: Rectangle {
             width: tableView.width
@@ -599,28 +584,28 @@ Dialog {
                                text: "Lookup BM"
                                onTriggered: Qt.openUrlExternally("https://brandmeister.network/index.php?page=profile&call=" + model.callsign)
                            }
-                            MenuItem {
-                                text: "Lookup APRS"
-                                onTriggered: Qt.openUrlExternally("https://aprs.fi/#!call=a%2F" + model.callsign)
-                            }
-                        }
-                    }
+                           MenuItem {
+                               text: "Lookup APRS"
+                               onTriggered: Qt.openUrlExternally("https://aprs.fi/#!call=a%2F" + model.callsign)
+                           }
+                          // onClosed: visible = false
+
+                       }
+                   }
                }
 
     function onDataUpdated(receivedDmrID, receivedTGID) {
+        console.log("Received dmrID:", receivedDmrID, "and TGID:", receivedTGID);
         qsoTab.dmrID = receivedDmrID;  
         qsoTab.tgid = receivedTGID;    
         fetchData(receivedDmrID, receivedTGID);
     }
 
     function fetchData(dmrID, tgid) {
-        isFetching = true;
-        fetchError = "";
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "https://radioid.net/api/dmr/user/?id=" + dmrID, true);
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
-                isFetching = false;
                 if (xhr.status === 200) {
                     var response = JSON.parse(xhr.responseText);
                     if (response.count > 0) {
@@ -631,12 +616,12 @@ Dialog {
                             tgid: tgid, 
                             country: result.country,
                             fname: result.fname,
-                            currentTime: Qt.formatDateTime(new Date(), "yyyy-MM-dd HH:mm:ss")
+                            currentTime: Qt.formatDateTime(new Date(), "yyyy-MM-dd HH:mm:ss")  // Current local time
                         };
                         addEntry(data);
                     }
                 } else {
-                    fetchError = "Failed to fetch station data (HTTP " + xhr.status + ")";
+                    console.error("Failed to fetch data. Status:", xhr.status);
                 }
             }
         };
@@ -644,6 +629,8 @@ Dialog {
     }
 
     function addEntry(data) {
+            console.log("Processing data in QsoTab:", JSON.stringify(data));
+
             if (!data || typeof data !== 'object') {
                 console.error("Invalid data received:", data);
                 return;

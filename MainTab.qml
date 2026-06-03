@@ -39,38 +39,11 @@ Item {
             opacity: 0.2
         }
     }
-
-    component ThemedPopup : Popup {
-        y: parent.height
-        width: parent.width
-        implicitHeight: Math.min(contentItem.implicitHeight, 300)
-        padding: 1
-        parent: Overlay.overlay
-        transformOrigin: Item.Top
-        contentItem: ListView {
-            clip: true
-            implicitHeight: contentHeight
-            ScrollIndicator.vertical: ScrollIndicator { }
-        }
-        background: Rectangle {
-            color: "#1a1a1a"
-            border.color: "#ff9933"
-            radius: 5
-        }
-    }
-
-    component DataTextField : TextField {
-        readOnly: true
-        color: "white"
-        font.pixelSize: 14
-        background: Rectangle {
-            color: "#1a1a1a"
-            border.color: "#ff9933"
-            border.width: 1
-            radius: 5
-        }
-    }
     
+
+
+    //property int rows: USE_FLITE ? 20 : 18
+    //property bool tts: USE_FLITE
 
 
     property int rows: {
@@ -171,7 +144,8 @@ function updateFullNameText() {
         repeat: false // Run once when started
         onTriggered: {
             if (_data2.text === "") {
-                firstNameText1.text = "";
+                console.log("Data2 has been empty for 500s, clearing first name display");
+                firstNameText1.text = ""; // Clear the displayed name
             }
         }
     }
@@ -190,6 +164,7 @@ function updateFullNameText() {
     }
 
     Keys.onPressed: {
+        console.log("Key pressed: " + event.key);
     }
 
     property alias element3: _element3
@@ -199,6 +174,8 @@ function updateFullNameText() {
     property alias label4: _label4
     property alias label5: _label5
     property alias label6: _label6
+    //property alias ambestatus: _ambestatus
+    //property alias mmdvmstatus: _mmdvmstatus
     property alias netstatus: _netstatus
     property alias levelMeter: _levelMeter
     property alias uitimer: _uitimer
@@ -293,7 +270,7 @@ contentItem: Text {
                                 _dmrtgidEdit.text = modelData; // Set the selected TGID to the TextField
                                 recentTgidsComboBox.currentIndex = index; // Update ComboBox to show selected item
                                 recentTgidsComboBox.popup.close(); // Close the popup after selection
-                                console.log("droidstar.tgid_text_changed called from onClicked with TGID:", modelData);
+                                console.log("droidstar.tgid_text_changed called from onClicked with TGID:", modelData); // Log event
                                 droidstar.tgid_text_changed(dmrtgidEdit.text);  // Notify backend of TGID change
   
                             }
@@ -366,9 +343,6 @@ contentItem: Text {
         currentIndex: -1
         displayText: currentIndex === -1 ? "Mode" : currentText
         model: ["M17", "YSF", "FCS", "DMR", "P25", "NXDN", "REF", "XRF", "DCS", "IAX"]
-        ToolTip.text: "Select digital voice mode"
-        ToolTip.delay: 1000
-        ToolTip.visible: hovered
         
         background: Rectangle {
             color: "#000000"
@@ -421,9 +395,6 @@ contentItem: Text {
         font.pixelSize: parent.height / 50
         model: ["S1", "S2"]
         currentIndex: 1
-        ToolTip.text: "DMR time slot"
-        ToolTip.delay: 1000
-        ToolTip.visible: hovered
         
         background: Rectangle {
             color: "#000000"
@@ -476,9 +447,6 @@ contentItem: Text {
             "CC8", "CC9", "CC10", "CC11", "CC12", "CC13", "CC14", "CC15"
         ]
         currentIndex: 1
-        ToolTip.text: "DMR color code"
-        ToolTip.delay: 1000
-        ToolTip.visible: hovered
         
         background: Rectangle {
             color: "#000000"
@@ -527,9 +495,6 @@ contentItem: Text {
         height: (parent.height / rows) - 10
         text: qsTr("Connect")
         font.pixelSize: parent.height / 50
-        ToolTip.text: "Connect/disconnect from host"
-        ToolTip.delay: 1000
-        ToolTip.visible: hovered
         
         background: Rectangle {
             color: "#ff9933"
@@ -579,14 +544,14 @@ contentItem: Text {
             droidstar.set_modemRxDCOffset(settingsTab.modemRXDCOffsetEdit.text);
             droidstar.set_modemTxDCOffset(settingsTab.modemTXDCOffsetEdit.text);
             droidstar.set_modemRxLevel(settingsTab.modemRXLevelEdit.text);
-            droidstar.set_modemTxLevel(settingsTab.modemTXLevelEdit.text);
+            droidstar.set_modemTxLevel(settingsTab.modemRXLevelEdit.text);
             droidstar.set_modemRFLevel(settingsTab.modemRFLevelEdit.text);
             droidstar.set_modemTxDelay(settingsTab.modemTXDelayEdit.text);
             droidstar.set_modemCWIdTxLevel(settingsTab.modemCWIdTXLevelEdit.text);
             droidstar.set_modemDstarTxLevel(settingsTab.modemDStarTXLevelEdit.text);
             droidstar.set_modemDMRTxLevel(settingsTab.modemDMRTXLevelEdit.text);
             droidstar.set_modemYSFTxLevel(settingsTab.modemYSFTXLevelEdit.text);
-            droidstar.set_modemP25TxLevel(settingsTab.modemP25TXLevelEdit.text);
+            droidstar.set_modemP25TxLevel(settingsTab.modemYSFTXLevelEdit.text);
             droidstar.set_modemNXDNTxLevel(settingsTab.modemNXDNTXLevelEdit.text);
             droidstar.set_modemBaud(settingsTab.modemBaudEdit.text);
             // droidstar.set_mmdvm_direct(settingsTab.mmdvmBox.checked)
@@ -602,9 +567,6 @@ contentItem: Text {
         font.pixelSize: parent.height / 45
         currentIndex: -1
         displayText: currentIndex === -1 ? "Host..." : currentText
-        ToolTip.text: "Select reflector/master server"
-        ToolTip.delay: 1000
-        ToolTip.visible: hovered
         
         background: Rectangle {
             color: "#1a1a1a" // Darker input style
@@ -664,9 +626,6 @@ contentItem: Text {
             " ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
             "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
         ]
-        ToolTip.text: "Module/reflector letter"
-        ToolTip.delay: 1000
-        ToolTip.visible: hovered
         contentItem: Text {
             text: _comboModule.displayText
             font: _comboModule.font
@@ -707,9 +666,6 @@ contentItem: Text {
         text: qsTr("Private")
         palette.button: "#ff9933"
         height: (parent.height / rows) - 5
-        ToolTip.text: "Enable private call mode"
-        ToolTip.delay: 1000
-        ToolTip.visible: hovered
         
         indicator: Rectangle {
             implicitWidth: 36
@@ -768,7 +724,6 @@ contentItem: Text {
         height: parent.height / rows
         font.pixelSize: parent.height / 35
         // inputMethodHints: "ImhPreferNumbers"
-        placeholderText: "DTMF digits"
         visible: false
     }
     Button { palette.button: "#ff9933"; palette.buttonText: "#ffffff";
@@ -805,7 +760,6 @@ contentItem: Text {
         selectByMouse: true
         inputMethodHints: "ImhPreferNumbers"
         text: qsTr("")
-        placeholderText: "Enter TGID"
         color: "#ff9933"
         font.pixelSize: parent.height / 35
         font.bold: true
@@ -817,6 +771,7 @@ contentItem: Text {
         
         onEditingFinished: {
             droidstar.tgid_text_changed(dmrtgidEdit.text);
+            console.log("droidstar.tgid_text_changed called from onEditingFinished with TGID:", dmrtgidEdit.text);
             updateRecentTgids(dmrtgidEdit.text);
             updateRecentTgidsModel();
         }
@@ -1023,7 +978,8 @@ TextField {
             radius: 5
         }
 
-        onTextChanged:  { }
+        onTextChanged:  { console.log("Text changed to:", text);
+    }
 }
 
 
@@ -1089,18 +1045,27 @@ TextField {
         y: (parent.height / rows + 1) * 12.2
         width: parent.width / 3
         height: parent.height / rows
-        text: qsTr("Status")
+        text: qsTr("")
         color: "#ffffff"
         font.pixelSize: parent.height / 40
     }
-DataTextField {
+TextField {
     id: _data1
     x: parent.width / 3
     y: (parent.height / rows + 1) * 5
-    width: (parent.width * 2) / 3 - 20
+    width: (parent.width * 2) / 3 - 20 // Adjust for padding
     height: parent.height / rows
     text: qsTr("")
-    placeholderText: "MYCALL"
+    readOnly: true
+    color: "white"
+    font.pixelSize: 14
+    
+    background: Rectangle {
+        color: "#1a1a1a"
+        border.color: "#ff9933"
+        border.width: 1
+        radius: 5
+    }
 }
 
 Text {
@@ -1119,21 +1084,31 @@ Text {
         repeat: false
         onTriggered: {
             if (_data2.text !== "") {
-                data2CheckTimer.stop();
+                console.log("Data2 stable and non-empty for 200ms:", _data2.text);
+                data2CheckTimer.stop(); // Stop the main timer as data is stable and non-empty
                 let dataInt = parseInt(_data2.text);
                 if (!isNaN(dataInt)) {
                     vuidUpdater.fetchFirstNameFromAPI(dataInt);
                     emitDataUpdated();
+                } else {
+                    console.log("Invalid data input, not a number:", _data2.text);
                 }
+            } else {
+                console.log("Data2 became empty before 100ms elapsed.");
             }
         }
     }
 
         onTextChanged: {
+        console.log("Data2 changed, new value:", text);
+
         if (text === "") {
-            data2CheckTimer.start();
-            return;
+            data2CheckTimer.start(); // Start the timer if data2 is empty
+            return;  // Exit after starting the timer for empty input
         }
+
+        console.log("Restarting stabilityTimer due to change in Data2");
+        // Reset and start the stability timer whenever text changes
         stabilityTimer.restart();
     }
 }
@@ -1150,11 +1125,13 @@ Text {
 Connections {
     target: vuidUpdater
     function onFetchedFirstNameChanged(name) {
-        updateFullNameText();
+        console.log("Fetched first name updated to:", name);
+        updateFullNameText(); // Function to update the full text
     }
 
     function onFetchedCountryChanged(country) {
-        updateFullNameText();
+        console.log("Fetched country updated to:", country);
+        updateFullNameText(); // Function to update the full text
     }
 }
 
@@ -1162,58 +1139,136 @@ Connections {
 
 
 
+/*
+// Function to update the full name with country
+function updateFullNameText() {
+    firstNameText1.text = vuidUpdater.fetchedFirstName + " (" + vuidUpdater.fetchedCountry + ")";
+} */
 
 
-    DataTextField {
+
+
+/*
+Connections {
+        target: vuidUpdater
+        function onFetchedFirstNameChanged(name) {
+            console.log("Fetched first name updated to:", name);
+            firstNameText1.text = name; // Explicitly set the text
+        }
+    }
+*/
+
+    TextField {
         id: _data3
         x: parent.width / 3
         y: (parent.height / rows + 1) * 8.2
         width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         text: qsTr("")
-        placeholderText: "RPTR1"
+        readOnly: true
+        color: "white"
+        font.pixelSize: 14
+        background: Rectangle {
+            color: "#1a1a1a"
+            border.color: "#ff9933"
+            border.width: 1
+            radius: 5
+        }
     }
 
-    DataTextField {
+    TextField {
         id: _data4
         x: parent.width / 3
         y: (parent.height / rows + 1) * 9.2
         width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         text: qsTr("")
-        placeholderText: "RPTR2"
+        readOnly: true
+        color: "white"
+        font.pixelSize: 14
+        background: Rectangle {
+            color: "#1a1a1a"
+            border.color: "#ff9933"
+            border.width: 1
+            radius: 5
+        }
     }
 
-    DataTextField {
+    TextField {
         id: _data5
         x: parent.width / 3
         y: (parent.height / rows + 1) * 10.2
         width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         text: qsTr("")
-        placeholderText: "StrmID"
+        readOnly: true
+        color: "white"
+        font.pixelSize: 14
+        background: Rectangle {
+            color: "#1a1a1a"
+            border.color: "#ff9933"
+            border.width: 1
+            radius: 5
+        }
     }
 
-    DataTextField {
+    TextField {
         id: _data6
         x: parent.width / 3
         y: (parent.height / rows + 1) * 11.2
         width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         text: qsTr("")
-        placeholderText: "Text"
+        readOnly: true
+        color: "white"
+        font.pixelSize: 14
+        background: Rectangle {
+            color: "#1a1a1a"
+            border.color: "#ff9933"
+            border.width: 1
+            radius: 5
+        }
     }
-    DataTextField {
+    TextField {
         id: _data7
         x: parent.width / 3
         y: (parent.height / rows + 1) * 12.2
         width: (parent.width * 2) / 3 - 20
         height: parent.height / rows
         text: qsTr("")
-        placeholderText: "Status"
+        readOnly: true
+        color: "white"
+        font.pixelSize: 14
+        background: Rectangle {
+            color: "#1a1a1a"
+            border.color: "#ff9933"
+            border.width: 1
+            radius: 5
+        }
     }
 
-    // Text elements to display the last heard data
+   /* Text {
+        id: _ambestatus
+        x: 10
+        y: _data7.y + _data7.height - 40
+        width: parent.width - 30
+        height: parent.height / rows
+        text: qsTr("No AMBE hardware connected")
+        color: "#ffffff"
+        font.pixelSize: parent.height / 45
+    }
+    Text {
+        id: _mmdvmstatus
+        x: 10
+        y: _ambestatus.y + _ambestatus.height
+        width: parent.width - 40
+        height: parent.height / rows
+        text: qsTr("No MMDVM connected")
+        color: "#ffffff"
+        font.pixelSize: parent.height / 35
+    }*/
+
+   // Text elements to display the last heard data
 Text {
     id: lastHeard
     x: 10
@@ -1262,6 +1317,16 @@ Text {
 }
 
 
+   /* Text {
+        id: _netstatus
+        x: 10
+        y: (parent.height / rows + 1) * 15
+        width: parent.width - 20
+        height: parent.height / rows
+        text: qsTr("Not Connected to network")
+        color: "#ffffff"
+        font.pixelSize: parent.height / 35
+    }*/
     Rectangle {
         x: 10
         y: (parent.height / rows + 1.1) * 14.2
@@ -1350,7 +1415,6 @@ Text {
         selectByMouse: true
         inputMethodHints: "ImhPreferNumbers"
         text: qsTr("")
-        placeholderText: "Type TTS message..."
         onEditingFinished: {
             droidstar.tts_text_changed(_ttstxtedit.text);
         }
@@ -1370,7 +1434,10 @@ Timer {
     repeat: false
     onTriggered: {
         if (dmrID && tgid) {
-            dataUpdated(dmrID, parseInt(tgid));
+            console.log("Emitting dmrID:", dmrID, "and TGID:", tgid);
+            dataUpdated(dmrID, parseInt(tgid));  // Emit both dmrID and tgid as integers
+        } else {
+            console.log("DMR ID or TGID is missing, not emitting");
         }
     }
 }
@@ -1380,21 +1447,11 @@ function emitDataUpdated() {
 }
 
 onDmrIDChanged: {
+    console.log("DMR ID changed, restarting update timer.");
     emitDataUpdated();  
 }
 
 
-
-    Text {
-        id: _voxIndicator
-        visible: settingsTab.wiredRadio.checked
-        x: 10
-        y: (parent.height / rows + 1) * (tts ? 16 : 14)
-        text: _buttonTX.tx ? "VOX TX" : "VOX"
-        color: _buttonTX.tx ? "#00ff00" : "#666666"
-        font.pixelSize: parent.height / 45
-        font.bold: true
-    }
 
     Button { palette.button: "#ff9933"; palette.buttonText: "#ffffff";
     Timer {
