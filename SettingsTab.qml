@@ -18,13 +18,13 @@ Item {
     // Background
     Rectangle { 
         anchors.fill: parent
-        color: "#000000" // Black background for Settings
+        color: "#0d0d0d"
         z: -1
         Image { 
             source: "background_pattern.png"
             anchors.fill: parent
             fillMode: Image.Tile
-            opacity: 0.1 // Subtle pattern
+            opacity: 0.2
         } 
     }
 
@@ -212,7 +212,7 @@ Item {
                 SettingCombo { id: _comboCapture; parent: controlContainer }
             }
             SettingRow { label: qsTr("Vocoder URL")
-                SettingInput { id: _vocoderURLEdit; parent: controlContainer }
+                SettingInput { id: _vocoderURLEdit; parent: controlContainer; placeholderText: "https://..." }
             }
              Rectangle { width: parent.width; height: 50; color: "#1a1a1a"
                  Button {
@@ -234,12 +234,14 @@ Item {
                 SettingInput { 
                     id: csedit; parent: controlContainer
                     font.capitalization: Font.AllUppercase
+                    placeholderText: "e.g. YB1ABC"
                 }
             }
             SettingRow { label: qsTr("DMRID")
                 SettingInput { 
                     id: dmridedit; parent: controlContainer
                     inputMethodHints: Qt.ImhPreferNumbers
+                    placeholderText: "e.g. 5101234"
                 }
             }
             SettingRow { label: qsTr("ESSID")
@@ -255,38 +257,38 @@ Item {
                 }
             }
             SettingRow { label: qsTr("BM Pass")
-                SettingInput { id: bmpwedit; parent: controlContainer; echoMode: TextInput.Password }
+                SettingInput { id: bmpwedit; parent: controlContainer; echoMode: TextInput.Password; placeholderText: "BrandMeister password" }
             }
             SettingRow { label: qsTr("TGIF Pass")
-                SettingInput { id: tgifpwedit; parent: controlContainer; echoMode: TextInput.Password }
+                SettingInput { id: tgifpwedit; parent: controlContainer; echoMode: TextInput.Password; placeholderText: "TGIF password" }
             }
 
             // --- LOCATION & INFO ---
             SettingSectionHeader { text: qsTr("Location & Info") }
             
             SettingRow { label: qsTr("Latitude")
-                SettingInput { id: latedit; parent: controlContainer }
+                SettingInput { id: latedit; parent: controlContainer; placeholderText: "e.g. -6.2088" }
             }
             SettingRow { label: qsTr("Longitude")
-                SettingInput { id: lonedit; parent: controlContainer }
+                SettingInput { id: lonedit; parent: controlContainer; placeholderText: "e.g. 106.8456" }
             }
             SettingRow { label: qsTr("Location")
-                SettingInput { id: locedit; parent: controlContainer }
+                SettingInput { id: locedit; parent: controlContainer; placeholderText: "e.g. Jakarta" }
             }
             SettingRow { label: qsTr("Description")
-                SettingInput { id: descedit; parent: controlContainer }
+                SettingInput { id: descedit; parent: controlContainer; placeholderText: "Station description" }
             }
             SettingRow { label: qsTr("URL")
-                SettingInput { id: urledit; parent: controlContainer }
+                SettingInput { id: urledit; parent: controlContainer; placeholderText: "https://..." }
             }
             SettingRow { label: qsTr("SoftwareID")
-                SettingInput { id: swidedit; parent: controlContainer }
+                SettingInput { id: swidedit; parent: controlContainer; placeholderText: "e.g. 4000" }
             }
              SettingRow { label: qsTr("PackageID")
-                SettingInput { id: pkgidedit; parent: controlContainer }
+                SettingInput { id: pkgidedit; parent: controlContainer; placeholderText: "e.g. 4000" }
             }
              SettingRow { label: qsTr("DMR+ Opts")
-                SettingInput { id: dmroptsedit; parent: controlContainer }
+                SettingInput { id: dmroptsedit; parent: controlContainer; placeholderText: "DMR+ options" }
             }
 
 
@@ -294,27 +296,27 @@ Item {
             SettingSectionHeader { text: qsTr("Call Routing") }
             
             SettingRow { label: qsTr("MYCALL")
-                SettingInput { id: mycalledit; parent: controlContainer; font.capitalization: Font.AllUppercase
+                SettingInput { id: mycalledit; parent: controlContainer; font.capitalization: Font.AllUppercase; placeholderText: "CQCQCQ"
                     onEditingFinished: droidstar.set_mycall(mycalledit.text.toUpperCase())
                 }
             }
             SettingRow { label: qsTr("URCALL")
-                SettingInput { id: urcalledit; parent: controlContainer; font.capitalization: Font.AllUppercase
+                SettingInput { id: urcalledit; parent: controlContainer; font.capitalization: Font.AllUppercase; placeholderText: "CQCQCQ"
                     onEditingFinished: droidstar.set_urcall(urcalledit.text.toUpperCase())
                 }
             }
             SettingRow { label: qsTr("RPTR1")
-                SettingInput { id: rptr1edit; parent: controlContainer; font.capitalization: Font.AllUppercase
+                SettingInput { id: rptr1edit; parent: controlContainer; font.capitalization: Font.AllUppercase; placeholderText: "Not set"
                     onEditingFinished: droidstar.set_rptr1(rptr1edit.text.toUpperCase())
                 }
             }
             SettingRow { label: qsTr("RPTR2")
-                SettingInput { id: rptr2edit; parent: controlContainer; font.capitalization: Font.AllUppercase
+                SettingInput { id: rptr2edit; parent: controlContainer; font.capitalization: Font.AllUppercase; placeholderText: "Not set"
                     onEditingFinished: droidstar.set_rptr2(rptr2edit.text.toUpperCase())
                 }
             }
             SettingRow { label: qsTr("USRTXT")
-                SettingInput { id: usrtxtedit; parent: controlContainer
+                SettingInput { id: usrtxtedit; parent: controlContainer; placeholderText: "User text"
                     onEditingFinished: droidstar.set_usrtxt(usrtxtedit.text)
                 }
             }
@@ -323,7 +325,7 @@ Item {
             SettingSectionHeader { text: qsTr("Settings & Actions") }
             
             SettingRow { label: qsTr("TX Timeout")
-                SettingInput { id: txtimeredit; parent: controlContainer }
+                SettingInput { id: txtimeredit; parent: controlContainer; placeholderText: "e.g. 180" }
             }
             
             // M17 Rate
@@ -378,59 +380,59 @@ Item {
             
             // Frequencies
             SettingRow { label: "RX Freq" 
-                SettingInput { id: _modemRXFreqEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers }
+                SettingInput { id: _modemRXFreqEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers; placeholderText: "Hz" }
             }
             SettingRow { label: "TX Freq" 
-                SettingInput { id: _modemTXFreqEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers }
+                SettingInput { id: _modemTXFreqEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers; placeholderText: "Hz" }
             }
             
             // Offsets
              SettingRow { label: "RX Offset" 
-                SettingInput { id: _modemRXOffsetEdit; parent: controlContainer; }
+                SettingInput { id: _modemRXOffsetEdit; parent: controlContainer; placeholderText: "0" }
             }
              SettingRow { label: "TX Offset" 
-                SettingInput { id: _modemTXOffsetEdit; parent: controlContainer; }
+                SettingInput { id: _modemTXOffsetEdit; parent: controlContainer; placeholderText: "0" }
             }
             SettingRow { label: "RX DC Offset" 
-                SettingInput { id: _modemRXDCOffsetEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers }
+                SettingInput { id: _modemRXDCOffsetEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers; placeholderText: "0" }
             }
              SettingRow { label: "TX DC Offset" 
-                SettingInput { id: _modemTXDCOffsetEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers }
+                SettingInput { id: _modemTXDCOffsetEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers; placeholderText: "0" }
             }
             
             // Levels
              SettingRow { label: "RX Level" 
-                SettingInput { id: _modemRXLevelEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers }
+                SettingInput { id: _modemRXLevelEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers; placeholderText: "0-100" }
             }
              SettingRow { label: "TX Level" 
-                SettingInput { id: _modemTXLevelEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers }
+                SettingInput { id: _modemTXLevelEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers; placeholderText: "0-100" }
             }
              SettingRow { label: "RF Level" 
-                SettingInput { id: _modemRFLevelEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers }
+                SettingInput { id: _modemRFLevelEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers; placeholderText: "0-100" }
             }
              SettingRow { label: "TX Delay" 
-                SettingInput { id: _modemTXDelayEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers }
+                SettingInput { id: _modemTXDelayEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers; placeholderText: "e.g. 100" }
             }
              SettingRow { label: "CWID Level" 
-                SettingInput { id: _modemCWIdTXLevelEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers }
+                SettingInput { id: _modemCWIdTXLevelEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers; placeholderText: "0-100" }
             }
              SettingRow { label: "D-Star Level" 
-                SettingInput { id: _modemDStarTXLevelEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers }
+                SettingInput { id: _modemDStarTXLevelEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers; placeholderText: "0-100" }
             }
              SettingRow { label: "DMR Level" 
-                SettingInput { id: _modemDMRTXLevelEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers }
+                SettingInput { id: _modemDMRTXLevelEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers; placeholderText: "0-100" }
             }
              SettingRow { label: "YSF Level" 
-                SettingInput { id: _modemYSFTXLevelEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers }
+                SettingInput { id: _modemYSFTXLevelEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers; placeholderText: "0-100" }
             }
              SettingRow { label: "P25 Level" 
-                SettingInput { id: _modemP25TXLevelEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers }
+                SettingInput { id: _modemP25TXLevelEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers; placeholderText: "0-100" }
             }
              SettingRow { label: "NXDN Level" 
-                SettingInput { id: _modemNXDNTXLevelEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers }
+                SettingInput { id: _modemNXDNTXLevelEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers; placeholderText: "0-100" }
             }
              SettingRow { label: "Baud" 
-                SettingInput { id: _modemBaudEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers }
+                SettingInput { id: _modemBaudEdit; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers; placeholderText: "e.g. 115200" }
             }
             
             // Status (Hidden but kept for props)

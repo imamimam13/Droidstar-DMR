@@ -59,6 +59,9 @@ Item {
 				}
 				wrapMode: TextArea.WordWrap
 				text: qsTr("")
+				placeholderText: "Enter custom hosts here..."
+				color: "#ffffff"
+				placeholderTextColor: "#666666"
 				onEditingFinished: {
 					droidstar.update_custom_hosts(hostsTxtEdit.text);
 				}

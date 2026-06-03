@@ -34,11 +34,29 @@ ApplicationWindow {
 	 // @disable-check M16
 	title: qsTr("DroidStar")
 
+    QtObject {
+        id: theme
+        readonly property color bgDark: "#0d0d0d"
+        readonly property color bgInput: "#1a1a1a"
+        readonly property color bgInactive: "#333333"
+        readonly property color accent: "#ff9933"
+        readonly property color accentBlue: "steelblue"
+        readonly property color textPrimary: "#ffffff"
+        readonly property color textSecondary: "darkgrey"
+        readonly property color tabActive: "steelblue"
+        readonly property color tabInactive: "#353535"
+        readonly property color windowBg: "#252424"
+        readonly property int radius: 5
+        readonly property int fontSizeSmall: 12
+        readonly property int fontSizeBody: 14
+        readonly property real patternOpacity: 0.2
+    }
+
     // Splash Screen Overlay
     Rectangle {
         id: splashScreen
         anchors.fill: parent
-        color: "#0d0d0d"
+        color: theme.bgDark
         z: 9999
         visible: true
 
@@ -67,13 +85,13 @@ ApplicationWindow {
         }
     }
 
-	palette.window: "#252424"
-	palette.button: "#252424"
-	palette.buttonText: "white"
+	palette.window: theme.windowBg
+	palette.button: theme.windowBg
+	palette.buttonText: theme.textPrimary
 	palette.base: "black"
-	palette.text: "white"
-	palette.windowText: "white"
-	palette.highlight: "steelblue"
+	palette.text: theme.textPrimary
+	palette.windowText: theme.textPrimary
+	palette.highlight: theme.accentBlue
 
 	MessageDialog {
 		id: errorDialog
@@ -100,17 +118,8 @@ ApplicationWindow {
 		width: parent.width
 		currentIndex: swiper.currentIndex
 		background: Rectangle {
-			color: "steelblue"
+			color: theme.accentBlue
 		}
-		/*
-		TabButton {
-			id: mainButton
-			padding: 10
-			background: Rectangle {
-				color: bar.currentIndex === 0 ? "steelblue" : "#353535"
-			}
-			text: qsTr("Main")
-		} */
 
 		TabButton {
     id: mainButton
@@ -118,7 +127,7 @@ ApplicationWindow {
     text: ""
     padding: 10
 			background: Rectangle {
-				color: bar.currentIndex === 0 ? "steelblue" : "#353535"
+				color: bar.currentIndex === 0 ? theme.tabActive : theme.tabInactive
 			}
     // Using Text as contentItem to display the icon
     contentItem: Text {
@@ -136,7 +145,7 @@ ApplicationWindow {
 			id: settingsButton
 			padding: 10
 			background: Rectangle {
-				color: bar.currentIndex === 1 ? "steelblue" : "#353535"
+				color: bar.currentIndex === 1 ? theme.tabActive : theme.tabInactive
 			}
 			text: qsTr("Settings")
 		}
@@ -146,7 +155,7 @@ ApplicationWindow {
 			id: qsoButton
 			padding: 10
 			background: Rectangle {
-				color: bar.currentIndex === 2 ? "steelblue" : "#353535"
+				color: bar.currentIndex === 2 ? theme.tabActive : theme.tabInactive
 			}
 			text: qsTr("QSO")
 		}
@@ -156,7 +165,7 @@ ApplicationWindow {
 			id: logButton
 			padding: 10
 			background: Rectangle {
-				color: bar.currentIndex === 3 ? "steelblue" : "#353535"
+				color: bar.currentIndex === 3 ? theme.tabActive : theme.tabInactive
 			}
 			text: qsTr("Log")
 		}
@@ -164,7 +173,7 @@ ApplicationWindow {
 			id: hostsButton
 			padding: 10
 			background: Rectangle {
-				color: bar.currentIndex === 4 ? "steelblue" : "#353535"
+				color: bar.currentIndex === 4 ? theme.tabActive : theme.tabInactive
 			}
 			text: qsTr("Hosts")
 		}
@@ -173,7 +182,7 @@ ApplicationWindow {
 			width: 50  // Set an explicit width
 			padding: 2
 			background: Rectangle {
-				color: bar.currentIndex === 5 ? "steelblue" : "#353535"
+				color: bar.currentIndex === 5 ? theme.tabActive : theme.tabInactive
 			}
 			text: qsTr("?")
 		}
@@ -181,9 +190,9 @@ ApplicationWindow {
 	SwipeView {
 		id: swiper
 		width: parent.width
-		height: parent.height - 50
+		height: parent.height - bar.height
 		x: 0
-		y: 50
+		y: bar.height
 		currentIndex: bar.currentIndex
 		interactive: false
 
@@ -208,15 +217,6 @@ ApplicationWindow {
    DroidStar {
         id: droidstar
     }
-    /*Connections {
-		target: Qt.application
-		function onStateChanged() {
-			if (Qt.application.state !== Qt.ApplicationActive) {
-				droidstar.reset_connect_status();
-			}
-		}
-    }*/
-
 
    Connections {
        target: Qt.application
@@ -281,7 +281,6 @@ ApplicationWindow {
         }
 
 		function onMode_changed() {
-			//console.log("onMode_changed ", mainTab.comboMode.find(droidstar.get_mode()), ":", droidstar.get_mode(), ":", droidstar.get_ref_host(), ":", droidstar.get_module());
 			mainTab.label1.text = droidstar.get_label1();
 			mainTab.label2.text = droidstar.get_label2();
 			mainTab.label3.text = droidstar.get_label3();
@@ -293,7 +292,6 @@ ApplicationWindow {
             droidstar.set_modelchange(false);
 			mainTab.comboMode.currentIndex = mainTab.comboMode.find(droidstar.get_mode());
             if(droidstar.get_mode() === "REF"){
-				//mainTab.comboMode.width = mainTab.width / 2;
 				mainTab.comboHost.visible = true;
 				mainTab.dtmflabel.visible = false;
 				mainTab.editIAXDTMF.visible = false;
@@ -312,7 +310,6 @@ ApplicationWindow {
 				mainTab.secondRowData.visible = false;
             }
             if(droidstar.get_mode() === "DCS"){
-				//mainTab.comboMode.width = mainTab.width / 2;
 				mainTab.comboHost.visible = true;
 				mainTab.dtmflabel.visible = false;
 				mainTab.editIAXDTMF.visible = false;
@@ -329,13 +326,11 @@ ApplicationWindow {
 				mainTab.recentTgLabel.visible = false;
 				mainTab.recentTgidsComboBox.visible = false;
 				mainTab.lastHeard.visible = false;
-				mainTab.lastHeard.visible = false;
 				mainTab.firstRowData.visible = false;
 				mainTab.secondRowData.visible = false;
 
             }
             if(droidstar.get_mode() === "XRF"){
-				//mainTab.comboMode.width = mainTab.width / 2;
 				mainTab.comboHost.visible = true;
 				mainTab.dtmflabel.visible = false;
 				mainTab.editIAXDTMF.visible = false;
@@ -356,7 +351,6 @@ ApplicationWindow {
 				mainTab.secondRowData.visible = false;
             }
             if(droidstar.get_mode() === "YSF"){
-				//mainTab.comboMode.width = mainTab.width / 2;
 				mainTab.comboHost.visible = true;
 				mainTab.dtmflabel.visible = false;
 				mainTab.editIAXDTMF.visible = false;
@@ -377,7 +371,6 @@ ApplicationWindow {
 				mainTab.secondRowData.visible = false;
             }
 			if(droidstar.get_mode() === "FCS"){
-				//mainTab.comboMode.width = mainTab.width / 2;
 				mainTab.comboHost.visible = true;
 				mainTab.dtmflabel.visible = false;
 				mainTab.editIAXDTMF.visible = false;
@@ -398,7 +391,6 @@ ApplicationWindow {
 				mainTab.secondRowData.visible = false;
 			}
             if(droidstar.get_mode() === "DMR"){
-				//mainTab.comboMode.width = (mainTab.width / 5) - 5;
 				mainTab.comboHost.visible = true;
 				mainTab.dtmflabel.visible = false;
 				mainTab.editIAXDTMF.visible = false;
@@ -420,7 +412,6 @@ ApplicationWindow {
 				mainTab.secondRowData.visible = true;
             }
             if(droidstar.get_mode() === "P25"){
-				//mainTab.comboMode.width = mainTab.width / 2;
 				mainTab.comboHost.visible = true;
 				mainTab.dtmflabel.visible = false;
 				mainTab.editIAXDTMF.visible = false;
@@ -442,7 +433,6 @@ ApplicationWindow {
 				mainTab.recentTgidsComboBox.visible = true;
             }
             if(droidstar.get_mode() === "NXDN"){
-				//mainTab.comboMode.width = mainTab.width / 2;
 				mainTab.comboHost.visible = true;
 				mainTab.dtmflabel.visible = false;
 				mainTab.editIAXDTMF.visible = false;
@@ -463,7 +453,6 @@ ApplicationWindow {
 				mainTab.secondRowData.visible = false;
             }
 			if(droidstar.get_mode() === "M17"){
-				//mainTab.comboMode.width = mainTab.width / 2;
 				mainTab.comboHost.visible = true;
 				mainTab.dtmflabel.visible = false;
 				mainTab.editIAXDTMF.visible = false;
@@ -486,7 +475,6 @@ ApplicationWindow {
 				mainTab.secondRowData.visible = false;
 			}
 			if(droidstar.get_mode() === "IAX"){
-				//mainTab.comboMode.width = mainTab.width / 2;
                 mainTab.comboHost.visible = true;
                 mainTab.dtmflabel.visible = true;
                 mainTab.editIAXDTMF.visible = true;
@@ -514,16 +502,12 @@ ApplicationWindow {
 			mainTab.data4.text = droidstar.get_data4();
 			mainTab.data5.text = droidstar.get_data5();
 			mainTab.data6.text = droidstar.get_data6();
-            //mainTab.ambestatus.text = droidstar.get_ambestatustxt();
-                        //mainTab.mmdvmstatus.text = droidstar.get_mmdvmstatustxt();
             settingsTab.ambestatus.text = droidstar.get_ambestatustxt();
             settingsTab.mmdvmstatus.text = droidstar.get_mmdvmstatustxt();
 			mainTab.netstatus.text = droidstar.get_netstatustxt();
 			++mainTab.uitimer.rxcnt;
         }
 		function onUpdate_settings() {
-			//console.log("update_settings comboHost == ", mainTab.comboHost.find(droidstar.get_host()));
-			//console.log("update_settings comboModule == ", mainTab.comboModule.find(droidstar.get_module()));
 			settingsTab.ipv6.checked = droidstar.get_ipv6();
 			settingsTab.xrf2ref.checked = droidstar.get_xrf2ref();
 			settingsTab.toggleTX.checked = droidstar.get_toggletx();
@@ -647,7 +631,7 @@ ApplicationWindow {
 				mainTab.sliderMicGain.enabled = true;
 				mainTab.comboMode.enabled = false;
 				mainTab.comboHost.enabled = false;
-				//droidstar.fetchFirstNameFromDMR(); // Fetch first name API
+				//droidstar.fetchFirstNameFromDMR();
 
 				if(mainTab.comboMode.currentText != "REF"){
 					mainTab.comboModule.enabled = false;

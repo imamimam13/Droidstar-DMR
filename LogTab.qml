@@ -55,6 +55,9 @@ Item {
 				readOnly: true
 				wrapMode: TextArea.WordWrap
 				text: qsTr("")
+				placeholderText: "No log entries yet..."
+				color: "#ffffff"
+				placeholderTextColor: "#666666"
 			}
 		}
 	}

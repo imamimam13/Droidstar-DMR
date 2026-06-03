@@ -22,6 +22,7 @@ import QtQuick.Dialogs
 
 Item {
     id: qsoTab
+    Rectangle { anchors.fill: parent; color: "#0d0d0d"; z: -1; Image { source: "background_pattern.png"; anchors.fill: parent; fillMode: Image.Tile; opacity: 0.2 } }
     width: 400
     height: 600
 
@@ -32,6 +33,8 @@ Item {
     property string savedFilePath: ""
     property int latestSerialNumber: 0
     property bool isLoading: true
+    property bool isFetching: false
+    property string fetchError: ""
 
    
     signal firstRowDataChanged(string serialNumber, string callsign, string handle, string country)
@@ -47,14 +50,14 @@ Item {
             var firstRow = logModel.get(0);
             firstRowDataChanged(firstRow.serialNumber, firstRow.callsign, firstRow.fname, firstRow.country);
         } else {
-            firstRowDataChanged("0", "N/A", "N/A", "N/A");
+            firstRowDataChanged("N/A", "N/A", "N/A", "N/A");
         }
 
         if (logModel.count > 1) {
             var secondRow = logModel.get(1);
             secondRowDataChanged(secondRow.serialNumber, secondRow.callsign, secondRow.fname, secondRow.country);
         } else {
-            secondRowDataChanged("0", "N/A", "N/A", "N/A");
+            secondRowDataChanged("N/A", "N/A", "N/A", "N/A");
         }
     }
 
@@ -107,7 +110,7 @@ Item {
     // Header Row with Text and Clear Button
     Text {
         id: headerText
-        text: "This page logs lastheard stations in descending order. An upgrade to a native Log book is coming soon."
+        text: "Last heard stations (most recent first)"
         wrapMode: Text.WordWrap
         font.bold: true
         font.pointSize: 12
@@ -422,6 +425,20 @@ TableView {
     height: parent.height - (tableHeader.y + tableHeader.height + 30)
     model: logModel
 
+    Text {
+        anchors.centerIn: parent
+        visible: logModel.count === 0 && !isLoading && !isFetching
+        text: "No stations heard yet"
+        color: "#666666"
+        font.pixelSize: 16
+    }
+
+    BusyIndicator {
+        anchors.centerIn: parent
+        running: isFetching
+        visible: isFetching
+    }
+
     delegate: Rectangle {
         width: tableView.width
         implicitWidth: tableView.width
@@ -554,28 +571,44 @@ TableView {
                                text: "Lookup BM"
                                onTriggered: Qt.openUrlExternally("https://brandmeister.network/index.php?page=profile&call=" + model.callsign)
                            }
-                           MenuItem {
-                               text: "Lookup APRS"
-                               onTriggered: Qt.openUrlExternally("https://aprs.fi/#!call=a%2F" + model.callsign)
-                           }
-                          // onClosed: visible = false
+                            MenuItem {
+                                text: "Lookup APRS"
+                                onTriggered: Qt.openUrlExternally("https://aprs.fi/#!call=a%2F" + model.callsign)
+                            }
+                        }
+                    }
+                }
 
-                       }
-                   }
-               }
+    Text {
+        id: errorText
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottomMargin: 10
+        visible: fetchError !== ""
+        text: fetchError
+        color: "#ff4444"
+        font.pixelSize: 12
+        Timer {
+            interval: 5000
+            running: fetchError !== ""
+            onTriggered: fetchError = ""
+        }
+    }
 
     function onDataUpdated(receivedDmrID, receivedTGID) {
-        console.log("Received dmrID:", receivedDmrID, "and TGID:", receivedTGID);
         qsoTab.dmrID = receivedDmrID;  
         qsoTab.tgid = receivedTGID;    
         fetchData(receivedDmrID, receivedTGID);
     }
 
     function fetchData(dmrID, tgid) {
+        isFetching = true;
+        fetchError = "";
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "https://radioid.net/api/dmr/user/?id=" + dmrID, true);
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
+                isFetching = false;
                 if (xhr.status === 200) {
                     var response = JSON.parse(xhr.responseText);
                     if (response.count > 0) {
@@ -583,15 +616,15 @@ TableView {
                         var data = {
                             callsign: result.callsign,
                             dmrID: result.id,
-                            tgid: tgid,  // Include TGID in the data object
+                            tgid: tgid,
                             country: result.country,
                             fname: result.fname,
-                            currentTime: Qt.formatDateTime(new Date(), "yyyy-MM-dd HH:mm:ss")  // Current local time
+                            currentTime: Qt.formatDateTime(new Date(), "yyyy-MM-dd HH:mm:ss")
                         };
                         addEntry(data);
                     }
                 } else {
-                    console.error("Failed to fetch data. Status:", xhr.status);
+                    fetchError = "Failed to fetch station data (HTTP " + xhr.status + ")";
                 }
             }
         };
@@ -599,8 +632,6 @@ TableView {
     }
 
     function addEntry(data) {
-        console.log("Processing data in QsoTab:", JSON.stringify(data));
-
         if (!data || typeof data !== 'object') {
             console.error("Invalid data received:", data);
             return;
@@ -614,6 +645,8 @@ TableView {
         } else if (data.country === "United Kingdom") {
             data.country = "UK";
         }
+
+        latestSerialNumber += 1;
 
             logModel.insert(0, {
             serialNumber: latestSerialNumber,
