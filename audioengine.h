@@ -33,6 +33,11 @@
 #include <QAudioOutput>
 #include <QQueue>
 
+#ifdef Q_OS_ANDROID
+#include <QJniObject>
+#include <QNativeInterface>
+#endif
+
 #define AUDIO_OUT 1
 #define AUDIO_IN  0
 
@@ -62,6 +67,7 @@ public:
 
 public slots:
     void onAudioOutputChanged();
+    void onAudioInputChanged();
 signals:
 
 private:

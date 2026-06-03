@@ -41,6 +41,7 @@ AudioEngine::AudioEngine(QString in, QString out) :
     m_volume = 1.0f;
     m_mediaDevices = new QMediaDevices(this);
     connect(m_mediaDevices, &QMediaDevices::audioOutputsChanged, this, &AudioEngine::onAudioOutputChanged);
+    connect(m_mediaDevices, &QMediaDevices::audioInputsChanged, this, &AudioEngine::onAudioInputChanged);
 }
 
 AudioEngine::~AudioEngine()
@@ -152,15 +153,20 @@ void AudioEngine::onAudioOutputChanged()
 {
     qDebug() << "Audio output devices changed.";
 
- 
     stop_playback();
     if (m_out) {
         delete m_out;
         m_out = nullptr;
     }
 
- 
+    QList<QAudioDevice> devices = QMediaDevices::audioOutputs();
     QAudioDevice device(QMediaDevices::defaultAudioOutput());
+    for (auto it = devices.constBegin(); it != devices.constEnd(); ++it) {
+        if ((*it).description() == m_outputdevice) {
+            device = *it;
+        }
+    }
+
     QAudioFormat format;
     format.setSampleRate(8000);
     format.setChannelCount(1);
@@ -170,19 +176,68 @@ void AudioEngine::onAudioOutputChanged()
         qWarning() << "Raw audio format not supported by new playback device";
     }
 
-
     m_out = new QAudioSink(device, format, this);
     m_out->setBufferSize(1280);
     connect(m_out, SIGNAL(stateChanged(QAudio::State)), this, SLOT(handleStateChanged(QAudio::State)));
 
-    qDebug() << "Switched to new playback device: " << device.description();
-
-
+    qDebug() << "Switched to playback device: " << device.description();
     start_playback();
+}
+
+void AudioEngine::onAudioInputChanged()
+{
+    qDebug() << "Audio input devices changed.";
+
+    if (m_in) {
+        stop_capture();
+        delete m_in;
+        m_in = nullptr;
+    }
+
+    QList<QAudioDevice> devices = QMediaDevices::audioInputs();
+    if (devices.size() == 0) {
+        qDebug() << "No audio capture hardware found after change";
+        return;
+    }
+
+    QAudioDevice device(QMediaDevices::defaultAudioInput());
+    for (auto it = devices.constBegin(); it != devices.constEnd(); ++it) {
+        if ((*it).description() == m_inputdevice) {
+            device = *it;
+        }
+    }
+
+    QAudioFormat format;
+    format.setChannelCount(1);
+    format.setSampleFormat(QAudioFormat::Int16);
+    int sr = 8000;
+    if (MACHAK) {
+        sr = device.preferredFormat().sampleRate();
+        m_srm = (float)sr / 8000.0;
+    }
+    format.setSampleRate(sr);
+
+    if (!device.isFormatSupported(format)) {
+        qWarning() << "Raw audio format not supported by new capture device";
+    }
+
+    m_in = new QAudioSource(device, format, this);
+    qDebug() << "Switched to capture device: " << device.description() << " SR: " << sr;
 }
 
 void AudioEngine::start_capture()
 {
+#ifdef Q_OS_ANDROID
+    QJniObject activity = QNativeInterface::QAndroidApplication::context();
+    QJniObject audioManager = activity.callObjectMethod(
+        "getSystemService", "(Ljava/lang/String;)Ljava/lang/Object;",
+        QJniObject::fromString("audio").object());
+    if (audioManager.isValid()) {
+        audioManager.callMethod<void>("startBluetoothSco", "()V");
+        audioManager.callMethod<void>("setBluetoothScoOn", "(Z)V", true);
+        qDebug() << "Bluetooth SCO started for BT mic input";
+    }
+#endif
     m_audioinq.clear();
     if(m_in != nullptr){
         m_indev = m_in->start();
@@ -193,6 +248,17 @@ void AudioEngine::start_capture()
 
 void AudioEngine::stop_capture()
 {
+#ifdef Q_OS_ANDROID
+    QJniObject activity = QNativeInterface::QAndroidApplication::context();
+    QJniObject audioManager = activity.callObjectMethod(
+        "getSystemService", "(Ljava/lang/String;)Ljava/lang/Object;",
+        QJniObject::fromString("audio").object());
+    if (audioManager.isValid()) {
+        audioManager.callMethod<void>("stopBluetoothSco", "()V");
+        audioManager.callMethod<void>("setBluetoothScoOn", "(Z)V", false);
+        qDebug() << "Bluetooth SCO stopped";
+    }
+#endif
     if(m_in != nullptr){
         m_indev->disconnect();
         m_in->stop();
