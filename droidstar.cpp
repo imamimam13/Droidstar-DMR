@@ -208,27 +208,6 @@ void DroidStar::keepScreenOn()
     if (qApp->checkPermission(microphonePermission) != Qt::PermissionStatus::Granted) {
         qApp->requestPermission(microphonePermission, this, &DroidStar::keepScreenOn);
     }
-
-    QJniObject activity = QNativeInterface::QAndroidApplication::context();
-    if (activity.isValid()) {
-        QStringList permissions = {
-            "android.permission.BLUETOOTH_CONNECT",
-            "android.permission.BLUETOOTH",
-            "android.permission.BLUETOOTH_ADMIN"
-        };
-        for (const QString &perm : permissions) {
-            QJniObject permObj = QJniObject::fromString(perm);
-            jint granted = activity.callMethod<jint>(
-                "checkSelfPermission", "(Ljava/lang/String;)I",
-                permObj.object());
-            if (granted != 0) {
-                activity.callMethod<void>(
-                    "requestPermissions", "([Ljava/lang/String;I)V",
-                    QJniObject::fromString(perm).object(), 1001);
-                qDebug() << "Requested permission:" << perm;
-            }
-        }
-    }
 }
 void DroidStar::reset_connect_status()
 {
