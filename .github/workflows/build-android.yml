@@ -40,6 +40,10 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
         
+      - name: Install specific SDK components
+        run: |
+          sdkmanager --install "platform-tools" "platforms;android-34" "build-tools;34.0.0" "ndk;26.1.10909125"
+          
       - name: Accept Android SDK Licenses
         run: yes | sdkmanager --licenses || true
         
@@ -49,6 +53,8 @@ jobs:
           echo "QT_HOST_PATH=${{ runner.workspace }}/Qt/6.7.2/gcc_64" >> $GITHUB_ENV
           echo "PATH=${{ runner.workspace }}/Qt/6.7.2/gcc_64/bin:$PATH" >> $GITHUB_ENV
           echo "LD_LIBRARY_PATH=${{ runner.workspace }}/Qt/6.7.2/gcc_64/lib:${{ runner.workspace }}/Qt/6.7.2/android_arm64_v8a/lib" >> $GITHUB_ENV
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT" >> $GITHUB_ENV
+          echo "ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/26.1.10909125" >> $GITHUB_ENV
           
       - name: Build APK
         run: |
