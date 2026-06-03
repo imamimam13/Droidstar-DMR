@@ -35,7 +35,6 @@
 
 #ifdef Q_OS_ANDROID
 #include <QJniObject>
-#include <QNativeInterface>
 #endif
 
 #define AUDIO_OUT 1

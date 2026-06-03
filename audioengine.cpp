@@ -20,6 +20,11 @@
 #include <QDebug>
 #include <cmath>
 
+#ifdef Q_OS_ANDROID
+#include <QCoreApplication>
+#include <QNativeInterface>
+#endif
+
 #if defined (Q_OS_MACOS) || defined(Q_OS_IOS)
 #define MACHAK 1
 #else
