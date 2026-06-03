@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     
     steps:
       - name: Checkout
@@ -23,7 +23,7 @@ jobs:
       - name: Setup Java JDK
         uses: actions/setup-java@v4
         with:
-          java-version: '17.0.12'
+          java-version: '17'
           distribution: 'temurin'
           
       - name: Install aqtinstall
@@ -39,9 +39,9 @@ jobs:
           
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
-        with:
-          cmdline-tools-version: 11076708
-          accept-android-sdk-licenses: true
+        
+      - name: Accept Android SDK Licenses
+        run: yes | sdkmanager --licenses || true
         
       - name: Set Environment Variables
         run: |
