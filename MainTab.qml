@@ -1385,6 +1385,17 @@ onDmrIDChanged: {
 
 
 
+    Text {
+        id: _voxIndicator
+        visible: settingsTab.wiredRadio.checked
+        x: 10
+        y: (parent.height / rows + 1) * (tts ? 16 : 14)
+        text: _buttonTX.tx ? "VOX TX" : "VOX"
+        color: _buttonTX.tx ? "#00ff00" : "#666666"
+        font.pixelSize: parent.height / 45
+        font.bold: true
+    }
+
     Button { palette.button: "#ff9933"; palette.buttonText: "#ffffff";
     Timer {
         id: _txtimer

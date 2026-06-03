@@ -364,6 +364,26 @@ uint16_t AudioEngine::read(int16_t *pcm)
     return s;
 }
 
+uint16_t AudioEngine::input_level()
+{
+    uint16_t max = 0;
+    int n = qMin(m_audioinq.size(), 160);
+    for (int i = 0; i < n; ++i) {
+        int16_t s = m_audioinq.at(i);
+        uint16_t abs = (s < 0) ? -s : s;
+        if (abs > max) max = abs;
+    }
+    return max;
+}
+
+bool AudioEngine::is_wired_headset(const QString &desc)
+{
+    QString lower = desc.toLower();
+    return lower.contains("headset") || lower.contains("wired")
+        || lower.contains("headphone") || lower.contains("3.5mm")
+        || lower.contains("jack");
+}
+
 void AudioEngine::process_audio(int16_t *pcm, size_t s)
 {
     float aout_abs, max, gainfactor, gaindelta, maxbuf;

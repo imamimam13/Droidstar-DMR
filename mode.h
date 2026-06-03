@@ -153,6 +153,18 @@ protected slots:
     void swrx_state_changed(int s) {m_hwrx = !s; }
     void swtx_state_changed(int s) {m_hwtx = !s; }
     void agc_state_changed(int s);
+    void set_vox_enabled(bool e) {
+        m_voxEnabled = e;
+        if (e && m_modeinfo.status == CONNECTED_RW) {
+            m_voxTimer->start(20);
+        } else {
+            m_voxTimer->stop();
+            if (m_voxActive) { stop_tx(); m_voxActive = false; }
+        }
+    }
+    void set_vox_threshold(uint16_t t) { m_voxThreshold = t; }
+    void set_vox_tail_ms(uint16_t ms) { m_voxTailMs = ms; m_voxHangCount = ms / 20; }
+    void check_vox();
     void mycall_changed(QString mc) { m_txmycall = mc; }
     void urcall_changed(QString uc) { m_txurcall = uc; }
     void rptr1_changed(QString r1) { m_txrptr1 = r1; }
@@ -246,6 +258,12 @@ protected:
     float m_m17TXLevel;
     bool m_debug;
     bool m_useCOSAsLockout;
+    bool m_voxEnabled;
+    uint16_t m_voxThreshold;
+    uint16_t m_voxTailMs;
+    uint16_t m_voxHangCount;
+    bool m_voxActive;
+    QTimer *m_voxTimer;
     bool m_dstarEnabled;
     bool m_dmrEnabled;
     bool m_ysfEnabled;

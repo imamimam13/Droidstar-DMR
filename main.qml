@@ -655,6 +655,11 @@ ApplicationWindow {
 				mainTab.btntxt.color = "black";
 				mainTab.agcBox.checked = true;
                 droidstar.set_debug(settingsTab.debugBox.checked);
+                if (settingsTab.wiredRadio.checked) {
+                    droidstar.set_vox_threshold(settingsTab.voxThreshold.value);
+                    droidstar.set_vox_tail(settingsTab.voxTail.value);
+                    droidstar.set_wired_radio_mode(true);
+                }
 			}
 			if(c === 3){
 			}

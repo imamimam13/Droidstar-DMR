@@ -78,6 +78,9 @@ Item {
     property alias debugBox: _debugBox
     property alias ambestatus: _ambestatus
     property alias mmdvmstatus: _mmdvmstatus
+    property alias wiredRadio: _wiredRadio
+    property alias voxThreshold: _voxThreshold
+    property alias voxTail: _voxTail
 
     // Components for Styling
     component SettingSectionHeader : Text {
@@ -372,6 +375,24 @@ Item {
             }
              SettingRow { label: qsTr("Debug Log") 
                  Switch { id: _debugBox; parent: controlContainer; anchors.right: parent.right; palette.button: "#ff9933" }
+            }
+
+            // --- WIRED RADIO MODE ---
+            SettingSectionHeader { text: qsTr("Wired Radio Mode") }
+            SettingRow { label: qsTr("Radio Mode")
+                 Switch { id: _wiredRadio; parent: controlContainer; anchors.right: parent.right; palette.button: "#ff9933"
+                    onClicked: droidstar.set_wired_radio_mode(_wiredRadio.checked)
+                 }
+            }
+            SettingRow { label: qsTr("VOX Threshold")
+                SettingInput { id: _voxThreshold; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers; text: "5000"; placeholderText: "1000-30000"
+                    onEditingFinished: droidstar.set_vox_threshold(parseInt(text) || 5000)
+                }
+            }
+            SettingRow { label: qsTr("VOX Tail (ms)")
+                SettingInput { id: _voxTail; parent: controlContainer; inputMethodHints: Qt.ImhPreferNumbers; text: "1000"; placeholderText: "200-5000"
+                    onEditingFinished: droidstar.set_vox_tail(parseInt(text) || 1000)
+                }
             }
 
 
